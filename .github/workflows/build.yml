@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/build.yml"
+      - "ClassDumper/**"
+      - "ClassDumper.xcodeproj/**"
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-13-xl
+    strategy:
+      matrix:
+        platform:
+          - macOS
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build and Test
+        uses: mxcl/xcodebuild@v1
+        with:
+          xcode: 14.2
+          scheme: "ClassDumper"
+          platform: ${{ matrix.platform }}
