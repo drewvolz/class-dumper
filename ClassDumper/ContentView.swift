@@ -85,6 +85,11 @@ extension ContentView {
                     Text("Reveal in Finder")
                 }
 
+                Button(action: {
+                    deleteDirectory(folder: folderName)
+                }) {
+                    Text("Delete")
+                }
             }
         }
         .listStyle(SidebarListStyle())
