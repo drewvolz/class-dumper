@@ -26,7 +26,9 @@ struct ContentView: View {
         .searchable(text: $searchText, placement: .toolbar)
         .toolbar {
             NavigationToolbar(
-                onOpenInFinderPressed: openFileInFinder,
+                onOpenInFinderPressed: {
+                    openFileInFinder()
+                },
                 openInFinderDisabledCondition: selectedFile.isEmpty
             )
         }
@@ -118,6 +120,13 @@ extension ContentView {
                         onSecondarySelected(fileName: fileName)
                     }
 
+                    .contextMenu {
+                        Button(action: {
+                            openFileInFinder(fileName)
+                        }) {
+                            Text("Reveal in Finder")
+                        }
+                    }
                 }
             }
         }
@@ -194,10 +203,14 @@ extension ContentView {
         }
     }
 
-    func openFileInFinder() {
-        let fileUrl = outputDirectory
-            .appendingPathComponent(selectedFolder)
-            .appendingPathComponent(selectedFile)
+    func openFileInFinder(_ fileAtRow: String? = nil) {
+        var fileUrl: URL = outputDirectory.appendingPathComponent(selectedFolder)
+
+        if let file = fileAtRow {
+            fileUrl = fileUrl.appendingPathComponent(file)
+        } else {
+            fileUrl = fileUrl.appendingPathComponent(selectedFile)
+        }
 
         NSWorkspace.shared.selectFile(fileUrl.path, inFileViewerRootedAtPath: fileUrl.path)
     }
