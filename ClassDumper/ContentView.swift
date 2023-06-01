@@ -7,11 +7,12 @@ struct ContentView: View {
     @State private var searchText = ""
     @State private var selectedFolder = ""
     @State private var selectedFile = ""
+
     @State private var folderNames = [String]()
     @State private var fileNames = [String]()
     @State private var fileContents = ""
-    @State private var deletionEnabled = false
 
+    @State private var deletionEnabled = false
 
     var body: some View {
         NavigationSplitView {
@@ -94,7 +95,7 @@ extension ContentView {
             }
         }
     }
-    
+
     func MiddleListView() -> some View {
         Group {
             if noMatchesfound {
@@ -118,6 +119,7 @@ extension ContentView {
                     .onTapGesture {
                         onSecondarySelected(fileName: fileName)
                     }
+
                 }
             }
         }
