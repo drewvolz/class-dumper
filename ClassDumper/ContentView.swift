@@ -147,6 +147,7 @@ extension ContentView {
                     Image(systemName: "info.circle")
                 }
                 .disabled(openInFinderDisabledCondition)
+                .keyboardShortcut("i", modifiers: [.command])
             }
         }
     }
@@ -260,6 +261,7 @@ struct ImportView: View {
         }) {
             Image(systemName: "plus")
         }
+        .keyboardShortcut("o", modifiers: [.command])
         .fileImporter(
             isPresented: $importing,
             allowedContentTypes: readableContentTypes
