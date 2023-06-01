@@ -19,7 +19,7 @@ struct ClassDumperApp: App {
                 })
         }
         .commands {
-             MenuCommands()
+            MenuCommands()
         }
 
         #if os(macOS)

@@ -7,14 +7,12 @@ struct ContentView: View {
     @State private var searchText = ""
     @State private var selectedFolder = ""
     @State private var selectedFile = ""
+
     @State private var folderNames = [String]()
     @State private var fileNames = [String]()
     @State private var fileContents = ""
-    @State private var deletionEnabled = false
 
-    init() {
-        _folderNames = State(initialValue: getFiles(from: outputDirectory))
-    }
+    @State private var deletionEnabled = false
 
     var body: some View {
         NavigationSplitView {
@@ -31,6 +29,9 @@ struct ContentView: View {
                 onOpenInFinderPressed: openFileInFinder,
                 openInFinderDisabledCondition: selectedFile.isEmpty
             )
+        }
+        .onAppearOnce {
+            folderNames = getFiles(from: outputDirectory)
         }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.newFilesAddedNotification)) { _ in
             folderNames = fetchFolders()
@@ -49,33 +50,31 @@ extension ContentView {
     // MARK: Views
 
     func SidebarListView() -> some View {
-        List {
-            ForEach(folderNames, id: \.self) { folderName in
-                HStack {
-                    Label {
-                        Text(folderName)
-                            .fontWeight(isSelectedFolder(folderName) ? .bold : .regular)
-                    } icon: {
-                        Image(systemName: "folder")
-                            .foregroundColor(.accentColor)
-                    }
-                    
-                    Spacer()
-                    
-                    if deletionEnabled {
-                        Button(action: {
-                            deleteDirectory(folder: folderName)
-                        }) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
-                        .buttonStyle(BorderlessButtonStyle())
-                    }
+        List(folderNames, id: \.self) { folderName in
+            HStack {
+                Label {
+                    Text(folderName)
+                        .fontWeight(isSelectedFolder(folderName) ? .bold : .regular)
+                } icon: {
+                    Image(systemName: "folder")
+                        .foregroundColor(.accentColor)
                 }
-                .font(.subheadline)
-                .onTapGesture {
-                    onPrimarySelected(folderName: folderName)
+
+                Spacer()
+
+                if deletionEnabled {
+                    Button(action: {
+                        deleteDirectory(folder: folderName)
+                    }) {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
                 }
+            }
+            .font(.subheadline)
+            .onTapGesture {
+                onPrimarySelected(folderName: folderName)
             }
         }
         .listStyle(SidebarListStyle())
@@ -94,7 +93,7 @@ extension ContentView {
             }
         }
     }
-    
+
     func MiddleListView() -> some View {
         Group {
             if noMatchesfound {
@@ -118,6 +117,7 @@ extension ContentView {
                     .onTapGesture {
                         onSecondarySelected(fileName: fileName)
                     }
+
                 }
             }
         }
@@ -145,6 +145,7 @@ extension ContentView {
                     Image(systemName: "info.circle")
                 }
                 .disabled(openInFinderDisabledCondition)
+                .keyboardShortcut("i", modifiers: [.command])
             }
         }
     }
@@ -258,6 +259,7 @@ struct ImportView: View {
         }) {
             Image(systemName: "plus")
         }
+        .keyboardShortcut("o", modifiers: [.command])
         .fileImporter(
             isPresented: $importing,
             allowedContentTypes: readableContentTypes
