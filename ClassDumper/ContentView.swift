@@ -12,9 +12,6 @@ struct ContentView: View {
     @State private var fileContents = ""
     @State private var deletionEnabled = false
 
-    init() {
-        _folderNames = State(initialValue: getFiles(from: outputDirectory))
-    }
 
     var body: some View {
         NavigationSplitView {
@@ -31,6 +28,9 @@ struct ContentView: View {
                 onOpenInFinderPressed: openFileInFinder,
                 openInFinderDisabledCondition: selectedFile.isEmpty
             )
+        }
+        .onAppearOnce {
+            folderNames = getFiles(from: outputDirectory)
         }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.newFilesAddedNotification)) { _ in
             folderNames = fetchFolders()

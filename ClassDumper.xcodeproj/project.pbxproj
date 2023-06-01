@@ -11,6 +11,7 @@
 		3A27E7552A26E8DC00B3537B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27E7542A26E8DC00B3537B /* AppDelegate.swift */; };
 		3A27E7582A26EC9C00B3537B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27E7572A26EC9C00B3537B /* Constants.swift */; };
 		3A27E75A2A26F20000B3537B /* MenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27E7592A26F20000B3537B /* MenuCommands.swift */; };
+		3A27E75E2A283D3D00B3537B /* FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27E75D2A283D3D00B3537B /* FirstAppear.swift */; };
 		3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */; };
 		3AA564D12A2310CD00EBD7FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564D02A2310CD00EBD7FB /* ContentView.swift */; };
 		3AA564D32A2310CE00EBD7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D22A2310CE00EBD7FB /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		3A27E7542A26E8DC00B3537B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A27E7572A26EC9C00B3537B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3A27E7592A26F20000B3537B /* MenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCommands.swift; sourceTree = "<group>"; };
+		3A27E75D2A283D3D00B3537B /* FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAppear.swift; sourceTree = "<group>"; };
 		3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Class Dumper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperApp.swift; sourceTree = "<group>"; };
 		3AA564D02A2310CD00EBD7FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				3A27E7572A26EC9C00B3537B /* Constants.swift */,
 				3AA565412A2575FB00EBD7FB /* AlertController.swift */,
 				3A27E7592A26F20000B3537B /* MenuCommands.swift */,
+				3A27E75D2A283D3D00B3537B /* FirstAppear.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A27E7552A26E8DC00B3537B /* AppDelegate.swift in Sources */,
+				3A27E75E2A283D3D00B3537B /* FirstAppear.swift in Sources */,
 				3AA565492A25BD6F00EBD7FB /* String.swift in Sources */,
 				3A27E7532A26E86D00B3537B /* NSApplication.swift in Sources */,
 				3AA565422A2575FB00EBD7FB /* AlertController.swift in Sources */,
