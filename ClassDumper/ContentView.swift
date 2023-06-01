@@ -78,6 +78,14 @@ extension ContentView {
             .onTapGesture {
                 onPrimarySelected(folderName: folderName)
             }
+            .contextMenu {
+                Button(action: {
+                    openFolderInFinder(folderName)
+                }) {
+                    Text("Reveal in Finder")
+                }
+
+            }
         }
         .listStyle(SidebarListStyle())
         .toolbar {
@@ -119,7 +127,6 @@ extension ContentView {
                     .onTapGesture {
                         onSecondarySelected(fileName: fileName)
                     }
-
                     .contextMenu {
                         Button(action: {
                             openFileInFinder(fileName)
@@ -214,7 +221,12 @@ extension ContentView {
 
         NSWorkspace.shared.selectFile(fileUrl.path, inFileViewerRootedAtPath: fileUrl.path)
     }
-    
+
+    func openFolderInFinder(_ selectedFolderAtRow: String) {
+        let folderUrl: URL = outputDirectory.appendingPathComponent(selectedFolderAtRow)
+        NSWorkspace.shared.selectFile(folderUrl.path, inFileViewerRootedAtPath: folderUrl.path)
+    }
+
     func resetContent() {
         folderNames = []
         fileNames = []
