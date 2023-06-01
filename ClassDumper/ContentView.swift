@@ -26,7 +26,9 @@ struct ContentView: View {
         .searchable(text: $searchText, placement: .toolbar)
         .toolbar {
             NavigationToolbar(
-                onOpenInFinderPressed: openFileInFinder,
+                onOpenInFinderPressed: {
+                    openFileInFinder()
+                },
                 openInFinderDisabledCondition: selectedFile.isEmpty
             )
         }
@@ -76,6 +78,19 @@ extension ContentView {
             .onTapGesture {
                 onPrimarySelected(folderName: folderName)
             }
+            .contextMenu {
+                Button(action: {
+                    openFolderInFinder(folderName)
+                }) {
+                    Text("Reveal in Finder")
+                }
+
+                Button(action: {
+                    deleteDirectory(folder: folderName)
+                }) {
+                    Text("Delete")
+                }
+            }
         }
         .listStyle(SidebarListStyle())
         .toolbar {
@@ -117,7 +132,13 @@ extension ContentView {
                     .onTapGesture {
                         onSecondarySelected(fileName: fileName)
                     }
-
+                    .contextMenu {
+                        Button(action: {
+                            openFileInFinder(fileName)
+                        }) {
+                            Text("Reveal in Finder")
+                        }
+                    }
                 }
             }
         }
@@ -194,14 +215,23 @@ extension ContentView {
         }
     }
 
-    func openFileInFinder() {
-        let fileUrl = outputDirectory
-            .appendingPathComponent(selectedFolder)
-            .appendingPathComponent(selectedFile)
+    func openFileInFinder(_ fileAtRow: String? = nil) {
+        var fileUrl: URL = outputDirectory.appendingPathComponent(selectedFolder)
+
+        if let file = fileAtRow {
+            fileUrl = fileUrl.appendingPathComponent(file)
+        } else {
+            fileUrl = fileUrl.appendingPathComponent(selectedFile)
+        }
 
         NSWorkspace.shared.selectFile(fileUrl.path, inFileViewerRootedAtPath: fileUrl.path)
     }
-    
+
+    func openFolderInFinder(_ selectedFolderAtRow: String) {
+        let folderUrl: URL = outputDirectory.appendingPathComponent(selectedFolderAtRow)
+        NSWorkspace.shared.selectFile(folderUrl.path, inFileViewerRootedAtPath: folderUrl.path)
+    }
+
     func resetContent() {
         folderNames = []
         fileNames = []
