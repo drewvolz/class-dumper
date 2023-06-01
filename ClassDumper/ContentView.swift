@@ -50,33 +50,31 @@ extension ContentView {
     // MARK: Views
 
     func SidebarListView() -> some View {
-        List {
-            ForEach(folderNames, id: \.self) { folderName in
-                HStack {
-                    Label {
-                        Text(folderName)
-                            .fontWeight(isSelectedFolder(folderName) ? .bold : .regular)
-                    } icon: {
-                        Image(systemName: "folder")
-                            .foregroundColor(.accentColor)
-                    }
-                    
-                    Spacer()
-                    
-                    if deletionEnabled {
-                        Button(action: {
-                            deleteDirectory(folder: folderName)
-                        }) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
-                        .buttonStyle(BorderlessButtonStyle())
-                    }
+        List(folderNames, id: \.self) { folderName in
+            HStack {
+                Label {
+                    Text(folderName)
+                        .fontWeight(isSelectedFolder(folderName) ? .bold : .regular)
+                } icon: {
+                    Image(systemName: "folder")
+                        .foregroundColor(.accentColor)
                 }
-                .font(.subheadline)
-                .onTapGesture {
-                    onPrimarySelected(folderName: folderName)
+
+                Spacer()
+
+                if deletionEnabled {
+                    Button(action: {
+                        deleteDirectory(folder: folderName)
+                    }) {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
                 }
+            }
+            .font(.subheadline)
+            .onTapGesture {
+                onPrimarySelected(folderName: folderName)
             }
         }
         .listStyle(SidebarListStyle())
