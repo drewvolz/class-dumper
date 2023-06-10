@@ -38,8 +38,22 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.newFilesAddedNotification)) { _ in
             folderNames = fetchFolders()
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.directoryDeletedNotification)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.directoryDeletedNotification)) { notification in
+            guard let folderNotification = notification.object as? FolderNotification else {
+                let object = notification.object as Any
+                assertionFailure("Invalid object: \(object)")
+                return
+            }
+
             folderNames = fetchFolders()
+
+            if isSelectedFolder(folderNotification.folderName) {
+                fileNames = []
+            }
+
+            if folderNames.isEmpty {
+                resetContent()
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.resetContentNotification)) { _ in
             resetContent()
@@ -253,7 +267,7 @@ extension ContentView {
     func deleteDirectory(folder: String) {
         let pathToRemove = outputDirectory.appendingPathComponent(folder)
         try? FileManager.default.removeItem(atPath: pathToRemove.path)
-        NotificationCenter.default.post(name: .directoryDeletedNotification, object: nil)
+        NotificationCenter.default.post(name: .directoryDeletedNotification, object: FolderNotification(folderName: folder))
     }
     
     func getFiles(from path: URL, removeEnding: Bool = false) -> Array<String> {
@@ -277,6 +291,10 @@ extension ContentView {
 
         return files.sorted()
     }
+}
+
+struct FolderNotification {
+    let folderName: String
 }
 
 struct ImportView: View {
