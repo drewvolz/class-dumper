@@ -1,9 +1,15 @@
 import SwiftUI
 
 struct MenuCommands: Commands {
+    @SwiftUI.Environment(\.openURL) var openURL: OpenURLAction
+
     var body: some Commands {
         CommandGroup(replacing: .appInfo) {
             AppInfo()
+        }
+
+        CommandGroup(replacing: .help) {
+            HelpSection()
         }
     }
 }
@@ -22,6 +28,32 @@ extension MenuCommands {
                     NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© 2023 Drew Volz"
                 ]
             )
+        }
+    }
+
+    func HelpSection() -> some View {
+        Group {
+            Button("Github Repo") {
+                if let githubUrl = URL(string: Endpoint.githubBaseUrl) {
+                    openURL(githubUrl)
+                }
+            }
+
+            Divider()
+
+            Button("Report a bug") {
+                let issueEndpoint: Endpoint = .issue(.Bug)
+                if let issueUrl: URL = issueEndpoint.url {
+                    openURL(issueUrl)
+                }
+            }
+
+            Button("Request a new feature") {
+                let featureEndpoint: Endpoint = .issue(.Feature)
+                if let featureUrl: URL = featureEndpoint.url {
+                    openURL(featureUrl)
+                }
+            }
         }
     }
 }

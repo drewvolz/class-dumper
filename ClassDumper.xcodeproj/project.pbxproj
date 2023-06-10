@@ -12,6 +12,7 @@
 		3A27E7582A26EC9C00B3537B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27E7572A26EC9C00B3537B /* Constants.swift */; };
 		3A27E75A2A26F20000B3537B /* MenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27E7592A26F20000B3537B /* MenuCommands.swift */; };
 		3A27E75E2A283D3D00B3537B /* FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A27E75D2A283D3D00B3537B /* FirstAppear.swift */; };
+		3A827B012A342ABF006A1A96 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A827B002A342ABF006A1A96 /* Endpoint.swift */; };
 		3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */; };
 		3AA564D12A2310CD00EBD7FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564D02A2310CD00EBD7FB /* ContentView.swift */; };
 		3AA564D32A2310CE00EBD7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D22A2310CE00EBD7FB /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		3A27E7572A26EC9C00B3537B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3A27E7592A26F20000B3537B /* MenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCommands.swift; sourceTree = "<group>"; };
 		3A27E75D2A283D3D00B3537B /* FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAppear.swift; sourceTree = "<group>"; };
+		3A827B002A342ABF006A1A96 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Class Dumper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperApp.swift; sourceTree = "<group>"; };
 		3AA564D02A2310CD00EBD7FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				3AA565462A25BD4900EBD7FB /* Notification.swift */,
 				3AA565482A25BD6F00EBD7FB /* String.swift */,
 				3A27E7522A26E86D00B3537B /* NSApplication.swift */,
+				3A827B002A342ABF006A1A96 /* Endpoint.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				3AA564D12A2310CD00EBD7FB /* ContentView.swift in Sources */,
 				3A27E7582A26EC9C00B3537B /* Constants.swift in Sources */,
 				3A27E75A2A26F20000B3537B /* MenuCommands.swift in Sources */,
+				3A827B012A342ABF006A1A96 /* Endpoint.swift in Sources */,
 				3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
