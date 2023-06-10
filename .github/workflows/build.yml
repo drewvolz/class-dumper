@@ -22,9 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Enable Sandbox
-        run: /usr/libexec/PlistBuddy -c "Set com.apple.security.app-sandbox YES" ClassDumper/ClassDumper.entitlements
-
       - name: Build and Test
         uses: mxcl/xcodebuild@v1
         with:
