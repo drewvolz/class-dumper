@@ -1,3 +1,4 @@
+import GRDBQuery
 import SwiftUI
 
 @main
@@ -7,7 +8,9 @@ struct ClassDumperApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            AppView()
+                .environment(\.playerRepository, .shared)
                 .alert(item: $alertController.info, content: { info in
                     Alert(title: Text(info.title),
                           message: Text(info.message),
