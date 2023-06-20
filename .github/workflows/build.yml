@@ -13,7 +13,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: macos-13-xl
+    runs-on: macos-13
     strategy:
       matrix:
         platform:
