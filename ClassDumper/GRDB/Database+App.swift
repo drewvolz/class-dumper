@@ -1,15 +1,15 @@
 import Foundation
 import GRDB
-import Players
+import Files
 
-// A `PlayerRepository` extension for creating various repositories for the
+// A `FileRepository` extension for creating various repositories for the
 // app, tests, and previews.
-extension PlayerRepository {
+extension FileRepository {
     /// The on-disk repository for the application.
     static let shared = makeShared()
     
     /// Returns an on-disk repository for the application.
-    private static func makeShared() -> PlayerRepository {
+    private static func makeShared() -> FileRepository {
         do {
             // Apply recommendations from
             // <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/databaseconnections>
@@ -27,13 +27,13 @@ extension PlayerRepository {
             NSLog("Database stored at \(databaseURL.path)")
             let dbPool = try DatabasePool(
                 path: databaseURL.path,
-                // Use default PlayerRepository configuration
-                configuration: PlayerRepository.makeConfiguration())
+                // Use default FileRepository configuration
+                configuration: FileRepository.makeConfiguration())
 
-            // Create the PlayerRepository
-            let playerRepository = try PlayerRepository(dbPool)
+            // Create the FileRepository
+            let fileRepository = try FileRepository(dbPool)
             
-            return playerRepository
+            return fileRepository
         } catch {
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate.
@@ -49,17 +49,17 @@ extension PlayerRepository {
     }
     
     /// Returns an empty in-memory repository, for previews and tests.
-    static func empty() -> PlayerRepository {
-        try! PlayerRepository(DatabaseQueue(configuration: PlayerRepository.makeConfiguration()))
+    static func empty() -> FileRepository {
+        try! FileRepository(DatabaseQueue(configuration: FileRepository.makeConfiguration()))
     }
     
-    /// Returns an in-memory repository that contains one player,
+    /// Returns an in-memory repository that contains one file,
     /// for previews and tests.
     ///
-    /// - parameter playerId: The ID of the inserted player.
-    static func populated(playerId: Int64? = nil) -> PlayerRepository {
+    /// - parameter fileId: The ID of the inserted file.
+    static func populated(fileId: Int64? = nil) -> FileRepository {
         let repo = self.empty()
-        _ = try! repo.insert(Player.makeRandom(id: playerId))
+        _ = try! repo.insert(File.makeRandom(id: fileId))
         return repo
     }
 }

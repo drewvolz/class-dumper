@@ -10,7 +10,7 @@ struct ClassDumperApp: App {
         WindowGroup {
 //            ContentView()
             AppView()
-                .environment(\.playerRepository, .shared)
+                .environment(\.fileRepository, .shared)
                 .alert(item: $alertController.info, content: { info in
                     Alert(title: Text(info.title),
                           message: Text(info.message),

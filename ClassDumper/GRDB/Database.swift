@@ -1,7 +1,7 @@
-import Players
+import Files
 
-// Convenience `Player` methods for the app.
-extension Player {
+// Convenience `File` methods for the app.
+extension File {
     private static let names = [
         "Arthur", "Anita", "Barbara", "Bernard", "Craig", "Chiara", "David",
         "Dean", "Éric", "Elena", "Fatima", "Frederik", "Gilbert", "Georgette",
@@ -12,15 +12,16 @@ extension Player {
         "Victor", "Violette", "Wilfried", "Wilhelmina", "Yvon", "Yann",
         "Zazie", "Zoé"]
     
-    /// Creates a new player with random name and random score
-    static func makeRandom(id: Int64? = nil) -> Player {
-        Player(
+    /// Creates a new file with random name and random score
+    static func makeRandom(id: Int64? = nil) -> File {
+        File(
             id: id,
             name: names.randomElement()!,
-            score: 10 * Int.random(in: 0...100),
-            photoID: Int.random(in: 0...1000))
+            folder: names.randomElement()!,
+            contents: names.randomElement()!
+        )
     }
     
-    /// A placeholder Player
-    static let placeholder = Player(name: "xxxxxx", score: 100, photoID: 1)
+    /// A placeholder File
+    static let placeholder = File(name: "xxxxxx", folder: "", contents: "")
 }

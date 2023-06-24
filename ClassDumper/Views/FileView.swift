@@ -1,10 +1,10 @@
-import Players
+import Files
 import SwiftUI
 
 struct FileView: View {
     @Environment(\.redactionReasons) var redactionReasons
 
-    var player: Player
+    var file: File
     var editAction: (() -> Void)?
     
     var body: some View {
@@ -12,8 +12,8 @@ struct FileView: View {
             avatar()
             
             VStack(alignment: .leading) {
-                Text(player.name).bold().font(.title3)
-                Text("Score: \(player.score)")
+                Text(file.name).bold().font(.title3)
+                Text("Name: \(file.name)")
             }
             
             Spacer()
@@ -27,16 +27,16 @@ struct FileView: View {
     func avatar() -> some View {
         Group {
 //            if redactionReasons.isEmpty {
-                AsyncImage(
-                    url: URL(string: "https://picsum.photos/seed/\(player.photoID)/200"),
-                    content: { image in
-                        image.resizable()
-                    },
-                    placeholder: {
-                        Color(.systemGray)
-                    })
+//                AsyncImage(
+//                    url: URL(string: "https://picsum.photos/seed/\(file.photoID)/200"),
+//                    content: { image in
+//                        image.resizable()
+//                    },
+//                    placeholder: {
+//                        Color(.systemGray)
+//                    })
 //            } else {
-//                Color(uiColor: .white)
+            Color(.white)
 //            }
         }
         .frame(width: 70, height: 70)
@@ -47,8 +47,8 @@ struct FileView: View {
 struct FileView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            FileView(player: .makeRandom(), editAction: { })
-            FileView(player: .placeholder).redacted(reason: .placeholder)
+            FileView(file: .makeRandom(), editAction: { })
+            FileView(file: .placeholder).redacted(reason: .placeholder)
         }
         .padding()
     }

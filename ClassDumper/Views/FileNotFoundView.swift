@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// The view that is displayed when a player can not be found.
-struct PlayerNotFoundView: View {
+/// The view that is displayed when a file can not be found.
+struct FileNotFoundView: View {
     var body: some View {
         ZStack {
             Color(.systemGray).ignoresSafeArea()
@@ -17,8 +17,8 @@ struct PlayerNotFoundView: View {
     }
 }
 
-struct PlayerNotFoundView_Previews: PreviewProvider {
+struct FileNotFoundView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerNotFoundView()
+        FileNotFoundView()
     }
 }

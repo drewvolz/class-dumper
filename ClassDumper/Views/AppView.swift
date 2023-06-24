@@ -1,31 +1,31 @@
 import GRDB
 import GRDBQuery
-import Players
+import Files
 import SwiftUI
 
 /// The main application view
 struct AppView: View {
     /// A helper `Identifiable` type that can feed SwiftUI `sheet(item:onDismiss:content:)`
-    private struct EditedPlayer: Identifiable {
+    private struct EditedFile: Identifiable {
         var id: Int64
     }
     
-    @Query(PlayerRequest())
-    private var player: Player?
+    @Query(FileRequest())
+    private var file: File?
     
-    @State private var editedPlayer: EditedPlayer?
+    @State private var editedFile: EditedFile?
     
     var body: some View {
         NavigationSplitView {
-            if let player, let id = player.id {
-                FileView(player: player, editAction: { editPlayer(id: id) })
+            if let file, let id = file.id {
+                FileView(file: file, editAction: { editFile(id: id) })
                     .padding(.vertical)
                     .padding(.horizontal)
 
                 Spacer()
                 populatedFooter(id: id)
             } else {
-                FileView(player: .placeholder)
+                FileView(file: .placeholder)
                     .padding(.vertical)
                     .redacted(reason: .placeholder)
                     .padding(.horizontal)
@@ -39,8 +39,8 @@ struct AppView: View {
             Text("")
         }
         .padding(.horizontal)
-        .sheet(item: $editedPlayer) { player in
-            PlayerEditionView(id: player.id)
+        .sheet(item: $editedFile) { file in
+            FileEditionView(id: file.id)
         }
         .navigationTitle(NSApplication.bundleName)
     }
@@ -49,49 +49,49 @@ struct AppView: View {
 extension AppView {
     private func emptyFooter() -> some View {
         VStack {
-            Text("The demo application observes the database and displays information about the player.")
+            Text("The demo application observes the database and displays information about the file.")
                 .informationStyle()
             
-            CreatePlayerButton("Create a Player")
+            CreateFileButton("Create a File")
         }
         .informationBox()
     }
     
     private func populatedFooter(id: Int64) -> some View {
         VStack(spacing: 10) {
-            Text("What if another application component deletes the player at the most unexpected moment?")
+            Text("What if another application component deletes the file at the most unexpected moment?")
                 .informationStyle()
-            DeletePlayersButton("Delete Player")
+            DeleteFilesButton("Delete File")
             
             Spacer().frame(height: 10)
-            Text("What if the player is deleted soon after the Edit button is hit?")
+            Text("What if the file is deleted soon after the Edit button is hit?")
                 .informationStyle()
-            DeletePlayersButton("Delete After Editing", after: {
-                editPlayer(id: id)
+            DeleteFilesButton("Delete After Editing", after: {
+                editFile(id: id)
             })
             
             Spacer().frame(height: 10)
-            Text("What if the player is deleted right before the Edit button is hit?")
+            Text("What if the file is deleted right before the Edit button is hit?")
                 .informationStyle()
-            DeletePlayersButton("Delete Before Editing", before: {
-                editPlayer(id: id)
+            DeleteFilesButton("Delete Before Editing", before: {
+                editFile(id: id)
             })
         }
         .informationBox()
     }
     
-    private func editPlayer(id: Int64) {
-        editedPlayer = EditedPlayer(id: id)
+    private func editFile(id: Int64) {
+        editedFile = EditedFile(id: id)
     }
 }
 
-/// A @Query request that observes the player (any player, actually) in the database
-private struct PlayerRequest: Queryable {
-    static var defaultValue: Player? { nil }
+/// A @Query request that observes the file (any file, actually) in the database
+private struct FileRequest: Queryable {
+    static var defaultValue: File? { nil }
     
-    func publisher(in playerRepository: PlayerRepository) -> DatabasePublishers.Value<Player?> {
+    func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<File?> {
         ValueObservation
-            .tracking(Player.fetchOne)
-            .publisher(in: playerRepository.reader, scheduling: .immediate)
+            .tracking(File.fetchOne)
+            .publisher(in: fileRepository.reader, scheduling: .immediate)
     }
 }

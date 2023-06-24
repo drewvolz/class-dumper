@@ -1,22 +1,22 @@
 import GRDBQuery
-import Players
+import Files
 import SwiftUI
 
-// MARK: - Give SwiftUI access to the player repository
+// MARK: - Give SwiftUI access to the file repository
 
-// Define a new environment key that grants access to a `PlayerRepository`.
+// Define a new environment key that grants access to a `FileRepository`.
 //
 // The technique is documented at
 // <https://developer.apple.com/documentation/swiftui/environmentkey>.
-private struct PlayerRepositoryKey: EnvironmentKey {
+private struct FileRepositoryKey: EnvironmentKey {
     /// The default appDatabase is an empty in-memory repository.
-    static let defaultValue = PlayerRepository.empty()
+    static let defaultValue = FileRepository.empty()
 }
 
 extension EnvironmentValues {
-    var playerRepository: PlayerRepository {
-        get { self[PlayerRepositoryKey.self] }
-        set { self[PlayerRepositoryKey.self] = newValue }
+    var fileRepository: FileRepository {
+        get { self[FileRepositoryKey.self] }
+        set { self[FileRepositoryKey.self] = newValue }
     }
 }
 
@@ -24,10 +24,10 @@ extension EnvironmentValues {
 
 // Help views and previews observe the database with the @Query property wrapper.
 // See <https://swiftpackageindex.com/groue/grdbquery/documentation/grdbquery/gettingstarted>
-extension Query where Request.DatabaseContext == PlayerRepository {
+extension Query where Request.DatabaseContext == FileRepository {
     /// Creates a `Query`, given an initial `Queryable` request that
-    /// uses `PlayerRepository` as a `DatabaseContext`.
+    /// uses `FileRepository` as a `DatabaseContext`.
     init(_ request: Request) {
-        self.init(request, in: \.playerRepository)
+        self.init(request, in: \.fileRepository)
     }
 }
