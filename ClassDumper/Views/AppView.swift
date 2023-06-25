@@ -64,7 +64,7 @@ struct AppView: View {
         .sheet(item: $editedFile) { file in
             FileEditionView(id: file.id)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.newFilesAddedNotification)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.folderSelectedFromFinderNotification)) { _ in
             parseDirectory()
         }
         .toolbar {

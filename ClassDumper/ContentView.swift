@@ -35,7 +35,7 @@ struct ContentView: View {
         .onAppearOnce {
             folderNames = getFiles(from: outputDirectory)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.newFilesAddedNotification)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.folderSelectedFromFinderNotification)) { _ in
             folderNames = fetchFolders()
         }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.directoryDeletedNotification)) { notification in
@@ -315,7 +315,7 @@ struct ImportView: View {
             switch result {
             case .success(let file):
                 onFileImport(file: file)
-                NotificationCenter.default.post(name: .newFilesAddedNotification, object: nil)
+                NotificationCenter.default.post(name: .folderSelectedFromFinderNotification, object: nil)
             case .failure(let error):
                 print("Unable to read file contents: \(error.localizedDescription)")
             }

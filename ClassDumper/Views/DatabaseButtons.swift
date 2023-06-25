@@ -27,7 +27,7 @@ struct CreateFileButton: View {
             switch result {
             case .success(let file):
                 onFileImport(file: file)
-                NotificationCenter.default.post(name: .newFilesAddedNotification, object: nil)
+                NotificationCenter.default.post(name: .folderSelectedFromFinderNotification, object: nil)
             case .failure(let error):
                 print("Unable to read file contents: \(error.localizedDescription)")
             }
