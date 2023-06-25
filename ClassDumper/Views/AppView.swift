@@ -24,27 +24,7 @@ struct AppView: View {
             }))
             
             if !directories.isEmpty {
-                List(directories, id: \.self) { entry in
-                    Label {
-                        if let label = entry {
-                            NavigationLink(label) {
-                                List(files, id: \.?.id) { entry in
-                                    if let name = entry?.name, let contents = entry?.contents, entry?.folder == label {
-                                        NavigationLink(destination:
-                                            FileConentsView(fileContents: contents)
-                                        ) {
-                                            Text(name)
-                                        }
-                                    }
-                                }
-                           }
-                        }
-                    } icon: {
-                        Image(systemName: "folder")
-                            .foregroundColor(.accentColor)
-                    }
-                }
-                .listStyle(SidebarListStyle())
+                SidebarListView(directories: directories, files: files)
             } else {
                 FileView(file: .placeholder)
                     .padding(.vertical)
@@ -77,6 +57,36 @@ struct AppView: View {
 }
 
 extension AppView {
+    
+    func SidebarListView(directories: [String?], files: Array<File?>) -> some View {
+        List(directories, id: \.self) { entry in
+            Label {
+                if let label = entry {
+                    NavigationLink(label) {
+                        MiddleListView(label: label)
+                   }
+                }
+            } icon: {
+                Image(systemName: "folder")
+                    .foregroundColor(.accentColor)
+            }
+        }
+        .listStyle(SidebarListStyle())
+    }
+    
+    func MiddleListView(label: String) -> some View {
+        List(files, id: \.?.id) { entry in
+            if let name = entry?.name, let contents = entry?.contents, entry?.folder == label {
+                NavigationLink(destination: DetailView(contents: contents)) {
+                    Text(name)
+                }
+            }
+        }
+    }
+    
+    func DetailView(contents: String) -> some View {
+        FileConentsView(fileContents: contents)
+    }
 
     func parseDirectory() {
         if let directory = FileManager.default.enumerator(at: outputDirectory.resolvingSymlinksInPath(), includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]) {
