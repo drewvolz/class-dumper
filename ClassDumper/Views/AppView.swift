@@ -79,7 +79,7 @@ struct AppView: View {
 extension AppView {
 
     func parseDirectory() {
-        if let directory = FileManager.default.enumerator(at: outputDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]) {
+        if let directory = FileManager.default.enumerator(at: outputDirectory.resolvingSymlinksInPath(), includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]) {
             while let url = directory.nextObject() as? URL {
                 if (url.pathExtension != "") {
                     let directory = url.deletingLastPathComponent().lastPathComponent
