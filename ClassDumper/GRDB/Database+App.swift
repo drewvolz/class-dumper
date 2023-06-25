@@ -62,4 +62,10 @@ extension FileRepository {
         _ = try! repo.insert(File.makeRandom(id: fileId))
         return repo
     }
+    
+    static func populated(fileId: Int64? = nil, name: String, folder: String, contents: String) -> FileRepository {
+        let repo = self.empty()
+        _ = try! repo.insert(File.createFile(id: fileId, name: name, folder: folder, contents: contents))
+        return repo
+    }
 }

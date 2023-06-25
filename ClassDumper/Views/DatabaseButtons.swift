@@ -1,9 +1,13 @@
 import Files
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// A helper button that creates files in the database
 struct CreateFileButton: View {
     @Environment(\.fileRepository) private var fileRepository
+
+    @State private var importing = false
+    private var readableContentTypes: [UTType] =  [.application, .data, .executable]
     private var titleKey: LocalizedStringKey
     
     init(_ titleKey: LocalizedStringKey) {
@@ -12,10 +16,62 @@ struct CreateFileButton: View {
     
     var body: some View {
         Button {
-            _ = try! fileRepository.insert(File.makeRandom())
+            importing = true
         } label: {
             Label(titleKey, systemImage: "plus")
         }
+        .fileImporter(
+            isPresented: $importing,
+            allowedContentTypes: readableContentTypes
+        ) { result in
+            switch result {
+            case .success(let file):
+                onFileImport(file: file)
+                NotificationCenter.default.post(name: .newFilesAddedNotification, object: nil)
+            case .failure(let error):
+                print("Unable to read file contents: \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
+extension CreateFileButton {
+    func onFileImport(file: URL) {
+        // TODO: allow the user to configure the save location
+        let outputDirectoryURL = outputDirectory
+            .appendingPathComponent(file.deletingPathExtension().lastPathComponent)
+
+        try? FileManager.default.createDirectory(atPath: outputDirectoryURL.path, withIntermediateDirectories: true)
+
+        if let path = Bundle.main.url(forResource: "class-dump", withExtension: "") {
+            let _ = executeCommand(executableURL:path, args: [file.path, "-H", "-o", outputDirectoryURL.path])
+        }
+    }
+
+    func executeCommand(executableURL: URL, args: [String]) -> String {
+        let outputPipe = Pipe()
+        let errorPipe = Pipe()
+
+        let task = Process()
+        task.executableURL = executableURL
+        task.arguments = args
+        task.standardOutput = outputPipe
+        task.standardError = errorPipe
+
+        do {
+            try task.run()
+            task.waitUntilExit()
+        } catch {
+            fatalError("Something went wrong when trying to invoke \(executableURL.path)")
+        }
+
+        let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+
+        let _ = String(decoding: outputData, as: UTF8.self)
+        let standardError = String(decoding: errorData, as: UTF8.self)
+        
+        return standardError
     }
 }
 
