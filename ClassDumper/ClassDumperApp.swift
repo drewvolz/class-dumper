@@ -11,6 +11,7 @@ struct ClassDumperApp: App {
 //            ContentView()
             AppView()
                 .environment(\.fileRepository, .shared)
+                .environmentObject(alertController)
                 .alert(item: $alertController.info, content: { info in
                     Alert(title: Text(info.title),
                           message: Text(info.message),

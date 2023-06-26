@@ -28,6 +28,7 @@ struct GeneralSettingsView: View {
                         id: .settingsDeleteSavedDataPrompt,
                         title: "Are you sure you want to delete the saved data?",
                         message: "There is no undoing this action.",
+                        level: .warning,
                         primaryButtonMessage: "Delete",
                         primaryButtonAction: {
                             try? deleteSavedData()

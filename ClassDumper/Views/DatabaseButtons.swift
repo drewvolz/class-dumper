@@ -5,9 +5,10 @@ import UniformTypeIdentifiers
 /// A helper button that creates files in the database
 struct CreateFileButton: View {
     @Environment(\.fileRepository) private var fileRepository
+    @EnvironmentObject var alertController: AlertController
 
     @State private var importing = false
-    private var readableContentTypes: [UTType] =  [.application, .data, .executable]
+    private var readableContentTypes: [UTType] =  [.application, .executable]
     private var titleKey: LocalizedStringKey
     
     init(_ titleKey: LocalizedStringKey) {
@@ -44,7 +45,8 @@ extension CreateFileButton {
         try? FileManager.default.createDirectory(atPath: outputDirectoryURL.path, withIntermediateDirectories: true)
 
         if let path = Bundle.main.url(forResource: "class-dump", withExtension: "") {
-            let _ = executeCommand(executableURL:path, args: [file.path, "-H", "-o", outputDirectoryURL.path])
+            let errorOutput = executeCommand(executableURL:path, args: [file.path, "-H", "-o", outputDirectoryURL.path])
+            checkErrorOutput(message: errorOutput, outputDirectory: outputDirectoryURL)
         }
     }
 
@@ -72,6 +74,20 @@ extension CreateFileButton {
         let standardError = String(decoding: errorData, as: UTF8.self)
         
         return standardError
+    }
+
+    func checkErrorOutput(message: String, outputDirectory: URL) {
+        if !message.isEmpty {
+            let noRuntimeInfoWarning = "does not contain any Objective-C runtime information"
+            if message.contains(noRuntimeInfoWarning) {
+                alertController.info = AlertInfo(
+                    id: .importNoObjcRuntimeInformation,
+                    title: "Nothing to parse",
+                    message: "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)",
+                    level: .message
+                )
+            }
+        }
     }
 }
 
