@@ -80,8 +80,11 @@ extension AppView {
     
     func MiddleListView(label: String) -> some View {
         List(filteredFileNames, id: \.?.id) { entry in
+            if let contents = entry?.contents, entry?.folder == label {
                 NavigationLink(destination: DetailView(contents: contents)) {
-                    Text(name)
+                    if let file = entry {
+                        FileView(file: file)
+                    }
                 }
             }
         }
