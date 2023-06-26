@@ -1,6 +1,5 @@
 import Files
 import SwiftUI
-import UniformTypeIdentifiers
 
 /// A helper button that creates files in the database
 struct CreateFileButton: View {
@@ -8,7 +7,6 @@ struct CreateFileButton: View {
     @EnvironmentObject var alertController: AlertController
 
     @State private var importing = false
-    private var readableContentTypes: [UTType] =  [.application, .executable]
     private var titleKey: LocalizedStringKey
     
     init(_ titleKey: LocalizedStringKey) {
@@ -23,7 +21,7 @@ struct CreateFileButton: View {
         }
         .fileImporter(
             isPresented: $importing,
-            allowedContentTypes: readableContentTypes
+            allowedContentTypes: [.application, .executable]
         ) { result in
             switch result {
             case .success(let file):

@@ -299,7 +299,6 @@ struct FolderNotification {
 
 struct ImportView: View {
     @State private var importing = false
-    var readableContentTypes: [UTType] =  [.application, .data, .executable]
 
     var body: some View {
         Button(action: {
@@ -310,7 +309,7 @@ struct ImportView: View {
         .keyboardShortcut("o", modifiers: [.command])
         .fileImporter(
             isPresented: $importing,
-            allowedContentTypes: readableContentTypes
+            allowedContentTypes: [.application, .executable]
         ) { result in
             switch result {
             case .success(let file):
