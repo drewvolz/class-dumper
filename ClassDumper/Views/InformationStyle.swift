@@ -20,6 +20,7 @@ struct InformationBox: ViewModifier {
             .buttonStyle(.borderedProminent)
             .tint(.accentColor)
             .cornerRadius(10)
+            .padding()
     }
 }
 
