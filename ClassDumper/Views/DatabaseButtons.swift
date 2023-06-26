@@ -19,6 +19,7 @@ struct CreateFileButton: View {
         } label: {
             Label(titleKey, systemImage: "folder.badge.plus")
         }
+        .keyboardShortcut("o", modifiers: [.command])
         .fileImporter(
             isPresented: $importing,
             allowedContentTypes: [.application, .executable]
