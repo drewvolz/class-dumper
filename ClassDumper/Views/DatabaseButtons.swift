@@ -17,7 +17,7 @@ struct CreateFileButton: View {
         Button {
             importing = true
         } label: {
-            Label(titleKey, systemImage: "plus")
+            Label(titleKey, systemImage: "folder.badge.plus")
         }
         .fileImporter(
             isPresented: $importing,
