@@ -8,7 +8,6 @@ struct ClassDumperApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            ContentView()
             AppView()
                 .environment(\.fileRepository, .shared)
                 .environmentObject(alertController)

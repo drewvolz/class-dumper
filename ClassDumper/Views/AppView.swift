@@ -157,29 +157,6 @@ extension AppView {
         .informationBox()
     }
     
-    private func populatedFooter(id: Int64) -> some View {
-        VStack(spacing: 10) {
-            Text("What if another application component deletes the file at the most unexpected moment?")
-                .informationStyle()
-            DeleteFilesButton("Delete File")
-            
-            Spacer().frame(height: 10)
-            Text("What if the file is deleted soon after the Edit button is hit?")
-                .informationStyle()
-            DeleteFilesButton("Delete After Editing", after: {
-                editFile(id: id)
-            })
-            
-            Spacer().frame(height: 10)
-            Text("What if the file is deleted right before the Edit button is hit?")
-                .informationStyle()
-            DeleteFilesButton("Delete Before Editing", before: {
-                editFile(id: id)
-            })
-        }
-        .informationBox()
-    }
-    
     private func editFile(id: Int64) {
         editedFile = EditedFile(id: id)
     }
