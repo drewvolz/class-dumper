@@ -77,15 +77,26 @@ extension CreateFileButton {
 
     func checkErrorOutput(message: String, outputDirectory: URL) {
         if !message.isEmpty {
+            var messageTitle = ""
+            var messageContent = ""
+
+            // the most common error we'll come across is when no Mach-O files are generated
             let noRuntimeInfoWarning = "does not contain any Objective-C runtime information"
+
             if message.contains(noRuntimeInfoWarning) {
-                alertController.info = AlertInfo(
-                    id: .importNoObjcRuntimeInformation,
-                    title: "Nothing to parse",
-                    message: "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)",
-                    level: .message
-                )
+                messageTitle = "Nothing to parse"
+                messageContent = "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)"
+            } else {
+                messageTitle = "An unexpected error occurred"
+                messageContent = message
             }
+
+            alertController.info = AlertInfo(
+                id: .importNoObjcRuntimeInformation,
+                title: messageTitle,
+                message: messageContent,
+                level: .message
+            )
         }
     }
 }
