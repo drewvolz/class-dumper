@@ -35,18 +35,12 @@ struct AppView: View {
             if !directories.isEmpty {
                 SidebarListView(directories: directories)
             } else {
-                FileView(file: .placeholder)
-                    .padding(.vertical)
-                    .redacted(reason: .placeholder)
-                    .padding(.horizontal)
-
+                EmptyFooter()
                 Spacer()
-                emptyFooter()
             }
         } content: {
 
         } detail: {
-            emptyFooter()
 
         } 
         .padding(.horizontal)
@@ -142,16 +136,12 @@ extension AppView {
         }
     }
 
-    private func emptyFooter() -> some View {
+    private func EmptyFooter() -> some View {
         VStack {
-            Text("The demo application observes the database and displays information about the file.")
+            Text("Start by opening a file to get going with class dumping.")
                 .informationStyle()
             
-            CreateFileButton("Create a File")
-            
-            Text("What if another application component deletes the file at the most unexpected moment?")
-                .informationStyle()
-            DeleteFilesButton("Delete File")
+            CreateFileButton("Open a File")
         }
         .informationBox()
     }
