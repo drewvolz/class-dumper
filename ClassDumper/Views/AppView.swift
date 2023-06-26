@@ -102,6 +102,7 @@ extension AppView {
                     let filename = url.lastPathComponent
                     let contents = parseFile(atPath: url.relativePath)
                     
+                    // TODO: fix the case where `insert` adds duplicate data but `update` causes a crash
                     _ = try! fileRepository.insert(File.createFile(name: filename, folder: directory, contents: contents))
                 }
             }
