@@ -16,15 +16,24 @@ struct AppView: View {
     private var files: Array<File?>
     
     @State private var editedFile: EditedFile?
+    private var filteredFileNames: Array<File?> {
+        if searchText.isEmpty {
+            return files
+        } else {
+            return files.filter { $0?.name.forSearch().contains(searchText.forSearch()) ?? false }
+        }
+    }
     
+    @State private var searchText = ""
+
     var body: some View {
         NavigationSplitView {
             let directories = Array(Set(files.map { entry in
-                return entry?.folder
-            }))
+                entry?.folder ?? ""
+            })).sorted()
             
             if !directories.isEmpty {
-                SidebarListView(directories: directories, files: files)
+                SidebarListView(directories: directories)
             } else {
                 FileView(file: .placeholder)
                     .padding(.vertical)
@@ -52,13 +61,14 @@ struct AppView: View {
                 CreateFileButton("Create a File")
             }
         }
+        .searchable(text: $searchText, prompt: "Search files")
         .navigationTitle(NSApplication.bundleName)
     }
 }
 
 extension AppView {
     
-    func SidebarListView(directories: [String?], files: Array<File?>) -> some View {
+    func SidebarListView(directories: [String?]) -> some View {
         List(directories, id: \.self) { entry in
             Label {
                 if let label = entry {
@@ -75,8 +85,7 @@ extension AppView {
     }
     
     func MiddleListView(label: String) -> some View {
-        List(files, id: \.?.id) { entry in
-            if let name = entry?.name, let contents = entry?.contents, entry?.folder == label {
+        List(filteredFileNames, id: \.?.id) { entry in
                 NavigationLink(destination: DetailView(contents: contents)) {
                     Text(name)
                 }
