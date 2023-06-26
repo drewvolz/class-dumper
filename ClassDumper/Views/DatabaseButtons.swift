@@ -93,13 +93,16 @@ extension CreateFileButton {
 
 /// A helper button that deletes files in the database
 struct DeleteFilesButton: View {
+    @Environment(\.fileRepository) private var fileRepository
+    @EnvironmentObject var alertController: AlertController
+
     private enum Mode {
         case delete
         case deleteAfter(() -> Void)
         case deleteBefore(() -> Void)
+        case deleteWithPrompt(() -> Void)
     }
     
-    @Environment(\.fileRepository) private var fileRepository
     private var titleKey: LocalizedStringKey
     private var mode: Mode
     
@@ -127,22 +130,44 @@ struct DeleteFilesButton: View {
         self.mode = .deleteBefore(action)
     }
     
+    /// Creates a button that deletes files only after confirming, then runs an `action`.
+    init(
+        _ titleKey: LocalizedStringKey,
+        afterWithPrompt action: @escaping () -> Void)
+    {
+        self.titleKey = titleKey
+        self.mode = .deleteWithPrompt(action)
+    }
+    
     var body: some View {
         Button {
             switch mode {
             case .delete:
-                _ = try! fileRepository.deleteAllFile()
+                _ = try! fileRepository.deleteAllFiles()
                 
             case let .deleteAfter(action):
                 action()
                 Task {
                     try await Task.sleep(nanoseconds: 100_000_000)
-                    try fileRepository.deleteAllFile()
+                    try fileRepository.deleteAllFiles()
                 }
                 
             case let .deleteBefore(action):
-                _ = try! fileRepository.deleteAllFile()
+                _ = try! fileRepository.deleteAllFiles()
                 action()
+                
+            case let .deleteWithPrompt(action):
+                alertController.info = AlertInfo(
+                    id: .settingsDeleteSavedDataPrompt,
+                    title: "Are you sure you want to delete the saved data?",
+                    message: "There is no undoing this action.",
+                    level: .warning,
+                    primaryButtonMessage: "Delete",
+                    primaryButtonAction: {
+                        _ = try! fileRepository.deleteAllFiles()
+                        action()
+                    }
+                )
             }
         } label: {
             Label(titleKey, systemImage: "trash")

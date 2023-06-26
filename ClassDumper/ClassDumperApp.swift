@@ -29,6 +29,7 @@ struct ClassDumperApp: App {
         #if os(macOS)
         Settings {
            SettingsView()
+                .environment(\.fileRepository, .shared)
                 .environmentObject(alertController)
         }
         #endif

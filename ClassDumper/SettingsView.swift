@@ -18,38 +18,15 @@ struct SettingsView: View {
 }
 
 struct GeneralSettingsView: View {
-    @EnvironmentObject var alertController: AlertController
-
     var body: some View {
         Form {
             Section {
-                Button(action: {
-                    alertController.info = AlertInfo(
-                        id: .settingsDeleteSavedDataPrompt,
-                        title: "Are you sure you want to delete the saved data?",
-                        message: "There is no undoing this action.",
-                        level: .warning,
-                        primaryButtonMessage: "Delete",
-                        primaryButtonAction: {
-                            try? deleteSavedData()
-                        }
-                    )
-                }, label: {
-                    Text("Delete all data")
+                DeleteFilesButton("Delete all data", afterWithPrompt: {
+                    // noop, deletion with prompting is handled in the button
+                    // but side effects may be placed here if desired.
                 })
             }
         }
         .padding(20)
-    }
-}
-
-extension GeneralSettingsView {
-    func deleteSavedData() throws {
-        do {
-            try FileManager.default.removeItem(at: URL(fileURLWithPath: outputDirectory.relativePath))
-            NotificationCenter.default.post(name: .resetContentNotification, object: nil)
-        } catch {
-            print("There was an error when trying to delete the saved data.")
-        }
     }
 }
