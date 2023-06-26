@@ -15,7 +15,6 @@ struct AppView: View {
     @Query(FileRequest())
     private var files: Array<File?>
     
-    @State private var editedFile: EditedFile?
     private var filteredFileNames: Array<File?> {
         if searchText.isEmpty {
             return files
@@ -24,6 +23,7 @@ struct AppView: View {
         }
     }
     
+    @State private var editedFile: EditedFile?
     @State private var searchText = ""
 
     var body: some View {
