@@ -38,11 +38,15 @@ struct AppView: View {
                 EmptyFooter()
                 Spacer()
             }
+
+        /// TODO: issue when deleting the database leads to stale data in the `content` and `detail`
+        /// so this middle column is not being updated when the data is removed at the moment which means
+        /// that `NavigationLink` is a nice pattern but the static array being passed around becomes stale
         } content: {
 
         } detail: {
 
-        } 
+        }
         .padding(.horizontal)
         .sheet(item: $editedFile) { file in
             FileEditionView(id: file.id)
@@ -62,6 +66,7 @@ struct AppView: View {
 
 extension AppView {
     
+    // TODO: see above todo comments
     func SidebarListView(directories: [String?]) -> some View {
         List(directories, id: \.self) { entry in
             Label {
@@ -78,6 +83,7 @@ extension AppView {
         .listStyle(SidebarListStyle())
     }
     
+    // TODO: see above todo comments
     func MiddleListView(label: String) -> some View {
         List(filteredFileNames, id: \.?.id) { entry in
             if let contents = entry?.contents, entry?.folder == label {
@@ -90,6 +96,7 @@ extension AppView {
         }
     }
     
+    // TODO: see above todo comments
     func DetailView(contents: String) -> some View {
         FileConentsView(fileContents: contents)
     }
