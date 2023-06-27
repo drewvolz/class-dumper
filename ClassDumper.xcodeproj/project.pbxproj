@@ -84,7 +84,7 @@
 		3A2F8F712A397CF100D9FB26 /* FileEditionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileEditionView.swift; sourceTree = "<group>"; };
 		3A2F8F722A397CF100D9FB26 /* InformationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationStyle.swift; sourceTree = "<group>"; };
 		3A2F8F732A397CF100D9FB26 /* FileNotFoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotFoundView.swift; sourceTree = "<group>"; };
-		3A2F8F912A46B3C500D9FB26 /* Files */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Files; path = ../../Downloads/GRDBQuery/Documentation/Files; sourceTree = "<group>"; };
+		3A2F8F912A46B3C500D9FB26 /* Files */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Files; path = Packages/Files; sourceTree = "<group>"; };
 		3A827B002A342ABF006A1A96 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Class Dumper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperApp.swift; sourceTree = "<group>"; };
