@@ -7,13 +7,19 @@ import SwiftUI
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
 
+    @Query(FileRequest())
+    fileprivate var files: Array<File?>
+    
+    var directories: [String] {
+        Array(Set(files.map { entry in
+            entry?.folder ?? ""
+        })).sorted()
+    }
+
     /// A helper `Identifiable` type that can feed SwiftUI `sheet(item:onDismiss:content:)`
     private struct EditedFile: Identifiable {
         var id: Int64
     }
-    
-    @Query(FileRequest())
-    private var files: Array<File?>
     
     private var filteredFileNames: Array<File?> {
         if searchText.isEmpty {
@@ -28,9 +34,6 @@ struct AppView: View {
 
     var body: some View {
         NavigationSplitView {
-            let directories = Array(Set(files.map { entry in
-                entry?.folder ?? ""
-            })).sorted()
             
             if !directories.isEmpty {
                 SidebarListView(directories: directories)
