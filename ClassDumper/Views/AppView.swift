@@ -89,6 +89,11 @@ extension AppView {
     // TODO: see above todo comments
     func MiddleListView(label: String) -> some View {
         List(filteredFileNames, id: \.?.id) { entry in
+            // TODO: comparing folder == label should be looked at for scrolling performance
+            // - performant: AppZapper, ImageOptim, GitUp
+            // - not performant: iTerm, HandBrake
+            // if this is impacting things, fetch this data into a grdb subquery but first
+            // test if it is large lists as a whole or how we're rendering/filtering them
             if let contents = entry?.contents, entry?.folder == label {
                 NavigationLink(destination: DetailView(contents: contents)) {
                     if let file = entry {
