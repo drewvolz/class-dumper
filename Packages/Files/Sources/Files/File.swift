@@ -22,6 +22,8 @@ public struct File: Codable, Equatable {
 }
 
 extension File: FetchableRecord, MutablePersistableRecord {
+    public static let persistenceConflictPolicy = PersistenceConflictPolicy(insert: .replace, update: .replace)
+
     // Update auto-incremented id upon successful insertion
     public mutating func didInsert(_ inserted: InsertionSuccess) {
         id = inserted.rowID

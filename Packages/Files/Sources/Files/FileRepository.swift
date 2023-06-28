@@ -74,6 +74,9 @@ public struct FileRepository {
                 t.column("folder", .text).notNull()
                 t.column("contents", .text)
             }
+
+            // create a unique index to force records to be unique by both file name and folder name
+            try db.create(index: "byFolder", on: "file", columns: ["name", "folder"], unique: true)
         }
         
         // Migrations for future application versions will be inserted here:
