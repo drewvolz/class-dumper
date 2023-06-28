@@ -13,7 +13,7 @@ struct ClassDumperApp: App {
                 .environmentObject(alertController)
                 .alert(item: $alertController.info, content: { info in
                     Alert(title: Text(info.title),
-                          message: Text(info.message),
+                          message: Text(info.message.truncate(length: 1000)),
                           primaryButton: .destructive(Text(info.primaryButtonMessage)) {
                             info.primaryButtonAction()
                           },
