@@ -3,12 +3,14 @@ import GRDBQuery
 import Files
 import SwiftUI
 
+typealias FileDatabase = Array<File?>
+
 /// The main application view
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
 
     @Query(FileRequest())
-    fileprivate var files: Array<File?>
+    fileprivate var files: FileDatabase
     
     var directories: [String] {
         Array(Set(files.map { entry in
@@ -21,7 +23,7 @@ struct AppView: View {
         var id: Int64
     }
     
-    private var filteredFileNames: Array<File?> {
+    private var filteredFileNames: FileDatabase {
         if searchText.isEmpty {
             return files
         } else {
@@ -177,9 +179,9 @@ extension AppView {
 
 /// A @Query request that observes the file (any file, actually) in the database
 private struct FileRequest: Queryable {
-    static var defaultValue: Array<File?> { [] }
+    static var defaultValue: FileDatabase { [] }
     
-    func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<Array<File?>> {
+    func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<FileDatabase> {
         ValueObservation
             .tracking(File.fetchAll)
             .publisher(in: fileRepository.reader, scheduling: .immediate)
