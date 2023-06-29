@@ -12,8 +12,8 @@ struct FileView: View {
             Label {
                 Text(file.name)
             } icon: {
-                Image(systemName: "doc")
                     .foregroundColor(.accentColor)
+                Image(systemName: "doc").symbolVariant(.fill)
             }
             
             if let editAction {

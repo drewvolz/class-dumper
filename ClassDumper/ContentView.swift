@@ -139,7 +139,7 @@ extension ContentView {
                             Text(fileName)
                                 .fontWeight(isSelectedFile(fileName) ? .bold : .regular)
                         } icon: {
-                            Image(systemName: "doc.fill")
+                            Image(systemName: "doc")
                                 .foregroundColor(.accentColor)
                         }
                     }
