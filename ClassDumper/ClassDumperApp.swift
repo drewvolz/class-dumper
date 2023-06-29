@@ -11,15 +11,9 @@ struct ClassDumperApp: App {
             AppView()
                 .environment(\.fileRepository, .shared)
                 .environmentObject(alertController)
-                .alert(item: $alertController.info, content: { info in
-                    Alert(title: Text(info.title),
-                          message: Text(info.message.truncate(length: 1000)),
-                          primaryButton: .destructive(Text(info.primaryButtonMessage)) {
-                            info.primaryButtonAction()
-                          },
-                          secondaryButton: .cancel()
-                    )
-                })
+                .alert(item: $alertController.info) { info in
+                   buildAlert(info)
+                }
         }
         .commands {
             MenuCommands()
