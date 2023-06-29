@@ -145,6 +145,14 @@ extension FileRepository {
         }
     }
     
+    public func insert(_ files: [File]) throws {
+        let _ = try dbWriter.write { db in
+            try files.map { file in
+                return try file.inserted(db)
+            }
+        }
+    }
+    
     /// Updates the file.
     public func update(_ file: File) throws {
         try dbWriter.write { db in

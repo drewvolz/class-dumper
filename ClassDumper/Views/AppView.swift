@@ -111,15 +111,21 @@ extension AppView {
 
     func parseDirectory() {
         if let directory = FileManager.default.enumerator(at: outputDirectory.resolvingSymlinksInPath(), includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]) {
+            
+            /// batching changes so that inserts can be done in a single transaction
+            var filesToinsert = [File]()
+
             while let url = directory.nextObject() as? URL {
                 if (url.pathExtension != "" && !url.hasDirectoryPath) {
                     let directory = url.deletingLastPathComponent().lastPathComponent
                     let filename = url.lastPathComponent
                     let contents = parseFile(atPath: url.relativePath)
                     
-                    _ = try! fileRepository.insert(File.createFile(name: filename, folder: directory, contents: contents))
+                    filesToinsert.append(File.createFile(name: filename, folder: directory, contents: contents))
                 }
             }
+
+            try! fileRepository.insert(filesToinsert)
         }
 
         deleteTempDirectory()
