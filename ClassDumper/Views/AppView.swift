@@ -8,7 +8,6 @@ typealias FileDatabase = Array<File?>
 /// The main application view
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
-
     @Query(FileRequest())
     fileprivate var files: FileDatabase
     
