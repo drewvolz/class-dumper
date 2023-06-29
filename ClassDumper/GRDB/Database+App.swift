@@ -59,13 +59,13 @@ extension FileRepository {
     /// - parameter fileId: The ID of the inserted file.
     static func populated(fileId: Int64? = nil) -> FileRepository {
         let repo = self.empty()
-        _ = try! repo.insert(File.makeRandom(id: fileId))
+        _ = try! repo.insertOne(File.makeRandom(id: fileId))
         return repo
     }
     
     static func populated(fileId: Int64? = nil, name: String, folder: String, contents: String) -> FileRepository {
         let repo = self.empty()
-        _ = try! repo.insert(File.createFile(id: fileId, name: name, folder: folder, contents: contents))
+        _ = try! repo.insertOne(File.createFile(id: fileId, name: name, folder: folder, contents: contents))
         return repo
     }
 }

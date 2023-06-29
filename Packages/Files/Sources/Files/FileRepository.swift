@@ -139,7 +139,7 @@ extension FileRepository {
 
 extension FileRepository {
     /// Inserts a file and returns the inserted file.
-    public func insert(_ file: File) throws -> File {
+    public func insertOne(_ file: File) throws -> File {
         try dbWriter.write { db in
             return try file.inserted(db)
         }
