@@ -158,7 +158,6 @@
 		3A2F8F6C2A397B7500D9FB26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3A2F8F6A2A397ABB00D9FB26 /* AppView.swift */,
 				3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */,
 				3A2F8F6D2A397BAF00D9FB26 /* FileRowView.swift */,
 				3A2F8F702A397CF100D9FB26 /* DatabaseButtons.swift */,
@@ -195,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */,
+				3A2F8F6A2A397ABB00D9FB26 /* AppView.swift */,
 				3A2F8F6C2A397B7500D9FB26 /* Views */,
 				3AAED1F52A39750E0036217E /* GRDB */,
 				3A27E7562A26EC9500B3537B /* Shared */,
