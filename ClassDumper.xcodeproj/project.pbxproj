@@ -20,9 +20,9 @@
 		3A2F8F952A4D4C5A00D9FB26 /* FolderRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */; };
 		3A67D7642A511F7600516FF2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7632A511F7600516FF2 /* App.swift */; };
 		3A67D7662A511FFA00516FF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7652A511FFA00516FF2 /* AppDelegate.swift */; };
+		3A67D7682A51566B00516FF2 /* String+ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */; };
 		3A827B012A342ABF006A1A96 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A827B002A342ABF006A1A96 /* Endpoint.swift */; };
 		3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */; };
-		3AA564D12A2310CD00EBD7FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564D02A2310CD00EBD7FB /* ContentView.swift */; };
 		3AA564D32A2310CE00EBD7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D22A2310CE00EBD7FB /* Assets.xcassets */; };
 		3AA564D72A2310CE00EBD7FB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D62A2310CE00EBD7FB /* Preview Assets.xcassets */; };
 		3AA564E12A2310CE00EBD7FB /* ClassDumpUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564E02A2310CE00EBD7FB /* ClassDumpUserTests.swift */; };
@@ -81,10 +81,10 @@
 		3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderRowView.swift; sourceTree = "<group>"; };
 		3A67D7632A511F7600516FF2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		3A67D7652A511FFA00516FF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConsoleOutput.swift"; sourceTree = "<group>"; };
 		3A827B002A342ABF006A1A96 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Class Dumper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperApp.swift; sourceTree = "<group>"; };
-		3AA564D02A2310CD00EBD7FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3AA564D22A2310CE00EBD7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AA564D42A2310CE00EBD7FB /* ClassDumper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassDumper.entitlements; sourceTree = "<group>"; };
 		3AA564D62A2310CE00EBD7FB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -192,7 +192,6 @@
 		3AA564CD2A2310CD00EBD7FB /* ClassDumper */ = {
 			isa = PBXGroup;
 			children = (
-				3AA564D02A2310CD00EBD7FB /* ContentView.swift */,
 				3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */,
 				3A2F8F6C2A397B7500D9FB26 /* Views */,
 				3AAED1F52A39750E0036217E /* GRDB */,
@@ -238,6 +237,7 @@
 				3A67D7652A511FFA00516FF2 /* AppDelegate.swift */,
 				3AA565462A25BD4900EBD7FB /* Notification.swift */,
 				3AA565482A25BD6F00EBD7FB /* String.swift */,
+				3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */,
 				3A827B002A342ABF006A1A96 /* Endpoint.swift */,
 			);
 			path = Extension;
@@ -427,7 +427,7 @@
 				3AA564FF2A232B4C00EBD7FB /* SettingsView.swift in Sources */,
 				3A67D7642A511F7600516FF2 /* App.swift in Sources */,
 				3A2F8F752A397CF100D9FB26 /* DatabaseButtons.swift in Sources */,
-				3AA564D12A2310CD00EBD7FB /* ContentView.swift in Sources */,
+				3A67D7682A51566B00516FF2 /* String+ConsoleOutput.swift in Sources */,
 				3A2F8F6E2A397BAF00D9FB26 /* FileRowView.swift in Sources */,
 				3A2F8F772A397CF100D9FB26 /* InformationStyle.swift in Sources */,
 				3A27E7582A26EC9C00B3537B /* Constants.swift in Sources */,
