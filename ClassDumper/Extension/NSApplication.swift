@@ -24,24 +24,3 @@ extension NSApplication {
         return Bundle.main.object(forInfoDictionaryKey: PlistKey.Identifier.rawValue) as? String ?? ""
     }
 }
-
-extension App {
-    func buildAlert(_ info: AlertInfo) -> Alert {
-        let messageText = Text(info.message.truncate(length: 1000))
-        let primaryButtonText = Text(info.primaryButtonMessage)
-
-        let primaryButton: Alert.Button = {
-            switch info.level {
-            case .message: return .default(primaryButtonText)
-            case .warning: return .destructive(primaryButtonText)
-            }
-        }()
-
-        return Alert(
-            title: Text(info.title),
-            message: messageText,
-            primaryButton: primaryButton,
-            secondaryButton: .cancel()
-        )
-    }
-}

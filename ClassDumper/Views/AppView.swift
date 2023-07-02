@@ -5,23 +5,12 @@ import SwiftUI
 
 typealias FileDatabase = Array<File?>
 
-/// The main application view
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
     @Query(FileRequest())
     fileprivate var files: FileDatabase
     
-    var directories: [String] {
-        Array(Set(files.map { entry in
-            entry?.folder ?? ""
-        })).sorted()
-    }
 
-    /// A helper `Identifiable` type that can feed SwiftUI `sheet(item:onDismiss:content:)`
-    private struct EditedFile: Identifiable {
-        var id: Int64
-    }
-    
     private var filteredFileNames: FileDatabase {
         if searchText.isEmpty {
             return files
@@ -42,26 +31,13 @@ struct AppView: View {
                 EmptyFooter()
                 Spacer()
             }
-
-        /// TODO: issue when deleting the database leads to stale data in the `content` and `detail`
-        /// so this middle column is not being updated when the data is removed at the moment which means
-        /// that `NavigationLink` is a nice pattern but the static array being passed around becomes stale
         } content: {
 
         } detail: {
 
         }
-        .padding(.horizontal)
-        .sheet(item: $editedFile) { file in
-            FileEditionView(id: file.id)
-        }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.folderSelectedFromFinderNotification)) { _ in
             parseDirectory()
-        }
-        .toolbar {
-            ToolbarItemGroup {
-                CreateFileButton("Create a File")
-            }
         }
         .searchable(text: $searchText, prompt: "Search files")
         .navigationTitle(NSApplication.bundleName)
@@ -103,11 +79,6 @@ extension AppView {
                 }
             }
         }
-    }
-    
-    // TODO: see above todo comments
-    func DetailView(contents: String) -> some View {
-        FileConentsView(fileContents: contents)
     }
 
     func parseDirectory() {
@@ -169,10 +140,6 @@ extension AppView {
             CreateFileButton("Open a File")
         }
         .informationBox()
-    }
-    
-    private func editFile(id: Int64) {
-        editedFile = EditedFile(id: id)
     }
 }
 
