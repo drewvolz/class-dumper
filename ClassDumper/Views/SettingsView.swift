@@ -41,6 +41,15 @@ struct GeneralSettingsView: View {
 
 struct DebugSettingsView: View {
     @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
+    @AppStorage("dialogLengthImportErrorLogging") var dialogLengthImportErrorLogging = 1000
+
+    let helpErrorLength = """
+Represents the length of the error to output in a dialog from the CLI. \
+The current output is truncated to so this may be useful to override \
+if you need a different length.
+
+Note that verbose error dialogs will disable this setting.
+"""
 
     var body: some View {
         Form {
@@ -49,6 +58,14 @@ struct DebugSettingsView: View {
                     Text("Enable verbose import error messages")
                 }
                 .toggleStyle(CheckboxToggleStyle())
+
+                LabeledContent {
+                    TextField("", value: $dialogLengthImportErrorLogging, format: .number)
+                        .disabled($enableVerboseImportErrorLogging.wrappedValue)
+                } label: {
+                    Text("Error length")
+                }
+                .help(helpErrorLength)
             }
         }
         .padding(20)
