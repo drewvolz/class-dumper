@@ -63,9 +63,9 @@ Note that verbose error dialogs will disable this setting.
 
     var body: some View {
         Form {
-            Section(header: Text("Error dialogs")) {
+            Section {
                 Toggle(isOn: $enableVerboseImportErrorLogging) {
-                    Text("Enable verbose import error messages")
+                    Text("Verbose error dialogs")
                 }
                 .help(helpLogging)
                 .toggleStyle(CheckboxToggleStyle())
