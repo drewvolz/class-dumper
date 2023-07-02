@@ -88,7 +88,7 @@ extension CreateFileButton {
                 messageContent = "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)"
             } else {
                 messageTitle = "An unexpected error occurred"
-                messageContent = message
+                messageContent = message.formatConsoleOuput()
             }
 
             alertController.info = AlertInfo(
