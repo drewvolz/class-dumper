@@ -64,11 +64,9 @@ Note that verbose error dialogs will disable this setting.
     var body: some View {
         Form {
             Section {
-                Toggle(isOn: $enableVerboseImportErrorLogging) {
-                    Text("Verbose error dialogs")
-                }
-                // while CheckboxToggleStyle is more macOS native, we don't get the correct alignment
-                .toggleStyle(SwitchToggleStyle())
+                Toggle(isOn: $enableVerboseImportErrorLogging) {}
+                .toggleStyle(CheckboxToggleStyle())
+                .formLabel(Text("Verbose error dialogs"))
                 .help(helpLogging)
 
                 TextField("", value: $dialogLengthImportErrorLogging, format: .number)
