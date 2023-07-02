@@ -126,9 +126,13 @@ extension AppView {
     
     /// The output from `class-dump`is temporarily stored on-disk so that we can parse structured
     /// output. Otherwise, we'd have to write a parser to get the same data structure for the header files.
+    ///
     /// It is good to clean up the resulting directory saved on disk as ClassDumper's goal is to have info
     /// about mach-o files stored within its own sqlite database. This affords us the nicety of asking our
     /// own cached database instead of querying a user's directories each run.
+    ///
+    /// An improvement around this could be moving the temporary folder to a safer directory meant for
+    /// writing by sandboxed applications.
     func deleteTempDirectory() {
         try? FileManager.default.removeItem(atPath: outputDirectory.path)
     }
