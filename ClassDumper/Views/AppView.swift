@@ -19,7 +19,6 @@ struct AppView: View {
         }
     }
     
-    @State private var editedFile: EditedFile?
     @State private var searchText = ""
 
     var body: some View {
