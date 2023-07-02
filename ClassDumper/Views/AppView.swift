@@ -7,6 +7,7 @@ typealias FileDatabase = Array<File?>
 
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
+
     @Query(FileRequest())
     fileprivate var files: FileDatabase
     
@@ -51,37 +52,7 @@ struct AppView: View {
 }
 
 extension AppView {
-    
-    // TODO: see above todo comments
-    func SidebarListView(directories: [String?]) -> some View {
-        List(directories, id: \.self) { entry in
-            Label {
-                if let label = entry {
-                    NavigationLink(label) {
-                        MiddleListView(label: label)
-                   }
-                }
-            } icon: {
-                Image(systemName: "folder")
-                    .foregroundColor(.accentColor)
-            }
-        }
-        .listStyle(SidebarListStyle())
-    }
-    
-    // TODO: see above todo comments
-    func MiddleListView(label: String) -> some View {
-        List(filteredFileNames, id: \.?.id) { entry in
-            // TODO: comparing folder == label should be looked at for scrolling performance
-            // - performant: AppZapper, ImageOptim, GitUp
-            // - not performant: iTerm, HandBrake
-            // if this is impacting things, fetch this data into a grdb subquery but first
-            // test if it is large lists as a whole or how we're rendering/filtering them
-            if let contents = entry?.contents, entry?.folder == label {
-                NavigationLink(destination: DetailView(contents: contents)) {
-                    if let file = entry {
-                        FileView(file: file)
-                    }
+
     @ViewBuilder
     func EditToolbarButton() -> some View {
         if !files.isEmpty {
@@ -138,18 +109,6 @@ extension AppView {
     /// writing by sandboxed applications.
     func deleteTempDirectory() {
         try? FileManager.default.removeItem(atPath: outputDirectory.path)
-    }
-    
-    func FileConentsView(fileContents: String) -> some View {
-        Group{
-            ZStack {
-                TextEditor(text: .constant(fileContents))
-                    .padding(8)
-                    .font(.system(.body, design: .monospaced))
-                    .foregroundColor(Color(NSColor.labelColor))
-            }
-            .background(Color(NSColor.textBackgroundColor))
-        }
     }
 
     private func EmptyFooter() -> some View {
