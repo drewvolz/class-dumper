@@ -9,7 +9,7 @@ struct CreateFileButton: View {
     @State private var importing = false
     private var titleKey: LocalizedStringKey
     
-    init(_ titleKey: LocalizedStringKey) {
+    init(_ titleKey: LocalizedStringKey = "Add new file") {
         self.titleKey = titleKey
     }
     
@@ -214,8 +214,8 @@ struct DatabaseButtons_Previews: PreviewProvider {
         var body: some View {
             VStack {
                 Text("Number of files: \(fileCount)")
-                CreateFileButton("Create File")
-                DeleteFilesButton("Delete Files", folderKey: "")
+                CreateFileButton()
+                DeleteFilesButton("Delete files", folderKey: "")
             }
             .informationBox()
             .padding()

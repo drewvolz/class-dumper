@@ -27,7 +27,9 @@ struct AppView: View {
                 FolderRowView(deletionEnabled: deletionEnabled)
                     .toolbar {
                         ToolbarItemGroup(placement: .automatic) {
+                            Spacer()
                             EditToolbarButton()
+                            CreateFileButton()
                         }
                     }
             } else {
@@ -154,7 +156,7 @@ extension AppView {
             Text("Start by opening a file to get going with class dumping.")
                 .informationStyle()
             
-            CreateFileButton("Open a File")
+            CreateFileButton()
         }
         .informationBox()
     }
