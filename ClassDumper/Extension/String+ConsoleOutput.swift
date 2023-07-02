@@ -42,7 +42,7 @@ extension String {
     ///     - skip: Returns the original log (defaults to false).
     ///
     /// - Returns: A message with datetimes and program prefixes removed.
-    func formatConsoleOutput(length: Int = 1000, skip: Bool = false) -> String {
+    func formatConsoleOutput(length: Int, skip: Bool) -> String {
         guard !skip else { return self }
 
         let datePattern = #"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}"#

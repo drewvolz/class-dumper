@@ -78,6 +78,9 @@ extension CreateFileButton {
     func checkErrorOutput(message: String, outputDirectory: URL) {
         /// Configuraable in app debug settings
         @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
+        /// Configurable in app debug settings
+        @AppStorage("dialogLengthImportErrorLogging") var dialogLengthImportErrorLogging = 1000
+
         if !message.isEmpty {
             var messageTitle = ""
             var messageContent = ""
@@ -90,7 +93,10 @@ extension CreateFileButton {
                 messageContent = "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)"
             } else {
                 messageTitle = "An unexpected error occurred"
-                messageContent = message.formatConsoleOutput(skip: enableVerboseImportErrorLogging)
+                messageContent = message.formatConsoleOutput(
+                    length: dialogLengthImportErrorLogging,
+                    skip: enableVerboseImportErrorLogging
+                )
             }
 
             alertController.info = AlertInfo(
