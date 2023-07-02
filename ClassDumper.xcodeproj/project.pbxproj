@@ -13,6 +13,7 @@
 		3A2F8F672A397A1900D9FB26 /* Database+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F662A397A1900D9FB26 /* Database+App.swift */; };
 		3A2F8F692A397A6B00D9FB26 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F682A397A6B00D9FB26 /* Database.swift */; };
 		3A2F8F6B2A397ABB00D9FB26 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F6A2A397ABB00D9FB26 /* AppView.swift */; };
+		3A2F8F6E2A397BAF00D9FB26 /* FileRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F6D2A397BAF00D9FB26 /* FileRowView.swift */; };
 		3A2F8F752A397CF100D9FB26 /* DatabaseButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F702A397CF100D9FB26 /* DatabaseButtons.swift */; };
 		3A2F8F772A397CF100D9FB26 /* InformationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F722A397CF100D9FB26 /* InformationStyle.swift */; };
 		3A2F8F932A46B3D700D9FB26 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2F8F922A46B3D700D9FB26 /* Files */; };
@@ -73,9 +74,11 @@
 		3A2F8F662A397A1900D9FB26 /* Database+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Database+App.swift"; sourceTree = "<group>"; };
 		3A2F8F682A397A6B00D9FB26 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		3A2F8F6A2A397ABB00D9FB26 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		3A2F8F6D2A397BAF00D9FB26 /* FileRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRowView.swift; sourceTree = "<group>"; };
 		3A2F8F702A397CF100D9FB26 /* DatabaseButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseButtons.swift; sourceTree = "<group>"; };
 		3A2F8F722A397CF100D9FB26 /* InformationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationStyle.swift; sourceTree = "<group>"; };
 		3A2F8F912A46B3C500D9FB26 /* Files */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Files; path = Packages/Files; sourceTree = "<group>"; };
+		3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderRowView.swift; sourceTree = "<group>"; };
 		3A67D7632A511F7600516FF2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		3A67D7652A511FFA00516FF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A827B002A342ABF006A1A96 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				3A2F8F6A2A397ABB00D9FB26 /* AppView.swift */,
+				3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */,
+				3A2F8F6D2A397BAF00D9FB26 /* FileRowView.swift */,
 				3A2F8F702A397CF100D9FB26 /* DatabaseButtons.swift */,
 				3A2F8F722A397CF100D9FB26 /* InformationStyle.swift */,
 				3AA564FE2A232B4C00EBD7FB /* SettingsView.swift */,
@@ -410,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A67D7662A511FFA00516FF2 /* AppDelegate.swift in Sources */,
+				3A2F8F952A4D4C5A00D9FB26 /* FolderRowView.swift in Sources */,
 				3AA565492A25BD6F00EBD7FB /* String.swift in Sources */,
 				3A2F8F692A397A6B00D9FB26 /* Database.swift in Sources */,
 				3A2F8F6B2A397ABB00D9FB26 /* AppView.swift in Sources */,
@@ -422,6 +428,7 @@
 				3A67D7642A511F7600516FF2 /* App.swift in Sources */,
 				3A2F8F752A397CF100D9FB26 /* DatabaseButtons.swift in Sources */,
 				3AA564D12A2310CD00EBD7FB /* ContentView.swift in Sources */,
+				3A2F8F6E2A397BAF00D9FB26 /* FileRowView.swift in Sources */,
 				3A2F8F772A397CF100D9FB26 /* InformationStyle.swift in Sources */,
 				3A27E7582A26EC9C00B3537B /* Constants.swift in Sources */,
 				3A27E75A2A26F20000B3537B /* MenuCommands.swift in Sources */,
