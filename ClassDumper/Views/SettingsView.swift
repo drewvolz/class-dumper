@@ -43,6 +43,16 @@ struct DebugSettingsView: View {
     @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
     @AppStorage("dialogLengthImportErrorLogging") var dialogLengthImportErrorLogging = 1000
 
+    let helpLogging = """
+Provides the original error message without truncation or removal \
+of log text. Please note that enabling this could present a dialog \
+that extends beyond the screen height.
+
+Note that this settings will disable the error length.
+
+This setting could be useful if you need to see the original message.
+"""
+    
     let helpErrorLength = """
 Represents the length of the error to output in a dialog from the CLI. \
 The current output is truncated to so this may be useful to override \
@@ -57,6 +67,7 @@ Note that verbose error dialogs will disable this setting.
                 Toggle(isOn: $enableVerboseImportErrorLogging) {
                     Text("Enable verbose import error messages")
                 }
+                .help(helpLogging)
                 .toggleStyle(CheckboxToggleStyle())
 
                 LabeledContent {
