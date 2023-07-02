@@ -5,6 +5,8 @@ import SwiftUI
 struct CreateFileButton: View {
     @Environment(\.fileRepository) private var fileRepository
     @EnvironmentObject var alertController: AlertController
+    
+    @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
 
     @State private var importing = false
     private var titleKey: LocalizedStringKey
@@ -88,7 +90,7 @@ extension CreateFileButton {
                 messageContent = "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)"
             } else {
                 messageTitle = "An unexpected error occurred"
-                messageContent = message.formatConsoleOutput()
+                messageContent = message.formatConsoleOutput(skip: enableVerboseImportErrorLogging)
             }
 
             alertController.info = AlertInfo(

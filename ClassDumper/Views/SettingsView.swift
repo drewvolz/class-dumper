@@ -40,9 +40,16 @@ struct GeneralSettingsView: View {
 }
 
 struct DebugSettingsView: View {
+    @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
 
     var body: some View {
         Form {
+            Section(header: Text("Error dialogs")) {
+                Toggle(isOn: $enableVerboseImportErrorLogging) {
+                    Text("Enable verbose import error messages")
+                }
+                .toggleStyle(CheckboxToggleStyle())
+            }
         }
         .padding(20)
     }
