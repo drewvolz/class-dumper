@@ -7,8 +7,12 @@ extension App {
 
         let primaryButton: Alert.Button = {
             switch info.level {
-            case .message: return .default(primaryButtonText)
-            case .warning: return .destructive(primaryButtonText)
+            case .message: return .default(primaryButtonText) {
+                info.primaryButtonAction()
+            }
+            case .warning: return .destructive(primaryButtonText) {
+                info.primaryButtonAction()
+            }
             }
         }()
 
