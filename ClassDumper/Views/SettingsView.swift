@@ -70,13 +70,11 @@ Note that verbose error dialogs will disable this setting.
                 .help(helpLogging)
                 .toggleStyle(CheckboxToggleStyle())
 
-                LabeledContent {
-                    TextField("", value: $dialogLengthImportErrorLogging, format: .number)
-                        .disabled($enableVerboseImportErrorLogging.wrappedValue)
-                } label: {
-                    Text("Error length")
-                }
-                .help(helpErrorLength)
+                TextField("", value: $dialogLengthImportErrorLogging, format: .number)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .formLabel(Text("Error length"))
+                    .help(helpErrorLength)
+                    .disabled($enableVerboseImportErrorLogging.wrappedValue)
             }
         }
         .padding(20)

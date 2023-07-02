@@ -21,6 +21,7 @@
 		3A67D7642A511F7600516FF2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7632A511F7600516FF2 /* App.swift */; };
 		3A67D7662A511FFA00516FF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7652A511FFA00516FF2 /* AppDelegate.swift */; };
 		3A67D7682A51566B00516FF2 /* String+ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */; };
+		3A67D76E2A51874D00516FF2 /* HorizontalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D76D2A51874D00516FF2 /* HorizontalAlignment.swift */; };
 		3A827B012A342ABF006A1A96 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A827B002A342ABF006A1A96 /* Endpoint.swift */; };
 		3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */; };
 		3AA564D32A2310CE00EBD7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D22A2310CE00EBD7FB /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		3A67D7632A511F7600516FF2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		3A67D7652A511FFA00516FF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConsoleOutput.swift"; sourceTree = "<group>"; };
+		3A67D76D2A51874D00516FF2 /* HorizontalAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAlignment.swift; sourceTree = "<group>"; };
 		3A827B002A342ABF006A1A96 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Class Dumper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperApp.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				3A67D7632A511F7600516FF2 /* App.swift */,
 				3A27E7522A26E86D00B3537B /* NSApplication.swift */,
 				3A67D7652A511FFA00516FF2 /* AppDelegate.swift */,
+				3A67D76D2A51874D00516FF2 /* HorizontalAlignment.swift */,
 				3AA565462A25BD4900EBD7FB /* Notification.swift */,
 				3AA565482A25BD6F00EBD7FB /* String.swift */,
 				3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */,
@@ -434,6 +437,7 @@
 				3A27E75A2A26F20000B3537B /* MenuCommands.swift in Sources */,
 				3A827B012A342ABF006A1A96 /* Endpoint.swift in Sources */,
 				3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */,
+				3A67D76E2A51874D00516FF2 /* HorizontalAlignment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
