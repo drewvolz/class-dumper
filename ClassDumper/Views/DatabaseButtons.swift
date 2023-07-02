@@ -107,19 +107,23 @@ struct DeleteFilesButton: View {
     @EnvironmentObject var alertController: AlertController
 
     private enum Mode {
-        case delete
+        case deleteFolder
         case deleteAfter(() -> Void)
         case deleteBefore(() -> Void)
-        case deleteWithPrompt(() -> Void)
+        case deleteAllRecordsWithPrompt(() -> Void)
     }
     
     private var titleKey: LocalizedStringKey
     private var mode: Mode
-    
-    /// Creates a button that simply deletes files.
-    init(_ titleKey: LocalizedStringKey) {
+
+    /// Used only for folder deletion
+    private var folderKey: String = ""
+
+    /// Creates a button that simply deletes folders and their records.
+    init(_ titleKey: LocalizedStringKey, folderKey: String) {
         self.titleKey = titleKey
-        self.mode = .delete
+        self.mode = .deleteFolder
+        self.folderKey = folderKey
     }
     
     /// Creates a button that deletes files soon after performing `action`.
@@ -146,14 +150,14 @@ struct DeleteFilesButton: View {
         afterWithPrompt action: @escaping () -> Void)
     {
         self.titleKey = titleKey
-        self.mode = .deleteWithPrompt(action)
+        self.mode = .deleteAllRecordsWithPrompt(action)
     }
     
     var body: some View {
         Button {
             switch mode {
-            case .delete:
-                _ = try! fileRepository.deleteAllFiles()
+            case .deleteFolder:
+                _ = try! fileRepository.deleteFolder(folderKey: folderKey)
                 
             case let .deleteAfter(action):
                 action()
@@ -166,7 +170,7 @@ struct DeleteFilesButton: View {
                 _ = try! fileRepository.deleteAllFiles()
                 action()
                 
-            case let .deleteWithPrompt(action):
+            case let .deleteAllRecordsWithPrompt(action):
                 alertController.info = AlertInfo(
                     id: .settingsDeleteSavedDataPrompt,
                     title: "Are you sure you want to delete the saved data?",
@@ -182,6 +186,9 @@ struct DeleteFilesButton: View {
         } label: {
             Label(titleKey, systemImage: "trash")
         }
+        .buttonStyle(BorderlessButtonStyle())
+        .foregroundColor(.red)
+
     }
 }
 
@@ -208,7 +215,7 @@ struct DatabaseButtons_Previews: PreviewProvider {
             VStack {
                 Text("Number of files: \(fileCount)")
                 CreateFileButton("Create File")
-                DeleteFilesButton("Delete Files")
+                DeleteFilesButton("Delete Files", folderKey: "")
             }
             .informationBox()
             .padding()

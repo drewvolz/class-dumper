@@ -147,6 +147,7 @@ extension FileRepository {
         }
     }
     
+    /// Inserts a collection of files.
     public func insert(_ files: [File]) throws {
         let _ = try dbWriter.write { db in
             try files.map { file in
@@ -162,6 +163,17 @@ extension FileRepository {
         }
     }
 
+    /// Deletes a folder and its associated records..
+    public func deleteFolder(folderKey: String) throws {
+        try dbWriter.write { db in
+            let matching = try File
+                .filter(Column("folder") == folderKey)
+                .fetchAll(db)
+                .map({ $0.id })
+
+            _ = try File.deleteAll(db, keys: matching)
+        }
+    }
     
     /// Deletes all files.
     public func deleteAllFiles() throws {

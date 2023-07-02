@@ -23,9 +23,13 @@ struct AppView: View {
 
     var body: some View {
         NavigationSplitView {
-            
-            if !directories.isEmpty {
-                SidebarListView(directories: directories)
+            if !files.isEmpty {
+                FolderRowView(deletionEnabled: deletionEnabled)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .automatic) {
+                            EditToolbarButton()
+                        }
+                    }
             } else {
                 EmptyFooter()
                 Spacer()
@@ -75,8 +79,18 @@ extension AppView {
                     if let file = entry {
                         FileView(file: file)
                     }
+    @ViewBuilder
+    func EditToolbarButton() -> some View {
+        if !files.isEmpty {
+            Button(action: {
+                withAnimation {
+                    deletionEnabled.toggle()
                 }
-            }
+            }, label: {
+                Label("Edit files", systemImage: "pencil")
+                    .foregroundColor(deletionEnabled ? .accentColor : .none)
+            })
+            .keyboardShortcut("e", modifiers: [.command])
         }
     }
 
