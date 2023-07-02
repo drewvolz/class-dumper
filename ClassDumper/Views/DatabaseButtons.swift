@@ -5,8 +5,6 @@ import SwiftUI
 struct CreateFileButton: View {
     @Environment(\.fileRepository) private var fileRepository
     @EnvironmentObject var alertController: AlertController
-    
-    @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
 
     @State private var importing = false
     private var titleKey: LocalizedStringKey
@@ -78,6 +76,8 @@ extension CreateFileButton {
     }
 
     func checkErrorOutput(message: String, outputDirectory: URL) {
+        /// Configuraable in app debug settings
+        @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
         if !message.isEmpty {
             var messageTitle = ""
             var messageContent = ""
