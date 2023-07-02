@@ -67,8 +67,9 @@ Note that verbose error dialogs will disable this setting.
                 Toggle(isOn: $enableVerboseImportErrorLogging) {
                     Text("Verbose error dialogs")
                 }
+                // while CheckboxToggleStyle is more macOS native, we don't get the correct alignment
+                .toggleStyle(SwitchToggleStyle())
                 .help(helpLogging)
-                .toggleStyle(CheckboxToggleStyle())
 
                 TextField("", value: $dialogLengthImportErrorLogging, format: .number)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
