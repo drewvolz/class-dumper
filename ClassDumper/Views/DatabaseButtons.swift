@@ -186,9 +186,6 @@ struct DeleteFilesButton: View {
         } label: {
             Label(titleKey, systemImage: "trash")
         }
-        .buttonStyle(BorderlessButtonStyle())
-        .foregroundColor(.red)
-
     }
 }
 

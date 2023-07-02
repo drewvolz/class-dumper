@@ -59,6 +59,8 @@ extension AppView {
                     if let folderName = folder {
                         Row(for: folderName, badge: count)
                         DeleteButton(for: folderName)
+                            .buttonStyle(BorderlessButtonStyle())
+                            .foregroundColor(.red)
                     }
                 }
             }
