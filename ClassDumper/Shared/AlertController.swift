@@ -7,7 +7,6 @@ struct AlertInfo: Identifiable {
     enum AlertType {
         case importNoObjcRuntimeInformation
         case settingsDeleteSavedDataPrompt
-        case settingsDeleteSavedDataError
     }
 
     enum AlertLevel {
