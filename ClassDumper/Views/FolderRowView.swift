@@ -64,6 +64,7 @@ extension AppView {
                     }
                 }
             }
+            .animation(.default, value: folderRows)
             .listStyle(SidebarListStyle())
         }
     }
