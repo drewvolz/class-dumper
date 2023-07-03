@@ -113,7 +113,7 @@ extension AppView {
 
     private func EmptyFooter() -> some View {
         VStack {
-            Text("Start by opening a file to get going with class dumping.")
+            Text("Open a file to get started with class dumping.")
                 .informationStyle()
             
             CreateFileButton()
