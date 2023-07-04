@@ -30,6 +30,7 @@ Note that verbose error dialogs will disable this setting.
                 .help(helpLogging)
 
             HStack {
+                // TODO: Ideally we could use a singular `TextField` for both disabled states of input (see "disabled" and "value")
                 if !$enableVerboseImportErrorLogging.wrappedValue {
                     TextField(defaultCharacterLengthFormatted, value: $dialogLengthImportErrorLogging, format: .number)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
