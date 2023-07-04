@@ -77,9 +77,9 @@ extension CreateFileButton {
 
     func checkErrorOutput(message: String, outputDirectory: URL) {
         /// Configuraable in app debug settings
-        @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = false
+        @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = Preferences.Defaults.verboseErrors
         /// Configurable in app debug settings
-        @AppStorage("dialogLengthImportErrorLogging") var dialogLengthImportErrorLogging = 1000
+        @AppStorage("dialogLengthImportErrorLogging") var dialogLengthImportErrorLogging = Preferences.Defaults.dialogLength
 
         if !message.isEmpty {
             var messageTitle = ""
