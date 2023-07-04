@@ -42,7 +42,14 @@ Note that verbose error dialogs will disable this setting.
                     .disabled(true)
                 }
 
-                Text("characters in the shown message")
+                /**
+                 * We'd like to use `Morphology` and `Morphology.GrammaticalNumber` here to take advantage of inflection
+                 * rules for `.zero`, `.singular`, and `.plural` but that would return both the morphed string and the count
+                 * that we inflected on e.g. "1 character" or "1,000 characters". Because we are displaying the control next to the output,
+                 * we do not want that duplicated. It's not suitable to write our own grammar, coerce the output into an array of characters,
+                 * split by whitespace, and return the last component (the changed input).
+                 */
+                Text("\(dialogLengthImportErrorLogging == 1 ? "character" : "characters") in the message")
             }
             .help(helpErrorLength)
         }
