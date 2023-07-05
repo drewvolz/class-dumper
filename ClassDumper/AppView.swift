@@ -10,7 +10,7 @@ struct AppView: View {
 
     @Query(FileRequest())
     fileprivate var files: FileDatabase
-    
+
     @State var deletionEnabled = false
 
     private var filteredFileNames: FileDatabase {
