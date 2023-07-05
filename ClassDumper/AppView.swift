@@ -3,7 +3,7 @@ import GRDBQuery
 import Files
 import SwiftUI
 
-typealias FileDatabase = Array<File?>
+typealias FileDatabase = Array<File>
 
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
@@ -17,7 +17,7 @@ struct AppView: View {
         if searchText.isEmpty {
             return files
         } else {
-            return files.filter { $0?.name?.forSearch().contains(searchText.forSearch()) ?? false }
+            return files.filter { $0.name.forSearch().contains(searchText.forSearch()) }
         }
     }
     

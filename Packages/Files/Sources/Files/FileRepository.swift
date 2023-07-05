@@ -70,11 +70,9 @@ public struct FileRepository {
             // See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/databaseschema>
             try db.create(table: "file") { t in
                 t.autoIncrementedPrimaryKey("id")
-                t.column("name", .text)
-                    .notNull().collate(.localizedStandardCompare)
-                t.column("folder", .text)
-                    .notNull().collate(.localizedStandardCompare)
-                t.column("contents", .text)
+                t.column("name", .text).notNull()
+                t.column("folder", .text).notNull()
+                t.column("contents", .text).notNull()
             }
 
             // create a unique index to force records to be unique by both file name and folder name
