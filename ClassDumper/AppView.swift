@@ -8,14 +8,14 @@ typealias FileDatabase = Array<File>
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
 
-    @Query(FileRequest())
-    fileprivate var files: FileDatabase
+    @Query(FileCountRequest())
+    fileprivate var fileCount: Int
 
     @State var deletionEnabled = false
 
     var body: some View {
         NavigationSplitView {
-            if !files.isEmpty {
+            if fileCount != 0 {
                 FolderRowView(deletionEnabled: deletionEnabled)
                     .toolbar {
                         ToolbarItemGroup(placement: .automatic) {
@@ -44,7 +44,7 @@ extension AppView {
 
     @ViewBuilder
     func EditToolbarButton() -> some View {
-        if !files.isEmpty {
+        if fileCount != 0 {
             Button(action: {
                 withAnimation {
                     deletionEnabled.toggle()
@@ -112,12 +112,12 @@ extension AppView {
 }
 
 /// A @Query request that observes the file (any file, actually) in the database
-private struct FileRequest: Queryable {
-    static var defaultValue: FileDatabase { [] }
+private struct FileCountRequest: Queryable {
+    static var defaultValue: Int { 0 }
     
-    func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<FileDatabase> {
+    func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<Int> {
         ValueObservation
-            .tracking(File.fetchAll)
+            .tracking(File.fetchCount)
             .publisher(in: fileRepository.reader, scheduling: .immediate)
     }
 }
