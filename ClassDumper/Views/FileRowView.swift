@@ -12,7 +12,7 @@ struct FileRowRequest: Queryable {
         return ValueObservation.tracking { db in
             let results = try File
                 .order(Column("name").ascNullsLast)
-                .filter(Column("folder") == "")
+//                .filter(Column("folder") == "")
                 .fetchAll(db)
                 .map { ($0.folder, $0.name, $0.contents) }
 
@@ -25,6 +25,7 @@ struct FileRowRequest: Queryable {
 struct FileRowView: View {
     @Query(FileRowRequest())
     var fileRows: FileRowResponse
+    var selectedFolder: String
     
     func DetailView(fileContents: String) -> some View {
         Group{
@@ -40,7 +41,7 @@ struct FileRowView: View {
     
     var body: some View {
         List(fileRows, id:\.1) { folderName, fileName, content in
-            if let name = fileName {
+            if let name = fileName, folderName == selectedFolder {
                 NavigationLink(destination: DetailView(fileContents: content ?? "")) {
                     Label {
                         Text(name)
@@ -50,7 +51,7 @@ struct FileRowView: View {
                             .foregroundColor(.accentColor)
                     }
                 }
-        }
+            }
         }
     }
 }

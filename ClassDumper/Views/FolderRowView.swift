@@ -43,7 +43,7 @@ extension AppView {
         @ViewBuilder
         func Row(for folderName: String, badge: Int) -> some View {
             Label {
-                NavigationLink(destination: FileRowView()) {
+                NavigationLink(destination: FileRowView(selectedFolder: folderName)) {
                     Text(folderName)
                 }
             } icon: {
