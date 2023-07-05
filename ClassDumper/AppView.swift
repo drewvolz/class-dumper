@@ -13,16 +13,6 @@ struct AppView: View {
 
     @State var deletionEnabled = false
 
-    private var filteredFileNames: FileDatabase {
-        if searchText.isEmpty {
-            return files
-        } else {
-            return files.filter { $0.name.forSearch().contains(searchText.forSearch()) }
-        }
-    }
-    
-    @State private var searchText = ""
-
     var body: some View {
         NavigationSplitView {
             if !files.isEmpty {
@@ -46,7 +36,6 @@ struct AppView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.folderSelectedFromFinderNotification)) { _ in
             parseDirectory()
         }
-        .searchable(text: $searchText, prompt: "Search files")
         .navigationTitle(NSApplication.bundleName)
     }
 }

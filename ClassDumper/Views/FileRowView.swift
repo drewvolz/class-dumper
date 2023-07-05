@@ -27,6 +27,16 @@ struct FileRowView: View {
     var fileRows: FileRowResponse
     var selectedFolder: String
     
+    @State private var searchText = ""
+    
+    private var filteredFileNames: Array<(Optional<String>, Optional<String>, Optional<String>)> {
+        if searchText.isEmpty {
+            return fileRows
+        } else {
+            return fileRows.filter { $0.1?.forSearch().contains(searchText.forSearch()) ?? false }
+        }
+    }
+    
     func DetailView(fileContents: String) -> some View {
         Group{
             ZStack {
@@ -40,7 +50,7 @@ struct FileRowView: View {
     }
     
     var body: some View {
-        List(fileRows, id:\.1) { folderName, fileName, content in
+        List(filteredFileNames, id:\.1) { folderName, fileName, content in
             if let name = fileName, folderName == selectedFolder {
                 NavigationLink(destination: DetailView(fileContents: content ?? "")) {
                     Label {
@@ -53,6 +63,7 @@ struct FileRowView: View {
                 }
             }
         }
+        .searchable(text: $searchText, prompt: "Search files")
     }
 }
 
