@@ -3,9 +3,10 @@ import SwiftUI
 extension App {
     func buildAlert(_ info: AlertInfo) -> Alert {
         let messageText = Text(info.message)
-        let primaryButtonText = Text(info.primaryButtonMessage)
 
         let primaryButton: Alert.Button = {
+            let primaryButtonText = Text(info.primaryButtonMessage)
+
             switch info.level {
             case .message: return .default(primaryButtonText) {
                 info.primaryButtonAction()
