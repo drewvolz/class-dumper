@@ -18,7 +18,7 @@ struct AlertInfo: Identifiable {
          title: String,
          message: String,
          level: AlertLevel,
-         primaryButtonMessage: String = "",
+         primaryButtonMessage: String = "OK",
          primaryButtonAction: @escaping Action = closure
     ) {
        self.id = id

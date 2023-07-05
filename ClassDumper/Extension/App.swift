@@ -16,6 +16,14 @@ extension App {
             }
         }()
 
+        if info.level == .message {
+            return Alert(
+                title: Text(info.title),
+                message: messageText,
+                dismissButton: primaryButton
+            )
+        }
+
         return Alert(
             title: Text(info.title),
             message: messageText,
