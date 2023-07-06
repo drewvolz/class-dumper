@@ -2,8 +2,9 @@ import Files
 import SwiftUI
 import GRDB
 import GRDBQuery
+import OrderedCollections
 
-typealias FolderRowResponse = Dictionary<String?, Int>
+typealias FolderRowResponse = OrderedDictionary<String, Int>
 
 struct FolderRowRequest: Queryable {
     static var defaultValue: FolderRowResponse { FolderRowResponse() }
@@ -15,11 +16,7 @@ struct FolderRowRequest: Queryable {
                 .fetchAll(db)
                 .map { ($0.folder, 1) }
 
-            // TODO: Dictionary doesn't preserve order, need to implement an alternative
-            // which could be done with a direct SQL call to improve a few aspects:
-            // 1. Not fetching the whole database just to get an aggregate of folder names and counts
-            // 2. Delivering results sorted by grdb
-            return Dictionary(results, uniquingKeysWith: +)
+            return OrderedDictionary(results, uniquingKeysWith: +)
         }
         .publisher(in: fileRepository.reader, scheduling: .immediate)
     }
