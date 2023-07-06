@@ -3,7 +3,7 @@ import SwiftUI
 import GRDB
 import GRDBQuery
 
-typealias FileRowResponse = [(String?, String?, String?)]
+typealias FileRowResponse = [(Int64?, String, String, String)]
 
 struct FileRowRequest: Queryable {
     static var defaultValue: FileRowResponse { FileRowResponse() }
@@ -14,7 +14,7 @@ struct FileRowRequest: Queryable {
                 .order(Column("name").ascNullsLast)
 //                .filter(Column("folder") == "")
                 .fetchAll(db)
-                .map { ($0.folder, $0.name, $0.contents) }
+                .map { ($0.id, $0.folder, $0.name, $0.contents) }
 
             return results
         }
@@ -29,18 +29,21 @@ struct FileRowView: View {
     
     @State private var searchText = ""
     
-    private var filteredFileNames: Array<(Optional<String>, Optional<String>, Optional<String>)> {
+    private var filteredFileNames: FileRowResponse {
         if searchText.isEmpty {
             return fileRows
         } else {
-            return fileRows.filter { $0.1?.forSearch().contains(searchText.forSearch()) ?? false }
+            return fileRows.filter { item in
+                let filename = item.2
+                return filename.forSearch().contains(searchText.forSearch())
+            }
         }
     }
     
     var body: some View {
-        List(filteredFileNames, id:\.1) { folderName, fileName, content in
+        List(filteredFileNames, id:\.0) { fileId, folderName, fileName, content in
             if let name = fileName, folderName == selectedFolder {
-                NavigationLink(destination: DetailView(fileContents: content ?? "")) {
+                NavigationLink(destination: DetailView(fileContents: content)) {
                     Label {
                         Text(name)
                     } icon: {
