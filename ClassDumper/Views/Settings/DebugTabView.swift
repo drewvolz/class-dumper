@@ -25,7 +25,7 @@ Note that verbose error dialogs will disable this setting.
     let defaultCharacterLengthFormatted = String(Preferences.Defaults.dialogLength.formatted())
 
     var body: some View {
-        Section {
+        VStack(alignment: .leading, spacing: 20) {
             Toggle("Show unfiltered error dialog messages", isOn: $enableVerboseImportErrorLogging)
                 .help(helpLogging)
 
