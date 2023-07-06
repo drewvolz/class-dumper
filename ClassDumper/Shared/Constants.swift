@@ -1,4 +1,5 @@
 import SwiftUI
+import CodeEditor
 
 struct Keys {
     static let UITesting = "--uitesting"
@@ -10,7 +11,11 @@ let outputDirectory = savedOutputDirectoryBase.appendingPathComponent(savedOutpu
 
 struct Preferences {
     enum Defaults {
+        // error dialogs
         static var verboseErrors = false
         static var dialogLength = 1000
+
+        // source code viewer
+        static var themeName: CodeEditor.ThemeName = .default
     }
 }

@@ -17,6 +17,7 @@ struct ClassDumperApp: App {
         }
         .commands {
             MenuCommands()
+            TextFormattingCommands()
         }
 
         #if os(macOS)

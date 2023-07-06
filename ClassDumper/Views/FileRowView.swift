@@ -46,6 +46,8 @@ struct FileRowView: View {
                 NavigationLink(destination: DetailView(fileContents: content)) {
                     Label {
                         Text(name)
+                            .truncationMode(.middle)
+                            .lineLimit(1)
                     } icon: {
                         Image(systemName: "doc")
                             .symbolVariant(.fill)

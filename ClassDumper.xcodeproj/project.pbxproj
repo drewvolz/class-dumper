@@ -26,6 +26,7 @@
 		3A67D7762A549F6700516FF2 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7752A549F6700516FF2 /* Styles.swift */; };
 		3A67D7782A56542300516FF2 /* FileContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7772A56542300516FF2 /* FileContentsView.swift */; };
 		3A67D77B2A56637900516FF2 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 3A67D77A2A56637900516FF2 /* OrderedCollections */; };
+		3A67D7852A5680B400516FF2 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 3A67D7842A5680B400516FF2 /* CodeEditor */; };
 		3A827B012A342ABF006A1A96 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A827B002A342ABF006A1A96 /* Endpoint.swift */; };
 		3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */; };
 		3AA564D32A2310CE00EBD7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D22A2310CE00EBD7FB /* Assets.xcassets */; };
@@ -115,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A67D7852A5680B400516FF2 /* CodeEditor in Frameworks */,
 				3A2F8F932A46B3D700D9FB26 /* Files in Frameworks */,
 				3AF90A432A39456700A4B9ED /* GRDBQuery in Frameworks */,
 				3A67D77B2A56637900516FF2 /* OrderedCollections in Frameworks */,
@@ -297,6 +299,7 @@
 				3AF90A422A39456700A4B9ED /* GRDBQuery */,
 				3A2F8F922A46B3D700D9FB26 /* Files */,
 				3A67D77A2A56637900516FF2 /* OrderedCollections */,
+				3A67D7842A5680B400516FF2 /* CodeEditor */,
 			);
 			productName = ClassDumpUser;
 			productReference = 3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */;
@@ -373,6 +376,7 @@
 			packageReferences = (
 				3AF90A412A39456700A4B9ED /* XCRemoteSwiftPackageReference "GRDBQuery" */,
 				3A67D7792A56637900516FF2 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				3A67D7832A5680B400516FF2 /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = 3AA564CC2A2310CD00EBD7FB /* Products */;
 			projectDirPath = "";
@@ -845,6 +849,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		3A67D7832A5680B400516FF2 /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		3AF90A412A39456700A4B9ED /* XCRemoteSwiftPackageReference "GRDBQuery" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/groue/GRDBQuery";
@@ -864,6 +876,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3A67D7792A56637900516FF2 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		3A67D7842A5680B400516FF2 /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A67D7832A5680B400516FF2 /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
 		};
 		3AF90A422A39456700A4B9ED /* GRDBQuery */ = {
 			isa = XCSwiftPackageProductDependency;
