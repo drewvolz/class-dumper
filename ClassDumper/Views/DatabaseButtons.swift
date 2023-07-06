@@ -44,7 +44,7 @@ extension CreateFileButton {
         try? FileManager.default.createDirectory(atPath: outputDirectoryURL.path, withIntermediateDirectories: true)
 
         if let path = Bundle.main.url(forResource: "class-dump", withExtension: "") {
-            let errorOutput = executeCommand(executableURL:path, args: [file.resolvingSymlinksInPath().path, "-H", "-o", outputDirectoryURL.path])
+            let errorOutput = executeCommand(executableURL:path, args: [file.resolvingSymlinksInPath().path, "-t", "-H", "-o", outputDirectoryURL.path])
             checkErrorOutput(message: errorOutput, outputDirectory: outputDirectoryURL)
         }
     }
