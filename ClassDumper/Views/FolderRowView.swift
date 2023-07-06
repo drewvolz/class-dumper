@@ -55,6 +55,10 @@ extension AppView {
                 HStack {
                     if let folderName = folder {
                         Row(for: folderName, badge: count)
+                            .contextMenu {
+                               DeleteFilesButton("Delete", folderKey: folderName)
+                            }
+
                         DeleteButton(for: folderName)
                             .buttonStyle(BorderlessButtonStyle())
                             .foregroundColor(.red)
