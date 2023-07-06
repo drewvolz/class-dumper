@@ -33,12 +33,10 @@ Note that verbose error dialogs will disable this setting.
                 // TODO: Ideally we could use a singular `TextField` for both disabled states of input (see "disabled" and "value")
                 if !$enableVerboseImportErrorLogging.wrappedValue {
                     TextField(defaultCharacterLengthFormatted, value: $dialogLengthImportErrorLogging, format: .number)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .fixedSize()
+                    .modifier(ErrorLengthViewModifier())
                 } else {
                     TextField(defaultCharacterLengthFormatted, value: .constant(Preferences.Defaults.dialogLength), format: .number)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .fixedSize()
+                    .modifier(ErrorLengthViewModifier())
                     .disabled(true)
                 }
 
@@ -54,5 +52,18 @@ Note that verbose error dialogs will disable this setting.
             .help(helpErrorLength)
         }
         .modifier(PreferencesTabViewModifier(sectionTitle: "Errors"))
+    }
+}
+
+extension DebugSettingsView {
+    
+    struct ErrorLengthViewModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .multilineTextAlignment(.trailing)
+                .frame(minWidth: 55, maxWidth: 85)
+                .fixedSize()
+        }
     }
 }
