@@ -37,18 +37,6 @@ struct FileRowView: View {
         }
     }
     
-    func DetailView(fileContents: String) -> some View {
-        Group{
-            ZStack {
-                TextEditor(text: .constant(fileContents))
-                    .padding(8)
-                    .font(.system(.body, design: .monospaced))
-                    .foregroundColor(Color(NSColor.labelColor))
-            }
-            .background(Color(NSColor.textBackgroundColor))
-        }
-    }
-    
     var body: some View {
         List(filteredFileNames, id:\.1) { folderName, fileName, content in
             if let name = fileName, folderName == selectedFolder {
