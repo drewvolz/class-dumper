@@ -12,6 +12,7 @@ A macOS app around the [class-dump][1] utility for examining Objective-C runtime
 - Browse all runs from a finder-like interface
 - Manage previous runs or remove all content
 - Ssearch results with per-file matching
+- Theming and syntax highlighting with [ZeeZide/CodeEditor][3]
 
 ![screenshot of class dumper][image-1]
 
@@ -21,5 +22,6 @@ Thank you for your interest in contributing to this project. Contributions are w
 
 [1]: http://stevenygard.com/projects/class-dump/
 [2]: https://github.com/groue/GRDB.swift
+[3]: https://github.com/ZeeZide/CodeEditor
 
 [image-1]: ./screenshots/app.png

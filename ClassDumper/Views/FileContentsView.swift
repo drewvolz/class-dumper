@@ -1,13 +1,18 @@
 import SwiftUI
+import CodeEditor
 
-func DetailView(fileContents: String) -> some View {
-    Group{
-        ZStack {
-            TextEditor(text: .constant(fileContents))
-                .padding(8)
-                .font(.system(.body, design: .monospaced))
-                .foregroundColor(Color(NSColor.labelColor))
-        }
-        .background(Color(NSColor.textBackgroundColor))
+struct DetailView: View {
+    @AppStorage("codeViewerTheme") var theme: CodeEditor.ThemeName = Preferences.Defaults.themeName
+    @AppStorage("fontsize") var fontSize = Int(NSFont.systemFontSize)
+
+    var fileContents: String
+
+    var body: some View {
+        CodeEditor(source: fileContents,
+                   language: .objectivec,
+                   theme: theme,
+                   fontSize: .init(get: { CGFloat(fontSize)  },
+                                   set: { fontSize = Int($0) }),
+                   flags: [.defaultViewerFlags])
     }
 }
