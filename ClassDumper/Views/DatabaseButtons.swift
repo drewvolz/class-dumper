@@ -22,7 +22,7 @@ struct CreateFileButton: View {
         .keyboardShortcut("o", modifiers: [.command])
         .fileImporter(
             isPresented: $importing,
-            allowedContentTypes: [.application, .executable]
+            allowedContentTypes: [.application, .executable, .symbolicLink, .aliasFile]
         ) { result in
             switch result {
             case .success(let file):
@@ -44,7 +44,7 @@ extension CreateFileButton {
         try? FileManager.default.createDirectory(atPath: outputDirectoryURL.path, withIntermediateDirectories: true)
 
         if let path = Bundle.main.url(forResource: "class-dump", withExtension: "") {
-            let errorOutput = executeCommand(executableURL:path, args: [file.path, "-H", "-o", outputDirectoryURL.path])
+            let errorOutput = executeCommand(executableURL:path, args: [file.resolvingSymlinksInPath().path, "-H", "-o", outputDirectoryURL.path])
             checkErrorOutput(message: errorOutput, outputDirectory: outputDirectoryURL)
         }
     }
