@@ -33,7 +33,7 @@ extension MenuCommands {
 
     func HelpSection() -> some View {
         Group {
-            Button("Github Repo") {
+            Button("Github repo") {
                 if let githubUrl = URL(string: Endpoint.githubBaseUrl) {
                     openURL(githubUrl)
                 }

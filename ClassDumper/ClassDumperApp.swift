@@ -1,3 +1,4 @@
+import GRDBQuery
 import SwiftUI
 
 @main
@@ -7,16 +8,12 @@ struct ClassDumperApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .alert(item: $alertController.info, content: { info in
-                    Alert(title: Text(info.title),
-                          message: Text(info.message),
-                          primaryButton: .destructive(Text(info.primaryButtonMessage)) {
-                            info.primaryButtonAction()
-                          },
-                          secondaryButton: .cancel()
-                    )
-                })
+            AppView()
+                .environment(\.fileRepository, .shared)
+                .environmentObject(alertController)
+                .alert(item: $alertController.info) { info in
+                   buildAlert(info)
+                }
         }
         .commands {
             MenuCommands()
@@ -25,6 +22,7 @@ struct ClassDumperApp: App {
         #if os(macOS)
         Settings {
            SettingsView()
+                .environment(\.fileRepository, .shared)
                 .environmentObject(alertController)
         }
         #endif
