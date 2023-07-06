@@ -17,5 +17,6 @@ struct Preferences {
 
         // source code viewer
         static var themeName: CodeEditor.ThemeName = .default
+        static var fontSize: Int = Int(NSFont.systemFontSize)
     }
 }

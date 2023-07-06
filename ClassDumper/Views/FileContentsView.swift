@@ -3,7 +3,7 @@ import CodeEditor
 
 struct DetailView: View {
     @AppStorage("codeViewerTheme") var theme: CodeEditor.ThemeName = Preferences.Defaults.themeName
-    @AppStorage("fontsize") var fontSize = Int(NSFont.systemFontSize)
+    @AppStorage("codeViewerFontSize") var fontSize: Int = Preferences.Defaults.fontSize
 
     var fileContents: String
 
