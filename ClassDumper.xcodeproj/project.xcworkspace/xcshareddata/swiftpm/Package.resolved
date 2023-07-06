@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "codeeditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ZeeZide/CodeEditor.git",
+      "state" : {
+        "revision" : "180bde07b44dea839b32873bd8586ba146fa9106",
+        "version" : "1.2.2"
+      }
+    },
+    {
       "identity" : "grdb.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift",
@@ -16,6 +25,15 @@
       "state" : {
         "revision" : "be64298b4f9d70510226fa7e698aef84f41cec02",
         "version" : "0.7.0"
+      }
+    },
+    {
+      "identity" : "highlightr",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/raspu/Highlightr",
+      "state" : {
+        "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
+        "version" : "2.1.2"
       }
     },
     {
