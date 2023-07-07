@@ -55,6 +55,7 @@ extension AppView {
                 HStack {
                     if let folderName = folder {
                         Row(for: folderName, badge: count)
+                            .accessibilityIdentifier(Keys.Sidebar.Row)
                             .contextMenu {
                                DeleteFilesButton("Delete", folderKey: folderName)
                             }
@@ -67,6 +68,7 @@ extension AppView {
             }
             .animation(.default, value: folderRows)
             .listStyle(SidebarListStyle())
+            .accessibilityIdentifier(Keys.Sidebar.List)
         }
     }
 }

@@ -20,6 +20,20 @@
                ReferencedContainer = "container:ClassDumper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3AA564E52A2310CE00EBD7FB"
+               BuildableName = "ClassDumperUITests.xctest"
+               BlueprintName = "ClassDumperUITests"
+               ReferencedContainer = "container:ClassDumper.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
