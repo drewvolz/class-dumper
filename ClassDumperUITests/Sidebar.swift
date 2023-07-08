@@ -5,7 +5,6 @@ struct Sidebar: Screen {
 
     enum Shortcut: String {
         case filepicker = "o"
-        case search = "f"
         case settings = ","
     }
 
