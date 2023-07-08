@@ -29,12 +29,15 @@
 		3A67D7852A5680B400516FF2 /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 3A67D7842A5680B400516FF2 /* CodeEditor */; };
 		3A827B012A342ABF006A1A96 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A827B002A342ABF006A1A96 /* Endpoint.swift */; };
 		3A91CDC32A577B0E00C85A27 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDC22A577B0E00C85A27 /* Binding.swift */; };
+		3A91CDD62A57B95E00C85A27 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDD52A57B95E00C85A27 /* UITestCase.swift */; };
+		3A91CDDA2A57BEDE00C85A27 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDD92A57BEDE00C85A27 /* Keys.swift */; };
+		3A91CDDB2A57BEEE00C85A27 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDD92A57BEDE00C85A27 /* Keys.swift */; };
+		3A91CDDD2A57BFC300C85A27 /* ImportFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDDC2A57BFC300C85A27 /* ImportFlow.swift */; };
 		3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */; };
 		3AA564D32A2310CE00EBD7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D22A2310CE00EBD7FB /* Assets.xcassets */; };
 		3AA564D72A2310CE00EBD7FB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D62A2310CE00EBD7FB /* Preview Assets.xcassets */; };
-		3AA564E12A2310CE00EBD7FB /* ClassDumpUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564E02A2310CE00EBD7FB /* ClassDumpUserTests.swift */; };
-		3AA564EB2A2310CE00EBD7FB /* ClassDumpUserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564EA2A2310CE00EBD7FB /* ClassDumpUserUITests.swift */; };
-		3AA564ED2A2310CE00EBD7FB /* ClassDumpUserUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564EC2A2310CE00EBD7FB /* ClassDumpUserUITestsLaunchTests.swift */; };
+		3AA564E12A2310CE00EBD7FB /* ClassDumperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564E02A2310CE00EBD7FB /* ClassDumperTests.swift */; };
+		3AA564EB2A2310CE00EBD7FB /* ClassDumperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564EA2A2310CE00EBD7FB /* ClassDumperUITests.swift */; };
 		3AA564FF2A232B4C00EBD7FB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564FE2A232B4C00EBD7FB /* SettingsView.swift */; };
 		3AA565012A23438900EBD7FB /* class-dump in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AA565002A23438900EBD7FB /* class-dump */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3AA565422A2575FB00EBD7FB /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA565412A2575FB00EBD7FB /* AlertController.swift */; };
@@ -95,16 +98,18 @@
 		3A67D7772A56542300516FF2 /* FileContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileContentsView.swift; sourceTree = "<group>"; };
 		3A827B002A342ABF006A1A96 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		3A91CDC22A577B0E00C85A27 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
+		3A91CDD52A57B95E00C85A27 /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
+		3A91CDD92A57BEDE00C85A27 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		3A91CDDC2A57BFC300C85A27 /* ImportFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFlow.swift; sourceTree = "<group>"; };
 		3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Class Dumper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperApp.swift; sourceTree = "<group>"; };
 		3AA564D22A2310CE00EBD7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AA564D42A2310CE00EBD7FB /* ClassDumper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassDumper.entitlements; sourceTree = "<group>"; };
 		3AA564D62A2310CE00EBD7FB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3AA564DC2A2310CE00EBD7FB /* ClassDumperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassDumperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AA564E02A2310CE00EBD7FB /* ClassDumpUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumpUserTests.swift; sourceTree = "<group>"; };
+		3AA564E02A2310CE00EBD7FB /* ClassDumperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperTests.swift; sourceTree = "<group>"; };
 		3AA564E62A2310CE00EBD7FB /* ClassDumperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassDumperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AA564EA2A2310CE00EBD7FB /* ClassDumpUserUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumpUserUITests.swift; sourceTree = "<group>"; };
-		3AA564EC2A2310CE00EBD7FB /* ClassDumpUserUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumpUserUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3AA564EA2A2310CE00EBD7FB /* ClassDumperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperUITests.swift; sourceTree = "<group>"; };
 		3AA564FE2A232B4C00EBD7FB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3AA565002A23438900EBD7FB /* class-dump */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "class-dump"; sourceTree = "<group>"; };
 		3AA565412A2575FB00EBD7FB /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
@@ -146,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				3A27E7572A26EC9C00B3537B /* Constants.swift */,
+				3A91CDD92A57BEDE00C85A27 /* Keys.swift */,
 				3AA565412A2575FB00EBD7FB /* AlertController.swift */,
 				3A27E7592A26F20000B3537B /* MenuCommands.swift */,
 			);
@@ -241,7 +247,7 @@
 		3AA564DF2A2310CE00EBD7FB /* ClassDumperTests */ = {
 			isa = PBXGroup;
 			children = (
-				3AA564E02A2310CE00EBD7FB /* ClassDumpUserTests.swift */,
+				3AA564E02A2310CE00EBD7FB /* ClassDumperTests.swift */,
 			);
 			path = ClassDumperTests;
 			sourceTree = "<group>";
@@ -249,8 +255,9 @@
 		3AA564E92A2310CE00EBD7FB /* ClassDumperUITests */ = {
 			isa = PBXGroup;
 			children = (
-				3AA564EA2A2310CE00EBD7FB /* ClassDumpUserUITests.swift */,
-				3AA564EC2A2310CE00EBD7FB /* ClassDumpUserUITestsLaunchTests.swift */,
+				3A91CDD52A57B95E00C85A27 /* UITestCase.swift */,
+				3AA564EA2A2310CE00EBD7FB /* ClassDumperUITests.swift */,
+				3A91CDDC2A57BFC300C85A27 /* ImportFlow.swift */,
 			);
 			path = ClassDumperUITests;
 			sourceTree = "<group>";
@@ -462,6 +469,7 @@
 				3AA564FF2A232B4C00EBD7FB /* SettingsView.swift in Sources */,
 				3A67D7642A511F7600516FF2 /* App.swift in Sources */,
 				3A2F8F752A397CF100D9FB26 /* DatabaseButtons.swift in Sources */,
+				3A91CDDA2A57BEDE00C85A27 /* Keys.swift in Sources */,
 				3A67D7682A51566B00516FF2 /* String+ConsoleOutput.swift in Sources */,
 				3A2F8F6E2A397BAF00D9FB26 /* FileRowView.swift in Sources */,
 				3A2F8F772A397CF100D9FB26 /* InformationStyle.swift in Sources */,
@@ -477,7 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AA564E12A2310CE00EBD7FB /* ClassDumpUserTests.swift in Sources */,
+				3AA564E12A2310CE00EBD7FB /* ClassDumperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,8 +493,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AA564ED2A2310CE00EBD7FB /* ClassDumpUserUITestsLaunchTests.swift in Sources */,
-				3AA564EB2A2310CE00EBD7FB /* ClassDumpUserUITests.swift in Sources */,
+				3A91CDDB2A57BEEE00C85A27 /* Keys.swift in Sources */,
+				3AA564EB2A2310CE00EBD7FB /* ClassDumperUITests.swift in Sources */,
+				3A91CDDD2A57BFC300C85A27 /* ImportFlow.swift in Sources */,
+				3A91CDD62A57B95E00C85A27 /* UITestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,7 +636,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ClassDumper/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Class Dumper";
@@ -646,6 +656,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.drewvolz.ClassDumper;
 				PRODUCT_NAME = "Class Dumper";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -689,6 +700,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.drewvolz.ClassDumper;
 				PRODUCT_NAME = "Class Dumper";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -736,6 +748,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -785,6 +798,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;

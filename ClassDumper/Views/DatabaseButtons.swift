@@ -26,8 +26,7 @@ struct CreateFileButton: View {
         ) { result in
             switch result {
             case .success(let file):
-                onFileImport(file: file)
-                NotificationCenter.default.post(name: .folderSelectedFromFinderNotification, object: nil)
+                success(with: file)
             case .failure(let error):
                 print("Unable to read file contents: \(error.localizedDescription)")
             }
@@ -36,6 +35,23 @@ struct CreateFileButton: View {
 }
 
 extension CreateFileButton {
+
+    func getSelectedFilePath(for path: URL) -> URL {
+        var selectedPath = path
+        let bundledPath = Bundle.main.url(forResource: "class-dump", withExtension: "")
+
+        if CommandLine.arguments.contains(Keys.UITesting), let bundled = bundledPath {
+            selectedPath = bundled
+        }
+
+        return selectedPath
+    }
+
+    func success(with path: URL) {
+        onFileImport(file: getSelectedFilePath(for: path))
+        NotificationCenter.default.post(name: .folderSelectedFromFinderNotification, object: nil)
+    }
+
     func onFileImport(file: URL) {
         // TODO: allow the user to configure the save location
         let outputDirectoryURL = outputDirectory
