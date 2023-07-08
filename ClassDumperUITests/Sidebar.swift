@@ -42,9 +42,7 @@ struct Sidebar: Screen {
     func openApp(named appName: String) -> Self {
         open(.filepicker)
 
-        let sheet = app.sheets.firstMatch
-
-        sheet.outlineRows.staticTexts["Applications"].tap()
+        app.sheets.firstMatch.outlineRows.staticTexts["Applications"].tap()
 
         app.typeText(appName)
         app.typeKey(.return, modifierFlags: [])
