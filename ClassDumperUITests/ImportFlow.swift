@@ -8,10 +8,16 @@ struct ImportFlow: Screen {
         case settings = ","
     }
 
-    private enum FocusField: String {
+    private enum FocusField {
         case navbar
         case content
         case detail
+    }
+
+    enum Component {
+        case folderlist
+        case filelist
+        case codeviewer
     }
 
     var folderList: XCUIElement {
@@ -25,31 +31,25 @@ struct ImportFlow: Screen {
     var codeViewer: XCUIElement {
         app.scrollViews[Keys.Detail.CodeViewer]
     }
-
-    func checkFolderList(exists: Bool) -> Self {
-        if exists {
-            XCTAssert(folderList.waitForExistence(timeout: 5))
-        } else {
-            XCTAssertFalse(folderList.exists)
-        }
-        return self
-    }
-
-    func checkFileList(exists: Bool) -> Self {
-        if exists {
-            XCTAssert(fileList.waitForExistence(timeout: 5))
-        } else {
-            XCTAssertFalse(fileList.exists)
-        }
-        return self
-    }
     
-    func checkCodeViewer(exists: Bool) -> Self {
-        if exists {
-            XCTAssert(codeViewer.waitForExistence(timeout: 5))
-        } else {
-            XCTAssertFalse(codeViewer.exists)
+    func check(_ element: Component, exists: Bool) -> Self {
+        var forElement: XCUIElement
+
+        switch element {
+        case .folderlist:
+            forElement = folderList
+        case .filelist:
+            forElement = fileList
+        case .codeviewer:
+            forElement = codeViewer
         }
+
+        if exists {
+            XCTAssert(forElement.waitForExistence(timeout: 5))
+        } else {
+            XCTAssertFalse(forElement.exists)
+        }
+
         return self
     }
 
