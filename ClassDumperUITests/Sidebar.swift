@@ -26,6 +26,8 @@ struct Sidebar: Screen {
     func resetState() -> Self {
         open(.settings)
 
+        app.windows.buttons["General"].tap()
+
         app.windows.buttons["Delete all saved data"].tap()
 
         app.windows.buttons["Delete"].tap()
