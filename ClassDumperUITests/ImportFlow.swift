@@ -8,72 +8,78 @@ struct ImportFlow: Screen {
         case settings = ","
     }
 
-    private enum FocusField: String {
+    enum Section {
         case navbar
         case content
         case detail
     }
 
-    var folderList: XCUIElement {
-        app.outlines[Keys.Sidebar.List]
+    enum Component {
+        case folder
+        case file
+        case code
     }
 
-    var fileList: XCUIElement {
-        app.tables[Keys.Middle.List]
-    }
-    
-    var codeViewer: XCUIElement {
-        app.scrollViews[Keys.Detail.CodeViewer]
+    struct TestComponent {
+        var id: String
+        var rowId: String
+        var section: Section
+        var component: XCUIElement
     }
 
-    func checkFolderList(exists: Bool) -> Self {
-        if exists {
-            XCTAssert(folderList.waitForExistence(timeout: 5))
-        } else {
-            XCTAssertFalse(folderList.exists)
+    var folderlist: TestComponent {
+        TestComponent(id: Keys.Sidebar.List,
+                      rowId: Keys.Sidebar.Row,
+                      section: .navbar,
+                      component: app.outlines[Keys.Sidebar.List])
+    }
+
+    var filelist: TestComponent {
+        TestComponent(id: Keys.Middle.List,
+                      rowId: Keys.Middle.Row,
+                      section: .content,
+                      component: app.tables[Keys.Middle.List])
+    }
+
+    var codeviewer: TestComponent {
+        TestComponent(id: Keys.Detail.CodeViewer,
+                      rowId: "",
+                      section: .detail,
+                      component: app.scrollViews[Keys.Detail.CodeViewer])
+    }
+
+    func getComponent(for element: Component) -> TestComponent {
+        switch element {
+        case .folder:
+            return folderlist
+        case .file:
+            return filelist
+        case .code:
+            return codeviewer
         }
-        return self
     }
 
-    func checkFileList(exists: Bool) -> Self {
+    func check(_ element: Component, exists: Bool) -> Self {
+        let forElement = getComponent(for: element)
+
         if exists {
-            XCTAssert(fileList.waitForExistence(timeout: 5))
+            XCTAssert(forElement.component.waitForExistence(timeout: 5))
         } else {
-            XCTAssertFalse(fileList.exists)
+            XCTAssertFalse(forElement.component.exists)
         }
-        return self
-    }
-    
-    func checkCodeViewer(exists: Bool) -> Self {
-        if exists {
-            XCTAssert(codeViewer.waitForExistence(timeout: 5))
-        } else {
-            XCTAssertFalse(codeViewer.exists)
-        }
+
         return self
     }
 
-    func tapFirstFolder(containing: String) -> Self {
-        tapFirstRow(label: containing,
-                    parent: folderList,
-                    target: .navbar,
-                    identifier: Keys.Sidebar.Row)
-        return self
-    }
+    func tapFirst(_ element: Component, containing: String) -> Self {
+        let forElement = getComponent(for: element)
 
-    func tapFirstFile(containing: String) -> Self {
         tapFirstRow(label: containing,
-                    parent: fileList,
-                    target: .content,
-                    identifier: Keys.Middle.Row)
-        return self
-    }
+                    parent: forElement.component,
+                    target: forElement.section,
+                    rowId: forElement.rowId)
 
-    func checkFirstLine(containing: String) -> Self {
-        tapFirstRow(label: containing,
-                    parent: codeViewer,
-                    target: .detail,
-                    identifier: Keys.Detail.CodeViewer)
+        return self
     }
 
     func resetState() -> Self {
@@ -104,28 +110,30 @@ struct ImportFlow: Screen {
         return self
     }
 
+    @discardableResult
     private func tapFirstRow(
         label: String,
         parent: XCUIElement,
-        target: FocusField,
-        identifier: String)
+        target: Section,
+        rowId: String)
     -> Self {
         var row: XCUIElementQuery
 
         switch target {
         case .navbar:
-            row = parent.buttons.matching(identifier: identifier)
+            row = parent.buttons.matching(identifier: rowId)
             XCTAssertTrue(row.element.label == label)
-            row.firstMatch.tap()
+            row[label].tap()
             break
         case .content:
-            row = parent.buttons.matching(identifier: identifier)
+            row = parent.buttons.matching(identifier: rowId)
+            XCTAssertTrue(row[label].label == label)
             row[label].tap()
             break
         case .detail:
             row = parent.textViews
             guard let found = row.firstMatch.value as? String else {
-                fatalError("Could not tap or locate: {label:\(label), parent:\(parent)")
+                fatalError("Could not tap or locate: {label:\(label), parent:\(parent), target: \(target), row: \(rowId)")
             }
             XCTAssertTrue(found.contains(label))
             row.firstMatch.tap()
