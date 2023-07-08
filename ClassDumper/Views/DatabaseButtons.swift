@@ -9,7 +9,7 @@ struct CreateFileButton: View {
     @State private var importing = false
     private var titleKey: LocalizedStringKey
     
-    init(_ titleKey: LocalizedStringKey = "Add new file") {
+    init(_ titleKey: LocalizedStringKey = "Open…") {
         self.titleKey = titleKey
     }
     
