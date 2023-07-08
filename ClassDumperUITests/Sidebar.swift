@@ -44,6 +44,7 @@ struct Sidebar: Screen {
 
         app.sheets.firstMatch.outlineRows.staticTexts["Applications"].tap()
 
+        // taking advantage of finder directing keyboard input towards the middle column
         app.typeText(appName)
         app.typeKey(.return, modifierFlags: [])
 
