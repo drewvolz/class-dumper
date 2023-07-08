@@ -122,6 +122,7 @@ struct ImportFlow: Screen {
             break
         case .content:
             row = parent.buttons.matching(identifier: identifier)
+            XCTAssertTrue(row[label].label == label)
             row[label].tap()
             break
         case .detail:
