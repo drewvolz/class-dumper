@@ -13,6 +13,7 @@ struct MenuCommands: Commands {
         }
 
         CommandGroup(after: .printItem) {
+            CreateFileButton()
             FindSection()
         }
     }
