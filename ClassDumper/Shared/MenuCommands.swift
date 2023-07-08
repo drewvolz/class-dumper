@@ -11,6 +11,11 @@ struct MenuCommands: Commands {
         CommandGroup(replacing: .help) {
             HelpSection()
         }
+
+        CommandGroup(after: .printItem) {
+            CreateFileButton()
+            FindSection()
+        }
     }
 }
 
@@ -55,5 +60,15 @@ extension MenuCommands {
                 }
             }
         }
+    }
+
+    /// Questionable workaround for getting the find shortcut to trigger the searchfield on macOS
+    func FindSection() -> some View {
+        Button("Find") {
+            if let toolbar = NSApp.keyWindow?.toolbar,
+                let search = toolbar.items.first(where: { $0.itemIdentifier.rawValue == "com.apple.SwiftUI.search" }) as? NSSearchToolbarItem {
+                search.beginSearchInteraction()
+            }
+        }.keyboardShortcut("f", modifiers: .command)
     }
 }
