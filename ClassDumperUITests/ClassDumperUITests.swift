@@ -16,8 +16,8 @@ final class ClassDumperUITests: UITestCase {
     /// In this case Automator is guaranteed to be found on standard macOS, and because
     /// we switch out the imported path upon successful selection and closing of the window,
     /// we are safe to assume that class-dump will be our chosen file at the end of this flow.
-    func testSidebar() {
-        Sidebar(app: app)
+    func testImportFlow() {
+        ImportFlow(app: app)
             .resetState()
             .checkListDoesNotExist()
             .openApp(named: "Automator")

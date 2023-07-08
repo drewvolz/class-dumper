@@ -1,6 +1,6 @@
 import XCTest
 
-struct Sidebar: Screen {
+struct ImportFlow: Screen {
     let app: XCUIApplication
 
     enum Shortcut: String {

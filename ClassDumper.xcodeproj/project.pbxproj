@@ -32,12 +32,12 @@
 		3A91CDD62A57B95E00C85A27 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDD52A57B95E00C85A27 /* UITestCase.swift */; };
 		3A91CDDA2A57BEDE00C85A27 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDD92A57BEDE00C85A27 /* Keys.swift */; };
 		3A91CDDB2A57BEEE00C85A27 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDD92A57BEDE00C85A27 /* Keys.swift */; };
-		3A91CDDD2A57BFC300C85A27 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDDC2A57BFC300C85A27 /* Sidebar.swift */; };
+		3A91CDDD2A57BFC300C85A27 /* ImportFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A91CDDC2A57BFC300C85A27 /* ImportFlow.swift */; };
 		3AA564CF2A2310CD00EBD7FB /* ClassDumperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */; };
 		3AA564D32A2310CE00EBD7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D22A2310CE00EBD7FB /* Assets.xcassets */; };
 		3AA564D72A2310CE00EBD7FB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA564D62A2310CE00EBD7FB /* Preview Assets.xcassets */; };
-		3AA564E12A2310CE00EBD7FB /* ClassDumpUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564E02A2310CE00EBD7FB /* ClassDumpUserTests.swift */; };
-		3AA564EB2A2310CE00EBD7FB /* ClassDumpUserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564EA2A2310CE00EBD7FB /* ClassDumpUserUITests.swift */; };
+		3AA564E12A2310CE00EBD7FB /* ClassDumperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564E02A2310CE00EBD7FB /* ClassDumperTests.swift */; };
+		3AA564EB2A2310CE00EBD7FB /* ClassDumperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564EA2A2310CE00EBD7FB /* ClassDumperUITests.swift */; };
 		3AA564FF2A232B4C00EBD7FB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA564FE2A232B4C00EBD7FB /* SettingsView.swift */; };
 		3AA565012A23438900EBD7FB /* class-dump in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AA565002A23438900EBD7FB /* class-dump */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3AA565422A2575FB00EBD7FB /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA565412A2575FB00EBD7FB /* AlertController.swift */; };
@@ -100,16 +100,16 @@
 		3A91CDC22A577B0E00C85A27 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		3A91CDD52A57B95E00C85A27 /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
 		3A91CDD92A57BEDE00C85A27 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		3A91CDDC2A57BFC300C85A27 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		3A91CDDC2A57BFC300C85A27 /* ImportFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFlow.swift; sourceTree = "<group>"; };
 		3AA564CB2A2310CD00EBD7FB /* Class Dumper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Class Dumper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA564CE2A2310CD00EBD7FB /* ClassDumperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperApp.swift; sourceTree = "<group>"; };
 		3AA564D22A2310CE00EBD7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AA564D42A2310CE00EBD7FB /* ClassDumper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClassDumper.entitlements; sourceTree = "<group>"; };
 		3AA564D62A2310CE00EBD7FB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3AA564DC2A2310CE00EBD7FB /* ClassDumperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassDumperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AA564E02A2310CE00EBD7FB /* ClassDumpUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumpUserTests.swift; sourceTree = "<group>"; };
+		3AA564E02A2310CE00EBD7FB /* ClassDumperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperTests.swift; sourceTree = "<group>"; };
 		3AA564E62A2310CE00EBD7FB /* ClassDumperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassDumperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AA564EA2A2310CE00EBD7FB /* ClassDumpUserUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumpUserUITests.swift; sourceTree = "<group>"; };
+		3AA564EA2A2310CE00EBD7FB /* ClassDumperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDumperUITests.swift; sourceTree = "<group>"; };
 		3AA564FE2A232B4C00EBD7FB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3AA565002A23438900EBD7FB /* class-dump */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "class-dump"; sourceTree = "<group>"; };
 		3AA565412A2575FB00EBD7FB /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 		3AA564DF2A2310CE00EBD7FB /* ClassDumperTests */ = {
 			isa = PBXGroup;
 			children = (
-				3AA564E02A2310CE00EBD7FB /* ClassDumpUserTests.swift */,
+				3AA564E02A2310CE00EBD7FB /* ClassDumperTests.swift */,
 			);
 			path = ClassDumperTests;
 			sourceTree = "<group>";
@@ -256,8 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				3A91CDD52A57B95E00C85A27 /* UITestCase.swift */,
-				3AA564EA2A2310CE00EBD7FB /* ClassDumpUserUITests.swift */,
-				3A91CDDC2A57BFC300C85A27 /* Sidebar.swift */,
+				3AA564EA2A2310CE00EBD7FB /* ClassDumperUITests.swift */,
+				3A91CDDC2A57BFC300C85A27 /* ImportFlow.swift */,
 			);
 			path = ClassDumperUITests;
 			sourceTree = "<group>";
@@ -485,7 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AA564E12A2310CE00EBD7FB /* ClassDumpUserTests.swift in Sources */,
+				3AA564E12A2310CE00EBD7FB /* ClassDumperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,8 +494,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A91CDDB2A57BEEE00C85A27 /* Keys.swift in Sources */,
-				3AA564EB2A2310CE00EBD7FB /* ClassDumpUserUITests.swift in Sources */,
-				3A91CDDD2A57BFC300C85A27 /* Sidebar.swift in Sources */,
+				3AA564EB2A2310CE00EBD7FB /* ClassDumperUITests.swift in Sources */,
+				3A91CDDD2A57BFC300C85A27 /* ImportFlow.swift in Sources */,
 				3A91CDD62A57B95E00C85A27 /* UITestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
