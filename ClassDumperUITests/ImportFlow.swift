@@ -69,6 +69,7 @@ struct ImportFlow: Screen {
         return self
     }
 
+    @discardableResult
     func checkFirstLine(containing: String) -> Self {
         tapFirstRow(label: containing,
                     parent: codeViewer,
@@ -104,6 +105,7 @@ struct ImportFlow: Screen {
         return self
     }
 
+    @discardableResult
     private func tapFirstRow(
         label: String,
         parent: XCUIElement,
