@@ -14,5 +14,6 @@ struct DetailView: View {
                    fontSize: .init(get: { CGFloat(fontSize)  },
                                    set: { fontSize = Int($0) }),
                    flags: [.defaultViewerFlags])
+        .accessibilityIdentifier(Keys.Detail.CodeViewer)
     }
 }

@@ -5,4 +5,13 @@ struct Keys {
         static let List = "SidebarList"
         static let Row = "SidebarRow"
     }
+    
+    struct Middle {
+        static let List = "MiddleList"
+        static let Row = "MiddleRow"
+    }
+
+    struct Detail {
+        static let CodeViewer = "CodeViewer"
+    }
 }

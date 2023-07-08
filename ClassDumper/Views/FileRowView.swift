@@ -54,8 +54,10 @@ struct FileRowView: View {
                             .foregroundColor(.accentColor)
                     }
                 }
+                .accessibilityIdentifier(Keys.Middle.Row)
             }
         }
+        .accessibilityIdentifier(Keys.Middle.List)
         .searchable(text: $searchText, prompt: "Search files")
     }
 }

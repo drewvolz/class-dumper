@@ -19,9 +19,15 @@ final class ClassDumperUITests: UITestCase {
     func testImportFlow() {
         ImportFlow(app: app)
             .resetState()
-            .checkListDoesNotExist()
+            .checkFolderList(exists: false)
+            .checkFileList(exists: false)
             .openApp(named: "Automator")
-            .checkListExists()
-            .checkFirstResult(contains: "class-dump")
+            .tapFirstFolder(containing: "class-dump")
+            .checkFolderList(exists: true)
+            .checkFileList(exists: true)
+            .checkCodeViewer(exists: false)
+            .tapFirstFile(containing: "CDClassDumpVisitor.h")
+            .checkCodeViewer(exists: true)
+            .checkFirstLine(containing: "CDTextClassDumpVisitor.h")
     }
 }
