@@ -52,18 +52,13 @@ extension AppView {
                            DeleteFilesButton("Delete", folderKey: folder)
                         }
 
-                    DeleteButton(for: folder)
-                        .buttonStyle(BorderlessButtonStyle())
-                        .foregroundColor(.red)
-
                     if deletionEnabled {
-                            DeleteFilesButton("", folderKey: folderName)
+                            DeleteFilesButton("", folderKey: folder)
                                 .foregroundColor(.red)
                                 .buttonStyle(BorderlessButtonStyle())
                                 .labelStyle(IconOnlyLabelStyle())
                         }
                     }
-                }
             }
             .animation(.default, value: folderRows)
             .listStyle(SidebarListStyle())
