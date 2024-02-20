@@ -1,7 +1,7 @@
 import SwiftUI
 import CodeEditor
 
-let savedOutputDirectoryBase = URL.documentsDirectory
+let savedOutputDirectoryBase = URL.documents
 let savedOutputDirectory = NSApplication.bundleName.removeSpaces()
 let outputDirectory = savedOutputDirectoryBase.appendingPathComponent(savedOutputDirectory)
 

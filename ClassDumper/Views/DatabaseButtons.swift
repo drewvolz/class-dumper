@@ -53,7 +53,6 @@ extension CreateFileButton {
     }
 
     func onFileImport(file: URL) {
-        // TODO: allow the user to configure the save location
         let outputDirectoryURL = outputDirectory
             .appendingPathComponent(file.deletingPathExtension().lastPathComponent)
 
