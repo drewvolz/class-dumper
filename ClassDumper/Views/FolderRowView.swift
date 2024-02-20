@@ -31,13 +31,6 @@ extension AppView {
         var deletionEnabled: Bool
         
         @ViewBuilder
-        func DeleteButton(for folderName: String) -> some View {
-            if deletionEnabled {
-                DeleteFilesButton("", folderKey: folderName)
-            }
-        }
-        
-        @ViewBuilder
         func Row(for folderName: String, badge: Int) -> some View {
             Label {
                 NavigationLink(destination: FileRowView(selectedFolder: folderName)) {
@@ -62,6 +55,14 @@ extension AppView {
                     DeleteButton(for: folder)
                         .buttonStyle(BorderlessButtonStyle())
                         .foregroundColor(.red)
+
+                    if deletionEnabled {
+                            DeleteFilesButton("", folderKey: folderName)
+                                .foregroundColor(.red)
+                                .buttonStyle(BorderlessButtonStyle())
+                                .labelStyle(IconOnlyLabelStyle())
+                        }
+                    }
                 }
             }
             .animation(.default, value: folderRows)
