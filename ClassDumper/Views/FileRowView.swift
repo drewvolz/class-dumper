@@ -42,10 +42,10 @@ struct FileRowView: View {
     
     var body: some View {
         List(filteredFileNames, id:\.0) { fileId, folderName, fileName, content in
-            if let name = fileName, folderName == selectedFolder {
+            if folderName == selectedFolder {
                 NavigationLink(destination: DetailView(fileContents: content)) {
                     Label {
-                        Text(name)
+                        Text(fileName)
                             .truncationMode(.middle)
                             .lineLimit(1)
                     } icon: {
