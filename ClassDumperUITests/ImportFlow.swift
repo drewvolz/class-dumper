@@ -71,6 +71,7 @@ struct ImportFlow: Screen {
         return self
     }
 
+    @discardableResult
     func tapFirst(_ element: Component, containing: String) -> Self {
         let forElement = getComponent(for: element)
 
