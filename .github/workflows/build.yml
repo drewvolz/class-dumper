@@ -13,18 +13,18 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: macos-13
+    runs-on: macos-14
     strategy:
       matrix:
         platform:
           - macOS
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
 
       - name: Build and Test
         uses: mxcl/xcodebuild@v1
         with:
-          xcode: 14.2
+          xcode: 15.2
           scheme: "ClassDumper"
           platform: ${{ matrix.platform }}

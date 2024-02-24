@@ -53,7 +53,6 @@ extension CreateFileButton {
     }
 
     func onFileImport(file: URL) {
-        // TODO: allow the user to configure the save location
         let outputDirectoryURL = outputDirectory
             .appendingPathComponent(file.deletingPathExtension().lastPathComponent)
 
@@ -104,10 +103,11 @@ extension CreateFileButton {
             // the most common error we'll come across is when no Mach-O files are generated
             let noRuntimeInfoWarning = "does not contain any Objective-C runtime information"
 
-            if message.contains(noRuntimeInfoWarning) {
+            switch message {
+            case _ where message.contains(noRuntimeInfoWarning):
                 messageTitle = "Nothing to parse"
                 messageContent = "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)"
-            } else {
+            default:
                 messageTitle = "An unexpected error occurred"
                 messageContent = message.formatConsoleOutput(
                     length: dialogLengthImportErrorLogging,

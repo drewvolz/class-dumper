@@ -46,21 +46,19 @@ extension AppView {
         var body: some View {
             List(Array(folderRows), id:\.key) { folder, count in
                 HStack {
-                    if let folderName = folder {
-                        Row(for: folderName, badge: count)
-                            .accessibilityIdentifier(Keys.Sidebar.Row)
-                            .contextMenu {
-                               DeleteFilesButton("Delete", folderKey: folderName)
-                            }
+                    Row(for: folder, badge: count)
+                        .accessibilityIdentifier(Keys.Sidebar.Row)
+                        .contextMenu {
+                           DeleteFilesButton("Delete", folderKey: folder)
+                        }
 
-                        if deletionEnabled {
-                            DeleteFilesButton("", folderKey: folderName)
+                    if deletionEnabled {
+                            DeleteFilesButton("", folderKey: folder)
                                 .foregroundColor(.red)
                                 .buttonStyle(BorderlessButtonStyle())
                                 .labelStyle(IconOnlyLabelStyle())
                         }
                     }
-                }
             }
             .animation(.default, value: folderRows)
             .listStyle(SidebarListStyle())
