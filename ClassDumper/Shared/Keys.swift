@@ -13,5 +13,9 @@ struct Keys {
 
     struct Detail {
         static let CodeViewer = "CodeViewer"
+        static let PathBar = "PathBar"
+        static let PathBarFile = "PathBarFile"
+    }
+
     }
 }

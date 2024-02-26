@@ -29,5 +29,7 @@ final class ClassDumperUITests: UITestCase {
             .tapFirst(.file, containing: "CDClassDumpVisitor.h")
             .check(.code, exists: true)
             .tapFirst(.code, containing: "CDTextClassDumpVisitor.h")
+            .check(.pathbar, exists: true)
+            .tapFirst(.pathbar, containing: "CDClassDumpVisitor.h")
     }
 }

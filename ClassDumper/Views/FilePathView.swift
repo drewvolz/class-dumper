@@ -5,7 +5,7 @@ struct FilePathView: View {
     var fileName: String
 
     var body: some View {
-        Group {
+        ScrollView(.horizontal) {
             HStack {
                 HStack(spacing: 4) {
                     Image(systemName: "folder.fill")
@@ -20,14 +20,14 @@ struct FilePathView: View {
                     Image(systemName: "doc.fill")
                         .foregroundColor(.accentColor)
                     Text(fileName)
+                        .accessibilityIdentifier(Keys.Detail.PathBarFile)
                 }
             }
-                .truncationMode(.middle)
-                .lineLimit(1)
-                .padding(.horizontal, 15)
-                .padding(.bottom, 5)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 15)
+            .padding(.bottom, 5)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .accessibilityIdentifier(Keys.Detail.PathBar)
     }
 }
 

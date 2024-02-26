@@ -18,6 +18,7 @@ struct ImportFlow: Screen {
         case folder
         case file
         case code
+        case pathbar
     }
 
     struct TestComponent {
@@ -47,6 +48,13 @@ struct ImportFlow: Screen {
                       section: .detail,
                       component: app.scrollViews[Keys.Detail.CodeViewer])
     }
+    
+    var pathbar: TestComponent {
+        TestComponent(id: Keys.Detail.PathBar,
+                      rowId: "",
+                      section: .detail,
+                      component: app.scrollViews[Keys.Detail.PathBar])
+    }
 
     func getComponent(for element: Component) -> TestComponent {
         switch element {
@@ -56,6 +64,8 @@ struct ImportFlow: Screen {
             return filelist
         case .code:
             return codeviewer
+        case .pathbar:
+            return pathbar
         }
     }
 
@@ -75,7 +85,8 @@ struct ImportFlow: Screen {
     func tapFirst(_ element: Component, containing: String) -> Self {
         let forElement = getComponent(for: element)
 
-        tapFirstRow(label: containing,
+        tapFirstRow(element,
+                    label: containing,
                     parent: forElement.component,
                     target: forElement.section,
                     rowId: forElement.rowId)
@@ -113,6 +124,7 @@ struct ImportFlow: Screen {
 
     @discardableResult
     private func tapFirstRow(
+        _ component: Component,
         label: String,
         parent: XCUIElement,
         target: Section,
@@ -133,6 +145,11 @@ struct ImportFlow: Screen {
             break
         case .detail:
             row = parent.textViews
+
+            if component == .pathbar {
+                row = parent.staticTexts.matching(identifier: Keys.Detail.PathBarFile)
+            }
+
             guard let found = row.firstMatch.value as? String else {
                 fatalError("Could not tap or locate: {label:\(label), parent:\(parent), target: \(target), row: \(rowId)")
             }
