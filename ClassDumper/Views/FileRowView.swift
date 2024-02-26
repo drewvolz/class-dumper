@@ -23,8 +23,22 @@ struct FileRowRequest: Queryable {
 }
 
 struct FileRowView: View {
+    @AppStorage("scopedSearchPreference") var scopedSearchPreference = Preferences.Defaults.scopedSearch
+
+    // query to fetch all data
     @Query(FileRowRequest())
-    var fileRows: FileRowResponse
+    var allFileRows: FileRowResponse
+
+    // filtering the active directory
+    var filteredFileRows: FileRowResponse  {
+        allFileRows.filter({$0.1 == selectedFolder})
+    }
+
+    // data to render based upon scoped preference
+    var fileRows: FileRowResponse {
+        scopedSearchPreference == .all ? allFileRows : filteredFileRows
+    }
+
     var selectedFolder: String
     
     @State private var searchText = ""
@@ -42,23 +56,21 @@ struct FileRowView: View {
     
     var body: some View {
         List(filteredFileNames, id:\.0) { fileId, folderName, fileName, content in
-            if folderName == selectedFolder {
-                NavigationLink(destination: DetailView(fileContents: content)) {
-                    Label {
-                        Text(fileName)
-                            .truncationMode(.middle)
-                            .lineLimit(1)
-                    } icon: {
-                        Image(systemName: "doc")
-                            .symbolVariant(.fill)
-                            .foregroundColor(.accentColor)
-                    }
+            NavigationLink(destination: DetailView(fileContents: content, folderName: folderName, fileName: fileName)) {
+                Label {
+                    Text(fileName)
+                        .truncationMode(.middle)
+                        .lineLimit(1)
+                } icon: {
+                    Image(systemName: "doc")
+                        .symbolVariant(.fill)
+                        .foregroundColor(.accentColor)
                 }
-                .accessibilityIdentifier(Keys.Middle.Row)
             }
+            .accessibilityIdentifier(Keys.Middle.Row)
+            .help(scopedSearchPreference == .all ? folderName : "")
         }
         .accessibilityIdentifier(Keys.Middle.List)
         .searchable(text: $searchText, prompt: "Search files")
     }
 }
-

@@ -14,5 +14,25 @@ struct Preferences {
         // source code viewer
         static var themeName: CodeEditor.ThemeName = .default
         static var fontSize: Int = Int(NSFont.systemFontSize)
+
+        // scoped search view
+        static var scopedSearch = Preferences.FilterScope.default
+    }
+}
+
+
+extension Preferences {
+    struct FilterScope: TypedString {
+        public let rawValue : String
+
+        @inlinable
+        public init(rawValue: String) { self.rawValue = rawValue }
+
+        static var `default` = Preferences.FilterScope(rawValue: "scoped")
+        static var all  = Preferences.FilterScope(rawValue: "all")
+
+        static var allCases: [FilterScope] {
+            return [.default, .all]
+        }
     }
 }
