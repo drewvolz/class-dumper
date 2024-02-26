@@ -12,12 +12,16 @@ struct ImportFlow: Screen {
         case navbar
         case content
         case detail
+        case filter
+
     }
 
     enum Component {
         case folder
         case file
         case code
+        case pathbar
+        case filterToggle
     }
 
     struct TestComponent {
@@ -47,6 +51,20 @@ struct ImportFlow: Screen {
                       section: .detail,
                       component: app.scrollViews[Keys.Detail.CodeViewer])
     }
+    
+    var pathbar: TestComponent {
+        TestComponent(id: Keys.Detail.PathBar,
+                      rowId: "",
+                      section: .detail,
+                      component: app.scrollViews[Keys.Detail.PathBar])
+    }
+    
+    var filterToggle: TestComponent {
+        TestComponent(id: Keys.Filters.FilterFiles,
+                      rowId: "",
+                      section: .filter,
+                      component: app.popUpButtons[Keys.Filters.FilterFiles])
+    }
 
     func getComponent(for element: Component) -> TestComponent {
         switch element {
@@ -56,6 +74,10 @@ struct ImportFlow: Screen {
             return filelist
         case .code:
             return codeviewer
+        case .pathbar:
+            return pathbar
+        case .filterToggle:
+            return filterToggle
         }
     }
 
@@ -75,10 +97,20 @@ struct ImportFlow: Screen {
     func tapFirst(_ element: Component, containing: String) -> Self {
         let forElement = getComponent(for: element)
 
-        tapFirstRow(label: containing,
+        tapFirstRow(element,
+                    label: containing,
                     parent: forElement.component,
                     target: forElement.section,
                     rowId: forElement.rowId)
+
+        return self
+    }
+    
+    @discardableResult
+    func selectPopupButton(_ containing: String) -> Self {
+        let firstPredicate = NSPredicate(format: "title BEGINSWITH '\(containing)'")
+        let desiredOption = filterToggle.component.menuItems.element(matching: firstPredicate)
+        desiredOption.tap()
 
         return self
     }
@@ -113,6 +145,7 @@ struct ImportFlow: Screen {
 
     @discardableResult
     private func tapFirstRow(
+        _ component: Component,
         label: String,
         parent: XCUIElement,
         target: Section,
@@ -133,10 +166,20 @@ struct ImportFlow: Screen {
             break
         case .detail:
             row = parent.textViews
+
+            if component == .pathbar {
+                row = parent.staticTexts.matching(identifier: Keys.Detail.PathBarFile)
+            }
+
             guard let found = row.firstMatch.value as? String else {
                 fatalError("Could not tap or locate: {label:\(label), parent:\(parent), target: \(target), row: \(rowId)")
             }
             XCTAssertTrue(found.contains(label))
+            row.firstMatch.tap()
+            break
+        case .filter:
+            row = app.popUpButtons
+            XCTAssertTrue(row[Keys.Filters.FilterFiles].value as? String == label)
             row.firstMatch.tap()
             break
         }

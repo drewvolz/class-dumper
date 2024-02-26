@@ -33,6 +33,13 @@ struct AppView: View {
         } detail: {
 
         }
+        .toolbar {
+            if fileCount != 0 {
+                ToolbarItemGroup(placement: .navigation) {
+                    FilterScopeView()
+                }
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name.folderSelectedFromFinderNotification)) { _ in
             parseDirectory()
         }

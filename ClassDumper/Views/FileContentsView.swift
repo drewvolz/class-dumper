@@ -6,6 +6,8 @@ struct DetailView: View {
     @AppStorage("codeViewerFontSize") var fontSize: Int = Preferences.Defaults.fontSize
 
     var fileContents: String
+    var folderName: String
+    var fileName: String
 
     var body: some View {
         CodeEditor(source: fileContents,
@@ -15,5 +17,11 @@ struct DetailView: View {
                                    set: { fontSize = Int($0) }),
                    flags: [.defaultViewerFlags])
         .accessibilityIdentifier(Keys.Detail.CodeViewer)
+
+        FilePathView(folderName: folderName, fileName: fileName)
     }
+}
+
+#Preview {
+    DetailView(fileContents: "File contents", folderName: "TestApp", fileName: "TestFile.Swift")
 }

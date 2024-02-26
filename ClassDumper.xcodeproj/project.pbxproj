@@ -19,6 +19,8 @@
 		3A2F8F932A46B3D700D9FB26 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2F8F922A46B3D700D9FB26 /* Files */; };
 		3A2F8F952A4D4C5A00D9FB26 /* FolderRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */; };
 		3A5863712B84564F00487B13 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5863702B84564F00487B13 /* URL.swift */; };
+		3A5863F02B8C069C00487B13 /* FilterScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5863EF2B8C069C00487B13 /* FilterScopeView.swift */; };
+		3A5863F22B8C14A400487B13 /* FilePathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5863F12B8C14A400487B13 /* FilePathView.swift */; };
 		3A67D7642A511F7600516FF2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7632A511F7600516FF2 /* App.swift */; };
 		3A67D7662A511FFA00516FF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7652A511FFA00516FF2 /* AppDelegate.swift */; };
 		3A67D7682A51566B00516FF2 /* String+ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */; };
@@ -91,6 +93,8 @@
 		3A2F8F912A46B3C500D9FB26 /* Files */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Files; path = Packages/Files; sourceTree = "<group>"; };
 		3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderRowView.swift; sourceTree = "<group>"; };
 		3A5863702B84564F00487B13 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		3A5863EF2B8C069C00487B13 /* FilterScopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterScopeView.swift; sourceTree = "<group>"; };
+		3A5863F12B8C14A400487B13 /* FilePathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathView.swift; sourceTree = "<group>"; };
 		3A67D7632A511F7600516FF2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		3A67D7652A511FFA00516FF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A67D7672A51566B00516FF2 /* String+ConsoleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConsoleOutput.swift"; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 			children = (
 				3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */,
 				3A2F8F6D2A397BAF00D9FB26 /* FileRowView.swift */,
+				3A5863EF2B8C069C00487B13 /* FilterScopeView.swift */,
+				3A5863F12B8C14A400487B13 /* FilePathView.swift */,
 				3A67D7772A56542300516FF2 /* FileContentsView.swift */,
 				3A2F8F702A397CF100D9FB26 /* DatabaseButtons.swift */,
 				3A2F8F722A397CF100D9FB26 /* InformationStyle.swift */,
@@ -458,9 +464,11 @@
 				3A67D7662A511FFA00516FF2 /* AppDelegate.swift in Sources */,
 				3A67D7722A54913100516FF2 /* GeneralTabView.swift in Sources */,
 				3A67D7782A56542300516FF2 /* FileContentsView.swift in Sources */,
+				3A5863F02B8C069C00487B13 /* FilterScopeView.swift in Sources */,
 				3A2F8F952A4D4C5A00D9FB26 /* FolderRowView.swift in Sources */,
 				3A67D7762A549F6700516FF2 /* Styles.swift in Sources */,
 				3AA565492A25BD6F00EBD7FB /* String.swift in Sources */,
+				3A5863F22B8C14A400487B13 /* FilePathView.swift in Sources */,
 				3A2F8F692A397A6B00D9FB26 /* Database.swift in Sources */,
 				3A2F8F6B2A397ABB00D9FB26 /* AppView.swift in Sources */,
 				3AAED1F72A3975490036217E /* Database+SwiftUI.swift in Sources */,

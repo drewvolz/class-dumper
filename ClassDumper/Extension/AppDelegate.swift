@@ -8,7 +8,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         func resetState() {
-            UserDefaults.standard.removePersistentDomain(forName: PlistKey.Identifier.rawValue)
+            if let bundleID = Bundle.main.bundleIdentifier {
+                UserDefaults.standard.removePersistentDomain(forName: bundleID)
+            }
         }
     }
 }
