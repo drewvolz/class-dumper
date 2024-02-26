@@ -21,6 +21,7 @@ final class ClassDumperUITests: UITestCase {
             .resetState()
             .check(.folder, exists: false)
             .check(.file, exists: false)
+            .check(.filterToggle, exists: false)
             .openApp(named: "Automator")
             .tapFirst(.folder, containing: "class-dump")
             .check(.folder, exists: true)
@@ -31,5 +32,9 @@ final class ClassDumperUITests: UITestCase {
             .tapFirst(.code, containing: "CDTextClassDumpVisitor.h")
             .check(.pathbar, exists: true)
             .tapFirst(.pathbar, containing: "CDClassDumpVisitor.h")
+            .check(.filterToggle, exists: true)
+            .tapFirst(.filterToggle, containing: "Show selected")
+            .selectPopupButton("Show all")
+            .tapFirst(.file, containing: "CDClassDumpVisitor.h")
     }
 }

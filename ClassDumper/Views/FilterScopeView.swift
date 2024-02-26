@@ -17,6 +17,7 @@ struct FilterScopeView: View {
                 Text(getFilterText(filter)).tag(filter)
             }
         }
+        .accessibilityIdentifier(Keys.Filters.FilterFiles)
         .pickerStyle(.menu)
         .fixedSize()
     }

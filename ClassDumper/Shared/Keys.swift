@@ -17,5 +17,7 @@ struct Keys {
         static let PathBarFile = "PathBarFile"
     }
 
+    struct Filters {
+        static let FilterFiles = "FilterFiles"
     }
 }
