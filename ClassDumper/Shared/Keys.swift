@@ -17,6 +17,10 @@ struct Keys {
         static let PathBarFile = "PathBarFile"
     }
 
+    struct Settings {
+        static let AccentColorButton = "AccentColorButton"
+    }
+
     struct Filters {
         static let FilterFiles = "FilterFiles"
     }

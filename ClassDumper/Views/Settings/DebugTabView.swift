@@ -3,6 +3,7 @@ import SwiftUI
 struct DebugSettingsView: View {
     @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = Preferences.Defaults.verboseErrors
     @AppStorage("dialogLengthImportErrorLogging") var dialogLengthImportErrorLogging = Preferences.Defaults.dialogLength
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
 
     let helpLogging = """
 This setting could be useful if you need to see the original message.
@@ -51,6 +52,7 @@ Note that verbose error dialogs will disable this setting.
             }
             .help(helpErrorLength)
         }
+        .tint(accent.toColor())
         .modifier(PreferencesTabViewModifier(sectionTitle: "Errors"))
     }
 }

@@ -7,6 +7,8 @@ struct SettingsView: View {
     }
 
     var body: some View {
+        @AppStorage("accent") var accent = CodableColor(.accentColor)
+
         TabView {
             GeneralSettingsView()
                 .tabItem {
@@ -20,6 +22,7 @@ struct SettingsView: View {
                 }
                 .tag(Tabs.debug)
         }
+        .tint(accent.toColor())
         .padding(20)
         .frame(width: 500, alignment: .leading)
     }

@@ -2,11 +2,13 @@ import SwiftUI
 import CodeEditor
 
 struct GeneralSettingsView: View {
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
     @AppStorage("codeViewerTheme") var theme: CodeEditor.ThemeName = Preferences.Defaults.themeName
     @AppStorage("codeViewerFontSize") var fontSize: Int = Preferences.Defaults.fontSize
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
+                AccentColor()
                 ThemePicker()
                 FontSizePicker()
                 ResetDataButton()
@@ -16,6 +18,43 @@ struct GeneralSettingsView: View {
 
 extension GeneralSettingsView {
     
+    @ViewBuilder
+    func AccentColor() -> some View {
+        LazyHGrid(rows: [GridItem(.flexible(minimum: 30, maximum: .infinity))], alignment: .top, spacing: 1) {
+            ForEach(accents) { option in
+                Button {
+                    accent = option.color
+                } label: {
+                    VStack {
+                        Circle()
+                            .fill(option.color.toColor())
+                            .frame(width: 15, height: 15)
+                            .padding(5)
+                            .accessibilityIdentifier("\(Keys.Settings.AccentColorButton)-\(option.name)")
+                            .overlay(content: {
+                                if accent == option.color {
+                                    Circle()
+                                        .fill(.white)
+                                        .frame(width: 6, height: 6, alignment: .center)
+                                        .accessibilityLabel("Selected accent color")
+                                }
+                            })
+
+                        Text(accent == option.color ? option.name : "")
+                            .frame(minHeight: 5)
+                            .fixedSize(horizontal: true, vertical: false)
+                            .frame(width: 35)
+                            .focusable(false)
+                            .accessibilityLabel(option.name)
+                    }
+                    .tag(option.id)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .modifier(PreferencesTabViewModifier(sectionTitle: "Accent color"))
+    }
+
     @ViewBuilder
     func ThemePicker() -> some View {
         Picker("", selection: $theme) {
@@ -27,6 +66,7 @@ extension GeneralSettingsView {
         .labelsHidden()
         .pickerStyle(.menu)
         .fixedSize()
+        .tint(accent.toColor())
         .modifier(PreferencesTabViewModifier(sectionTitle: "Code theme"))
     }
     
@@ -40,6 +80,7 @@ extension GeneralSettingsView {
                 .frame(minWidth: 55, maxWidth: 85)
                 .fixedSize()
         }
+        .tint(accent.toColor())
         .modifier(PreferencesTabViewModifier(sectionTitle: "Font size"))
     }
     

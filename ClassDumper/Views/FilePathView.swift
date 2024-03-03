@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct FilePathView: View {
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
+
     var folderName: String
     var fileName: String
 
@@ -9,7 +11,7 @@ struct FilePathView: View {
             HStack {
                 HStack(spacing: 4) {
                     Image(systemName: "folder.fill")
-                        .foregroundColor(.accentColor)
+                        .foregroundColor(accent.toColor())
                     Text(folderName)
                 }
 
@@ -18,7 +20,7 @@ struct FilePathView: View {
 
                 HStack(spacing: 4) {
                     Image(systemName: "doc.fill")
-                        .foregroundColor(.accentColor)
+                        .foregroundColor(accent.toColor())
                     Text(fileName)
                         .accessibilityIdentifier(Keys.Detail.PathBarFile)
                 }

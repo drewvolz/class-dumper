@@ -24,6 +24,7 @@ struct FileRowRequest: Queryable {
 
 struct FileRowView: View {
     @AppStorage("scopedSearchPreference") var scopedSearchPreference = Preferences.Defaults.scopedSearch
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
 
     // query to fetch all data
     @Query(FileRowRequest())
@@ -64,7 +65,7 @@ struct FileRowView: View {
                 } icon: {
                     Image(systemName: "doc")
                         .symbolVariant(.fill)
-                        .foregroundColor(.accentColor)
+                        .foregroundColor(accent.toColor())
                 }
             }
             .accessibilityIdentifier(Keys.Middle.Row)
