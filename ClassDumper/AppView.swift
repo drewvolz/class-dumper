@@ -7,6 +7,7 @@ typealias FileDatabase = Array<File>
 
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
 
     @Query(FileCountRequest())
     fileprivate var fileCount: Int
@@ -44,6 +45,7 @@ struct AppView: View {
             parseDirectory()
         }
         .navigationTitle(NSApplication.bundleName)
+        .tint(accent.toColor())
     }
 }
 
@@ -58,7 +60,7 @@ extension AppView {
                 }
             }, label: {
                 Label("Edit files", systemImage: "pencil")
-                    .foregroundColor(deletionEnabled ? .accentColor : .none)
+                    .foregroundColor(deletionEnabled ? accent.toColor() : .none)
             })
             .keyboardShortcut("e", modifiers: [.command])
         }

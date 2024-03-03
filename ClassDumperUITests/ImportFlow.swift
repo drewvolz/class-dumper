@@ -81,6 +81,7 @@ struct ImportFlow: Screen {
         }
     }
 
+    @discardableResult
     func check(_ element: Component, exists: Bool) -> Self {
         let forElement = getComponent(for: element)
 
@@ -123,6 +124,19 @@ struct ImportFlow: Screen {
         app.windows.buttons["Delete all saved data"].tap()
 
         app.windows.buttons["Delete"].tap()
+
+        return self
+    }
+    
+    @discardableResult
+    func checkAccentColorTappable() -> Self {
+        open(.settings)
+
+        app.windows.buttons["General"].tap()
+
+        let blueAccentButton = app.buttons["\(Keys.Settings.AccentColorButton)-Blue"]
+        XCTAssert(blueAccentButton.exists)
+        blueAccentButton.tap()
 
         return self
     }

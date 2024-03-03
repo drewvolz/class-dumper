@@ -25,6 +25,8 @@ struct FolderRowRequest: Queryable {
 extension AppView {
     
     struct FolderRowView: View {
+        @AppStorage("accent") var accent = CodableColor(.accentColor)
+
         @Query(FolderRowRequest())
         var folderRows: FolderRowResponse
 
@@ -38,7 +40,7 @@ extension AppView {
                 }
             } icon: {
                 Image(systemName: "folder")
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(accent.toColor())
             }
             .badge(badge)
         }

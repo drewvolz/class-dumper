@@ -36,5 +36,6 @@ final class ClassDumperUITests: UITestCase {
             .tapFirst(.filterToggle, containing: "Show selected")
             // TODO: CI is failing this test although it is working locally
             // .selectPopupButton("Show all")
+            .checkAccentColorTappable()
     }
 }

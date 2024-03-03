@@ -5,7 +5,8 @@ import SwiftUI
 struct ClassDumperApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var alertController = AlertController()
-    
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
+
     var body: some Scene {
         WindowGroup {
             AppView()

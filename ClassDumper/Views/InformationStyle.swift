@@ -2,23 +2,27 @@ import SwiftUI
 
 /// The style for information text
 struct InformationStyle: ViewModifier {
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
+
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)
-            .foregroundColor(.accentColor)
+            .foregroundColor(accent.toColor())
             .font(.callout)
     }
 }
 
 /// The style for information boxes
 struct InformationBox: ViewModifier {
+    @AppStorage("accent") var accent = CodableColor(.accentColor)
+
     func body(content: Content) -> some View {
         content
             .padding()
             .frame(maxWidth: .infinity, alignment: .center)
-            .background(Color.accentColor.opacity(0.07))
+            .background(accent.toColor().opacity(0.07))
             .buttonStyle(.borderedProminent)
-            .tint(.accentColor)
+            .tint(accent.toColor())
             .cornerRadius(10)
             .padding()
     }
