@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ZeeZide/CodeEditor.git",
       "state" : {
-        "revision" : "180bde07b44dea839b32873bd8586ba146fa9106",
-        "version" : "1.2.2"
+        "revision" : "3a924589c957383693cae6336a29c3ead602ec96",
+        "version" : "1.2.4"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "e069e2732e3ee2b67bf89c1bda1937da0eaee7ef",
-        "version" : "6.24.2"
+        "revision" : "639fa9168d36931b36a79e60dc06b7d23852f1f4",
+        "version" : "6.27.0"
       }
     },
     {
