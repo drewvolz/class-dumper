@@ -18,7 +18,7 @@ struct ClassDumperApp: App {
         }
         .commands {
             // overwritten and custom commands
-            MenuCommands()
+            MenuCommands(alertController: alertController)
             // provides font size
             TextFormattingCommands()
         }

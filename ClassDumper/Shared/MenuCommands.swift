@@ -2,6 +2,11 @@ import SwiftUI
 
 struct MenuCommands: Commands {
     @SwiftUI.Environment(\.openURL) var openURL: OpenURLAction
+    @ObservedObject var alertController: AlertController
+
+    init(alertController: AlertController) {
+        self._alertController = ObservedObject(wrappedValue: alertController)
+    }
 
     var body: some Commands {
         CommandGroup(replacing: .appInfo) {
@@ -13,7 +18,7 @@ struct MenuCommands: Commands {
         }
 
         CommandGroup(after: .printItem) {
-            CreateFileButton()
+            CreateFileButton().environmentObject(alertController)
             FindSection()
         }
     }
