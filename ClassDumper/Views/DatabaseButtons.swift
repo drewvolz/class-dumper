@@ -47,10 +47,6 @@ struct CreateFileButton: View {
         .keyboardShortcut("o", modifiers: [.command])
     }
 }
-            }
-        }
-    }
-}
 
 extension CreateFileButton {
 
