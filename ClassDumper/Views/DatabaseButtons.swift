@@ -21,7 +21,7 @@ struct CreateFileButton: View {
         return panel
     }()
 
-    func openPanel() {
+    private func openPanel() {
         switch panel.runModal() {
         case .OK:
             guard let url = panel.url else {
