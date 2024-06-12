@@ -148,7 +148,7 @@ struct ImportFlow: Screen {
     func openApp(named appName: String) -> Self {
         open(.filepicker)
 
-        app.sheets.firstMatch.outlineRows.staticTexts["Applications"].tap()
+        app.dialogs.firstMatch.outlineRows.staticTexts["Applications"].tap()
 
         // taking advantage of finder directing keyboard input towards the middle column
         app.typeText(appName)
