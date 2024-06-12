@@ -13,22 +13,42 @@ struct CreateFileButton: View {
         self.titleKey = titleKey
     }
     
+    private var panel: NSOpenPanel = {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.application, .executable, .symbolicLink, .aliasFile]
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = true
+        panel.treatsFilePackagesAsDirectories = true
+        return panel
+    }()
+
+    func openPanel() {
+        switch panel.runModal() {
+        case .OK:
+            guard let url = panel.url else {
+                print("Unable to read file url path from NSOpenPanel.")
+                return
+            }
+            success(with: url)
+        case .cancel:
+            break // noop, need something on this line with breaks being implicit
+        case .abort, .stop:
+            print("Abort or stop result from NSOpenPanel. No filepath to pass.")
+        default:
+            print("Something went really wrong with NSOpenPanel. Unable to read file contents")
+        }
+    }
+
     var body: some View {
         Button {
             importing = true
+            openPanel()
         } label: {
             Label(titleKey, systemImage: "folder.badge.plus")
         }
         .keyboardShortcut("o", modifiers: [.command])
-        .fileImporter(
-            isPresented: $importing,
-            allowedContentTypes: [.application, .executable, .symbolicLink, .aliasFile]
-        ) { result in
-            switch result {
-            case .success(let file):
-                success(with: file)
-            case .failure(let error):
-                print("Unable to read file contents: \(error.localizedDescription)")
+    }
+}
             }
         }
     }
