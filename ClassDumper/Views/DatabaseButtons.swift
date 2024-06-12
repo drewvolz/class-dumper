@@ -6,7 +6,6 @@ struct CreateFileButton: View {
     @Environment(\.fileRepository) private var fileRepository
     @EnvironmentObject var alertController: AlertController
 
-    @State private var importing = false
     private var titleKey: LocalizedStringKey
     
     init(_ titleKey: LocalizedStringKey = "Open…") {
@@ -41,7 +40,6 @@ struct CreateFileButton: View {
 
     var body: some View {
         Button {
-            importing = true
             openPanel()
         } label: {
             Label(titleKey, systemImage: "folder.badge.plus")
