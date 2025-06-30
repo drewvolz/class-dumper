@@ -17,6 +17,9 @@ struct Preferences {
 
         // scoped search view
         static var scopedSearch = Preferences.FilterScope.default
+        
+        // drag and drop import
+        static var confirmBeforeImport = false
     }
 }
 

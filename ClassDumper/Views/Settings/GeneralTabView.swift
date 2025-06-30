@@ -5,13 +5,15 @@ struct GeneralSettingsView: View {
     @AppStorage("accent") var accent = CodableColor(.accentColor)
     @AppStorage("codeViewerTheme") var theme: CodeEditor.ThemeName = Preferences.Defaults.themeName
     @AppStorage("codeViewerFontSize") var fontSize: Int = Preferences.Defaults.fontSize
+    @AppStorage("confirmBeforeImport") var confirmBeforeImport: Bool = Preferences.Defaults.confirmBeforeImport
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-                AccentColor()
-                ThemePicker()
-                FontSizePicker()
-                ResetDataButton()
+            AccentColor()
+            ThemePicker()
+            FontSizePicker()
+            ResetDataButton()
+            ImportSettings()
         }
     }
 }
@@ -91,5 +93,11 @@ extension GeneralSettingsView {
             // but side effects may be placed here if desired.
         })
         .modifier(PreferencesTabViewModifier(sectionTitle: "Database"))
+    }
+    
+    @ViewBuilder
+    func ImportSettings() -> some View {
+        Toggle("Confirm before importing files", isOn: $confirmBeforeImport)
+        .modifier(PreferencesTabViewModifier(sectionTitle: "Import"))
     }
 }
