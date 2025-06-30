@@ -42,7 +42,7 @@ struct ImportFlow: Screen {
         TestComponent(id: Keys.Middle.List,
                       rowId: Keys.Middle.Row,
                       section: .content,
-                      component: app.tables[Keys.Middle.List])
+                      component: app.outlines[Keys.Middle.List])
     }
 
     var codeviewer: TestComponent {
