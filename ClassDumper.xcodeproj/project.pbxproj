@@ -18,6 +18,8 @@
 		3A2F8F772A397CF100D9FB26 /* InformationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F722A397CF100D9FB26 /* InformationStyle.swift */; };
 		3A2F8F932A46B3D700D9FB26 /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2F8F922A46B3D700D9FB26 /* Files */; };
 		3A2F8F952A4D4C5A00D9FB26 /* FolderRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */; };
+		3A4DA4072E1213FB007D089D /* FileDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4DA4062E1213FB007D089D /* FileDropView.swift */; };
+		3A4DA4092E121DEC007D089D /* FileProcessingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4DA4082E121DEC007D089D /* FileProcessingUtils.swift */; };
 		3A5863712B84564F00487B13 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5863702B84564F00487B13 /* URL.swift */; };
 		3A5863F02B8C069C00487B13 /* FilterScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5863EF2B8C069C00487B13 /* FilterScopeView.swift */; };
 		3A5863F22B8C14A400487B13 /* FilePathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5863F12B8C14A400487B13 /* FilePathView.swift */; };
@@ -93,6 +95,8 @@
 		3A2F8F722A397CF100D9FB26 /* InformationStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationStyle.swift; sourceTree = "<group>"; };
 		3A2F8F912A46B3C500D9FB26 /* Files */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Files; path = Packages/Files; sourceTree = "<group>"; };
 		3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderRowView.swift; sourceTree = "<group>"; };
+		3A4DA4062E1213FB007D089D /* FileDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDropView.swift; sourceTree = "<group>"; };
+		3A4DA4082E121DEC007D089D /* FileProcessingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessingUtils.swift; sourceTree = "<group>"; };
 		3A5863702B84564F00487B13 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		3A5863EF2B8C069C00487B13 /* FilterScopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterScopeView.swift; sourceTree = "<group>"; };
 		3A5863F12B8C14A400487B13 /* FilePathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathView.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 				3A91CDD92A57BEDE00C85A27 /* Keys.swift */,
 				3AA565412A2575FB00EBD7FB /* AlertController.swift */,
 				3A27E7592A26F20000B3537B /* MenuCommands.swift */,
+				3A4DA4082E121DEC007D089D /* FileProcessingUtils.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			children = (
 				3A2F8F942A4D4C5A00D9FB26 /* FolderRowView.swift */,
 				3A2F8F6D2A397BAF00D9FB26 /* FileRowView.swift */,
+				3A4DA4062E1213FB007D089D /* FileDropView.swift */,
 				3A5863EF2B8C069C00487B13 /* FilterScopeView.swift */,
 				3A5863F12B8C14A400487B13 /* FilePathView.swift */,
 				3A67D7772A56542300516FF2 /* FileContentsView.swift */,
@@ -466,6 +472,7 @@
 			files = (
 				3A67D7662A511FFA00516FF2 /* AppDelegate.swift in Sources */,
 				3A67D7722A54913100516FF2 /* GeneralTabView.swift in Sources */,
+				3A4DA4092E121DEC007D089D /* FileProcessingUtils.swift in Sources */,
 				3A67D7782A56542300516FF2 /* FileContentsView.swift in Sources */,
 				3A5863F02B8C069C00487B13 /* FilterScopeView.swift in Sources */,
 				3A2F8F952A4D4C5A00D9FB26 /* FolderRowView.swift in Sources */,
@@ -489,6 +496,7 @@
 				3A67D7682A51566B00516FF2 /* String+ConsoleOutput.swift in Sources */,
 				3A2F8F6E2A397BAF00D9FB26 /* FileRowView.swift in Sources */,
 				3A2F8F772A397CF100D9FB26 /* InformationStyle.swift in Sources */,
+				3A4DA4072E1213FB007D089D /* FileDropView.swift in Sources */,
 				3A27E7582A26EC9C00B3537B /* Constants.swift in Sources */,
 				3A67D7742A54915000516FF2 /* DebugTabView.swift in Sources */,
 				3A27E75A2A26F20000B3537B /* MenuCommands.swift in Sources */,

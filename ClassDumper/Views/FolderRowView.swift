@@ -12,7 +12,7 @@ struct FolderRowRequest: Queryable {
     func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<FolderRowResponse> {
         return ValueObservation.tracking { db in
             let results = try File
-                .order(Column("folder"))
+                .order(Column("folder").collating(.nocase))
                 .fetchAll(db)
                 .map { ($0.folder, 1) }
 

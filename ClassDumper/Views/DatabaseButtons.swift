@@ -67,74 +67,14 @@ extension CreateFileButton {
     }
 
     func onFileImport(file: URL) {
-        let outputDirectoryURL = outputDirectory
-            .appendingPathComponent(file.deletingPathExtension().lastPathComponent)
+        let result = FileProcessingUtils.processFile(fileURL: file, alertController: alertController)
 
-        try? FileManager.default.createDirectory(atPath: outputDirectoryURL.path, withIntermediateDirectories: true)
-
-        if let path = Bundle.main.url(forResource: "class-dump", withExtension: "") {
-            let errorOutput = executeCommand(executableURL:path, args: [file.resolvingSymlinksInPath().path, "-t", "-H", "-o", outputDirectoryURL.path])
-            checkErrorOutput(message: errorOutput, outputDirectory: outputDirectoryURL)
-        }
-    }
-
-    func executeCommand(executableURL: URL, args: [String]) -> String {
-        let outputPipe = Pipe()
-        let errorPipe = Pipe()
-
-        let task = Process()
-        task.executableURL = executableURL
-        task.arguments = args
-        task.standardOutput = outputPipe
-        task.standardError = errorPipe
-
-        do {
-            try task.run()
-            task.waitUntilExit()
-        } catch {
-            fatalError("Something went wrong when trying to invoke \(executableURL.path)")
-        }
-
-        let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-
-        let _ = String(decoding: outputData, as: UTF8.self)
-        let standardError = String(decoding: errorData, as: UTF8.self)
-        
-        return standardError
-    }
-
-    func checkErrorOutput(message: String, outputDirectory: URL) {
-        /// Configuraable in app debug settings
-        @AppStorage("enableVerboseImportErrorLogging") var enableVerboseImportErrorLogging = Preferences.Defaults.verboseErrors
-        /// Configurable in app debug settings
-        @AppStorage("dialogLengthImportErrorLogging") var dialogLengthImportErrorLogging = Preferences.Defaults.dialogLength
-
-        if !message.isEmpty {
-            var messageTitle = ""
-            var messageContent = ""
-
-            // the most common error we'll come across is when no Mach-O files are generated
-            let noRuntimeInfoWarning = "does not contain any Objective-C runtime information"
-
-            switch message {
-            case _ where message.contains(noRuntimeInfoWarning):
-                messageTitle = "Nothing to parse"
-                messageContent = "\(outputDirectory.lastPathComponent) \(noRuntimeInfoWarning)"
-            default:
-                messageTitle = "An unexpected error occurred"
-                messageContent = message.formatConsoleOutput(
-                    length: dialogLengthImportErrorLogging,
-                    skip: enableVerboseImportErrorLogging
-                )
-            }
-
-            alertController.info = AlertInfo(
-                id: .importNoObjcRuntimeInformation,
-                title: messageTitle,
-                message: messageContent,
-                level: .message
-            )
+        switch result {
+        case .success:
+            NotificationCenter.default.post(name: .folderSelectedFromFinderNotification, object: nil)
+        case .failure:
+            // error is already handled by FileProcessingUtils.checkErrorOutput
+            break
         }
     }
 }
