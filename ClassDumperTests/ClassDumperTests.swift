@@ -1,7 +1,6 @@
 import XCTest
 
 final class ClassDumperTests: XCTestCase {
-
     override func setUpWithError() throws {}
 
     override func tearDownWithError() throws {}

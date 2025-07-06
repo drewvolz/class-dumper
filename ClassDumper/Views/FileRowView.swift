@@ -1,7 +1,7 @@
 import Files
-import SwiftUI
 import GRDB
 import GRDBQuery
+import SwiftUI
 
 typealias FileRowResponse = [(Int64?, String, String, String)]
 
@@ -31,8 +31,8 @@ struct FileRowView: View {
     var allFileRows: FileRowResponse
 
     // filtering the active directory
-    var filteredFileRows: FileRowResponse  {
-        allFileRows.filter({$0.1 == selectedFolder})
+    var filteredFileRows: FileRowResponse {
+        allFileRows.filter { $0.1 == selectedFolder }
     }
 
     // data to render based upon scoped preference
@@ -41,9 +41,9 @@ struct FileRowView: View {
     }
 
     var selectedFolder: String
-    
+
     @State private var searchText = ""
-    
+
     private var filteredFileNames: FileRowResponse {
         if searchText.isEmpty {
             return fileRows
@@ -54,9 +54,9 @@ struct FileRowView: View {
             }
         }
     }
-    
+
     var body: some View {
-        List(filteredFileNames, id:\.0) { fileId, folderName, fileName, content in
+        List(filteredFileNames, id: \.0) { _, folderName, fileName, content in
             NavigationLink(destination: DetailView(fileContents: content, folderName: folderName, fileName: fileName)) {
                 Label {
                     Text(fileName)

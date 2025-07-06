@@ -1,5 +1,5 @@
-import GRDBQuery
 import Files
+import GRDBQuery
 import SwiftUI
 
 // MARK: - Give SwiftUI access to the file repository

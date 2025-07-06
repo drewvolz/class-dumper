@@ -7,7 +7,6 @@ enum FileProcessingResult {
 }
 
 enum FileProcessingUtils {
-
     /// Executes a command with the given executable URL and arguments
     /// - Parameters:
     ///   - executableURL: The URL of the executable to run

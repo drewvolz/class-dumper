@@ -31,7 +31,7 @@ struct CodableColor: RawRepresentable, Codable {
         let blue = Int(nsColor.blueComponent * 255)
         let alpha = Int(nsColor.alphaComponent * 255)
 
-        self.rawValue = String(format: "%02X%02X%02X%02X", red, green, blue, alpha)
+        rawValue = String(format: "%02X%02X%02X%02X", red, green, blue, alpha)
     }
 
     func toColor() -> Color {

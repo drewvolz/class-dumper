@@ -13,7 +13,6 @@ struct ImportFlow: Screen {
         case content
         case detail
         case filter
-
     }
 
     enum Component {
@@ -51,14 +50,14 @@ struct ImportFlow: Screen {
                       section: .detail,
                       component: app.scrollViews[Keys.Detail.CodeViewer])
     }
-    
+
     var pathbar: TestComponent {
         TestComponent(id: Keys.Detail.PathBar,
                       rowId: "",
                       section: .detail,
                       component: app.scrollViews[Keys.Detail.PathBar])
     }
-    
+
     var filterToggle: TestComponent {
         TestComponent(id: Keys.Filters.FilterFiles,
                       rowId: "",
@@ -106,7 +105,7 @@ struct ImportFlow: Screen {
 
         return self
     }
-    
+
     @discardableResult
     func selectPopupButton(_ containing: String) -> Self {
         let firstPredicate = NSPredicate(format: "title BEGINSWITH '\(containing)'")
@@ -129,7 +128,7 @@ struct ImportFlow: Screen {
 
         return self
     }
-    
+
     @discardableResult
     func openDatabaseSettings() -> Self {
         open(.settings)
@@ -368,8 +367,10 @@ struct ImportFlow: Screen {
         label: String,
         parent: XCUIElement,
         target: Section,
-        rowId: String)
-    -> Self {
+        rowId: String
+    )
+        -> Self
+    {
         var row: XCUIElementQuery
 
         switch target {
@@ -377,12 +378,10 @@ struct ImportFlow: Screen {
             row = parent.buttons.matching(identifier: rowId)
             XCTAssertTrue(row.element.label == label)
             row[label].tap()
-            break
         case .content:
             row = parent.buttons.matching(identifier: rowId)
             XCTAssertTrue(row[label].label == label)
             row[label].tap()
-            break
         case .detail:
             row = parent.textViews
 
@@ -395,14 +394,12 @@ struct ImportFlow: Screen {
             }
             XCTAssertTrue(found.contains(label))
             row.firstMatch.tap()
-            break
         case .filter:
             row = app.popUpButtons
             XCTAssertTrue(row[Keys.Filters.FilterFiles].value as? String == label)
             row.firstMatch.tap()
-            break
         }
-        
+
         return self
     }
 

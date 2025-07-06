@@ -7,11 +7,11 @@ struct CreateFileButton: View {
     @EnvironmentObject var alertController: AlertController
 
     private var titleKey: LocalizedStringKey
-    
+
     init(_ titleKey: LocalizedStringKey = "Open…") {
         self.titleKey = titleKey
     }
-    
+
     private var panel: NSOpenPanel = {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = [.application, .executable, .symbolicLink, .aliasFile]
@@ -49,7 +49,6 @@ struct CreateFileButton: View {
 }
 
 extension CreateFileButton {
-
     func getSelectedFilePath(for path: URL) -> URL {
         var selectedPath = path
         let bundledPath = Bundle.main.url(forResource: "class-dump", withExtension: "")
@@ -90,7 +89,7 @@ struct DeleteFilesButton: View {
         case deleteBefore(() -> Void)
         case deleteAllRecordsWithPrompt(() -> Void)
     }
-    
+
     private var titleKey: LocalizedStringKey
     private var mode: Mode
 
@@ -100,54 +99,54 @@ struct DeleteFilesButton: View {
     /// Creates a button that simply deletes folders and their records.
     init(_ titleKey: LocalizedStringKey, folderKey: String) {
         self.titleKey = titleKey
-        self.mode = .deleteFolder
+        mode = .deleteFolder
         self.folderKey = folderKey
     }
-    
+
     /// Creates a button that deletes files soon after performing `action`.
     init(
         _ titleKey: LocalizedStringKey,
-        after action: @escaping () -> Void)
-    {
+        after action: @escaping () -> Void
+    ) {
         self.titleKey = titleKey
-        self.mode = .deleteAfter(action)
+        mode = .deleteAfter(action)
     }
-    
+
     /// Creates a button that deletes files immediately after performing `action`.
     init(
         _ titleKey: LocalizedStringKey,
-        before action: @escaping () -> Void)
-    {
+        before action: @escaping () -> Void
+    ) {
         self.titleKey = titleKey
-        self.mode = .deleteBefore(action)
+        mode = .deleteBefore(action)
     }
-    
+
     /// Creates a button that deletes files only after confirming, then runs an `action`.
     init(
         _ titleKey: LocalizedStringKey,
-        afterWithPrompt action: @escaping () -> Void)
-    {
+        afterWithPrompt action: @escaping () -> Void
+    ) {
         self.titleKey = titleKey
-        self.mode = .deleteAllRecordsWithPrompt(action)
+        mode = .deleteAllRecordsWithPrompt(action)
     }
-    
+
     var body: some View {
         Button {
             switch mode {
             case .deleteFolder:
                 _ = try! fileRepository.deleteFolder(folderKey: folderKey)
-                
+
             case let .deleteAfter(action):
                 action()
                 Task {
                     try await Task.sleep(nanoseconds: 100_000_000)
                     try fileRepository.deleteAllFiles()
                 }
-                
+
             case let .deleteBefore(action):
                 _ = try! fileRepository.deleteAllFiles()
                 action()
-                
+
             case let .deleteAllRecordsWithPrompt(action):
                 alertController.info = AlertInfo(
                     id: .settingsDeleteSavedDataPrompt,
@@ -174,18 +173,18 @@ import GRDBQuery
 struct DatabaseButtons_Previews: PreviewProvider {
     struct FileCountRequest: Queryable {
         static var defaultValue: Int { 0 }
-        
+
         func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<Int> {
             ValueObservation
                 .tracking(File.fetchCount)
                 .publisher(in: fileRepository.reader, scheduling: .immediate)
         }
     }
-    
+
     struct Preview: View {
         @Query(FileCountRequest())
         var fileCount: Int
-        
+
         var body: some View {
             VStack {
                 Text("Number of files: \(fileCount)")
@@ -196,7 +195,7 @@ struct DatabaseButtons_Previews: PreviewProvider {
             .padding()
         }
     }
-    
+
     static var previews: some View {
         Preview()
     }

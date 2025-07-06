@@ -1,5 +1,5 @@
-import SwiftUI
 import CodeEditor
+import SwiftUI
 
 struct DetailView: View {
     @AppStorage("codeViewerTheme") var theme: CodeEditor.ThemeName = Preferences.Defaults.themeName
@@ -13,10 +13,10 @@ struct DetailView: View {
         CodeEditor(source: fileContents,
                    language: .objectivec,
                    theme: theme,
-                   fontSize: .init(get: { CGFloat(fontSize)  },
+                   fontSize: .init(get: { CGFloat(fontSize) },
                                    set: { fontSize = Int($0) }),
                    flags: [.defaultViewerFlags])
-        .accessibilityIdentifier(Keys.Detail.CodeViewer)
+            .accessibilityIdentifier(Keys.Detail.CodeViewer)
 
         FilePathView(folderName: folderName, fileName: fileName)
     }

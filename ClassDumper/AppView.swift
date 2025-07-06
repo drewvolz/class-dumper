@@ -1,9 +1,9 @@
+import Files
 import GRDB
 import GRDBQuery
-import Files
 import SwiftUI
 
-typealias FileDatabase = Array<File>
+typealias FileDatabase = [File]
 
 struct AppView: View {
     @Environment(\.fileRepository) private var fileRepository
@@ -29,31 +29,26 @@ struct AppView: View {
                 EmptyFooter()
                 Spacer()
             }
-        } content: {
-
-        } detail: {
-
-        }
-        .toolbar {
-            if fileCount != 0 {
-                ToolbarItemGroup(placement: .navigation) {
-                    FilterScopeView()
+        } content: {} detail: {}
+            .toolbar {
+                if fileCount != 0 {
+                    ToolbarItemGroup(placement: .navigation) {
+                        FilterScopeView()
+                    }
                 }
             }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name.folderSelectedFromFinderNotification)) { _ in
-            parseDirectory()
-        }
-        .navigationTitle(NSApplication.bundleName)
-        .tint(accent.toColor())
-        .overlay(
-            FileDropView()
-        )
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name.folderSelectedFromFinderNotification)) { _ in
+                parseDirectory()
+            }
+            .navigationTitle(NSApplication.bundleName)
+            .tint(accent.toColor())
+            .overlay(
+                FileDropView()
+            )
     }
 }
 
 extension AppView {
-
     @ViewBuilder
     func EditToolbarButton() -> some View {
         if fileCount != 0 {
@@ -71,16 +66,15 @@ extension AppView {
 
     func parseDirectory() {
         if let directory = FileManager.default.enumerator(at: outputDirectory.resolvingSymlinksInPath(), includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]) {
-            
             /// batching changes so that inserts can be done in a single transaction
             var filesToinsert = [File]()
 
             while let url = directory.nextObject() as? URL {
-                if (url.pathExtension != "" && !url.hasDirectoryPath) {
+                if url.pathExtension != "", !url.hasDirectoryPath {
                     let directory = url.deletingLastPathComponent().lastPathComponent
                     let filename = url.lastPathComponent
                     let contents = parseFile(atPath: url.relativePath)
-                    
+
                     filesToinsert.append(File.createFile(name: filename, folder: directory, contents: contents))
                 }
             }
@@ -90,15 +84,15 @@ extension AppView {
 
         deleteTempDirectory()
     }
-    
+
     func parseFile(atPath path: String) -> String {
         if let contents = try? String(contentsOf: URL(filePath: path)) {
             return contents
         }
-        
+
         return ""
     }
-    
+
     /// The output from `class-dump`is temporarily stored on-disk so that we can parse structured
     /// output. Otherwise, we'd have to write a parser to get the same data structure for the header files.
     ///
@@ -116,7 +110,7 @@ extension AppView {
         VStack {
             Text("Open a file to get started with class dumping.")
                 .informationStyle()
-            
+
             CreateFileButton()
         }
         .informationBox()
@@ -126,7 +120,7 @@ extension AppView {
 /// A @Query request that observes the file (any file, actually) in the database
 private struct FileCountRequest: Queryable {
     static var defaultValue: Int { 0 }
-    
+
     func publisher(in fileRepository: FileRepository) -> DatabasePublishers.Value<Int> {
         ValueObservation
             .tracking(File.fetchCount)

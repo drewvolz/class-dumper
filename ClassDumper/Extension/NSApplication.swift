@@ -11,7 +11,7 @@ extension NSApplication {
     static var appVersion: String {
         return Bundle.main.object(forInfoDictionaryKey: PlistKey.Version.rawValue) as? String ?? ""
     }
-    
+
     static var buildNumber: String {
         return Bundle.main.object(forInfoDictionaryKey: PlistKey.Build.rawValue) as? String ?? ""
     }

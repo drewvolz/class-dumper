@@ -32,7 +32,7 @@ extension View {
     func informationStyle() -> some View {
         modifier(InformationStyle())
     }
-    
+
     func informationBox() -> some View {
         modifier(InformationBox())
     }
@@ -45,7 +45,7 @@ struct Information_Previews: PreviewProvider {
                 .informationStyle()
             Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et.")
                 .informationStyle()
-            Button("OK") { }
+            Button("OK") {}
         }
         .informationBox()
         .padding()

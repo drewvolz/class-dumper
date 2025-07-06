@@ -1,27 +1,27 @@
-struct Keys {
+enum Keys {
     static let UITesting = "--uitesting"
-    
-    struct Sidebar {
+
+    enum Sidebar {
         static let List = "SidebarList"
         static let Row = "SidebarRow"
     }
-    
-    struct Middle {
+
+    enum Middle {
         static let List = "MiddleList"
         static let Row = "MiddleRow"
     }
 
-    struct Detail {
+    enum Detail {
         static let CodeViewer = "CodeViewer"
         static let PathBar = "PathBar"
         static let PathBarFile = "PathBarFile"
     }
 
-    struct Settings {
+    enum Settings {
         static let AccentColorButton = "AccentColorButton"
     }
 
-    struct Filters {
+    enum Filters {
         static let FilterFiles = "FilterFiles"
     }
 }

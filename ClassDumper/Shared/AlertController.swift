@@ -1,6 +1,6 @@
 import SwiftUI
 
-typealias Action = () -> ()?
+typealias Action = () -> Void?
 var closure: (() -> Void) = {}
 
 struct AlertInfo: Identifiable {
@@ -19,14 +19,14 @@ struct AlertInfo: Identifiable {
          message: String,
          level: AlertLevel,
          primaryButtonMessage: String = "OK",
-         primaryButtonAction: @escaping Action = closure
-    ) {
-       self.id = id
-       self.title = title
-       self.message = message
-       self.level = level
-       self.primaryButtonMessage = primaryButtonMessage
-       self.primaryButtonAction = primaryButtonAction
+         primaryButtonAction: @escaping Action = closure)
+    {
+        self.id = id
+        self.title = title
+        self.message = message
+        self.level = level
+        self.primaryButtonMessage = primaryButtonMessage
+        self.primaryButtonAction = primaryButtonAction
     }
 
     let id: AlertType

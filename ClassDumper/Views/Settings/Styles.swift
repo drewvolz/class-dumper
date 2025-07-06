@@ -24,7 +24,7 @@ struct PreferencesGroupBoxStyle: GroupBoxStyle {
                 configuration.label
             }
             .frame(width: 120)
-            
+
             VStack(alignment: .leading) {
                 configuration.content
             }
