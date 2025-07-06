@@ -45,7 +45,6 @@ final class ClassDumperUITests: UITestCase {
         let fullyQualifiedTestFileName = "\(testFilename).sqlite"
 
         testFlow
-            .ensureMainWindowExists()
             .resetState()
             .openApp(named: "Automator")
             .tapFirst(.folder, containing: "class-dump")
