@@ -50,6 +50,7 @@
 		3AA565472A25BD4900EBD7FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA565462A25BD4900EBD7FB /* Notification.swift */; };
 		3AA565492A25BD6F00EBD7FB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA565482A25BD6F00EBD7FB /* String.swift */; };
 		3AAED1F72A3975490036217E /* Database+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAED1F62A3975490036217E /* Database+SwiftUI.swift */; };
+		3AF6FDF82E19CB2700A3467A /* DatabaseSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6FDF72E19CB2700A3467A /* DatabaseSettingsView.swift */; };
 		3AF90A432A39456700A4B9ED /* GRDBQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 3AF90A422A39456700A4B9ED /* GRDBQuery */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +129,7 @@
 		3AA565462A25BD4900EBD7FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		3AA565482A25BD6F00EBD7FB /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		3AAED1F62A3975490036217E /* Database+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Database+SwiftUI.swift"; sourceTree = "<group>"; };
+		3AF6FDF72E19CB2700A3467A /* DatabaseSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 			children = (
 				3AA564FE2A232B4C00EBD7FB /* SettingsView.swift */,
 				3A67D7712A54913100516FF2 /* GeneralTabView.swift */,
+				3AF6FDF72E19CB2700A3467A /* DatabaseSettingsView.swift */,
 				3A67D7732A54915000516FF2 /* DebugTabView.swift */,
 				3A67D7752A549F6700516FF2 /* Styles.swift */,
 			);
@@ -484,6 +487,7 @@
 				3AAED1F72A3975490036217E /* Database+SwiftUI.swift in Sources */,
 				3A91CDC32A577B0E00C85A27 /* Binding.swift in Sources */,
 				3A27E7532A26E86D00B3537B /* NSApplication.swift in Sources */,
+				3AF6FDF82E19CB2700A3467A /* DatabaseSettingsView.swift in Sources */,
 				3A5863712B84564F00487B13 /* URL.swift in Sources */,
 				3A2F8F672A397A1900D9FB26 /* Database+App.swift in Sources */,
 				3AA565422A2575FB00EBD7FB /* AlertController.swift in Sources */,

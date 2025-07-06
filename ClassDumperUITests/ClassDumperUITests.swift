@@ -38,4 +38,45 @@ final class ClassDumperUITests: UITestCase {
             // .selectPopupButton("Show all")
             .checkAccentColorTappable()
     }
+
+    func testDatabaseImportExport() {
+        let testFlow = ImportFlow(app: app)
+        let testFilename = "UITest-Database-Export"
+        let fullyQualifiedTestFileName = "\(testFilename).sqlite"
+
+        testFlow
+            .resetState()
+            .openApp(named: "Automator")
+            .tapFirst(.folder, containing: "class-dump")
+            .tapFirst(.file, containing: "CDClassDumpVisitor.h")
+            .check(.folder, exists: true)
+
+        let initialFolderCount = testFlow.getFolderCount()
+        XCTAssert(initialFolderCount == 1, "Should have folders after import")
+
+        testFlow
+            .openDatabaseSettings()
+            .performDatabaseExport(filename: testFilename)
+
+        testFlow
+            .deleteAllData()
+            .closeSettings()
+            .check(.folder, exists: false)
+
+        testFlow
+            .openDatabaseSettings()
+            .performDatabaseImport(filename: fullyQualifiedTestFileName)
+            .closeSettings()
+            .ensureMainWindowExists()
+
+        testFlow
+            .check(.folder, exists: true)
+            .verifyFolderCount(initialFolderCount)
+            .tapFirst(.folder, containing: "class-dump")
+            .tapFirst(.file, containing: "CDClassDumpVisitor.h")
+            .check(.code, exists: true)
+
+        testFlow
+            .cleanup(fullyQualifiedTestFileName)
+    }
 }

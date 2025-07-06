@@ -12,7 +12,6 @@ struct GeneralSettingsView: View {
             AccentColor()
             ThemePicker()
             FontSizePicker()
-            ResetDataButton()
             ImportSettings()
         }
     }
@@ -85,19 +84,9 @@ extension GeneralSettingsView {
         .tint(accent.toColor())
         .modifier(PreferencesTabViewModifier(sectionTitle: "Font size"))
     }
-    
-    @ViewBuilder
-    func ResetDataButton() -> some View {
-        DeleteFilesButton("Delete all saved data", afterWithPrompt: {
-            // noop, deletion with prompting is handled in the button
-            // but side effects may be placed here if desired.
-        })
-        .modifier(PreferencesTabViewModifier(sectionTitle: "Database"))
-    }
-    
     @ViewBuilder
     func ImportSettings() -> some View {
         Toggle("Confirm before importing files", isOn: $confirmBeforeImport)
-        .modifier(PreferencesTabViewModifier(sectionTitle: "Import"))
+            .modifier(PreferencesTabViewModifier(sectionTitle: "Drag and Drop"))
     }
 }

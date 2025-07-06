@@ -119,15 +119,220 @@ struct ImportFlow: Screen {
     func resetState() -> Self {
         open(.settings)
 
-        app.windows.buttons["General"].tap()
+        app.windows.buttons["Database"].tap()
 
-        app.windows.buttons["Delete all saved data"].tap()
-
-        app.windows.buttons["Delete"].tap()
+        let deleteButton = app.windows.buttons["Delete all saved data"]
+        if deleteButton.exists {
+            deleteButton.tap()
+            app.windows.buttons["Delete"].tap()
+        }
 
         return self
     }
     
+    @discardableResult
+    func openDatabaseSettings() -> Self {
+        open(.settings)
+        app.windows.buttons["Database"].tap()
+        return self
+    }
+
+    @discardableResult
+    func testDatabaseExport() -> Self {
+        let exportButton = app.windows.buttons["Export Database"]
+        XCTAssert(exportButton.exists)
+        XCTAssert(exportButton.isEnabled)
+
+        exportButton.tap()
+
+        // Verify file save dialog appears
+        XCTAssert(app.sheets.firstMatch.waitForExistence(timeout: 3))
+
+        // Cancel for test purposes
+        app.sheets.firstMatch.buttons["Cancel"].tap()
+
+        return self
+    }
+
+    @discardableResult
+    func testDatabaseImport() -> Self {
+        let importButton = app.windows.buttons["Import Database"]
+        XCTAssert(importButton.exists)
+        XCTAssert(importButton.isEnabled)
+
+        importButton.tap()
+
+        // Verify file open dialog appears
+        XCTAssert(app.sheets.firstMatch.waitForExistence(timeout: 3))
+
+        // Cancel for test purposes
+        app.sheets.firstMatch.buttons["Cancel"].tap()
+
+        return self
+    }
+
+    @discardableResult
+    func performDatabaseExport(filename: String = "UITest-Database-Export.sqlite") -> Self {
+        let exportButton = app.windows.buttons["Export Database"]
+        XCTAssert(exportButton.exists && exportButton.isEnabled)
+        exportButton.tap()
+
+        XCTAssert(app.sheets.firstMatch.waitForExistence(timeout: 3))
+
+        let desktopButton = app.sheets.firstMatch.popUpButtons.firstMatch
+        desktopButton.tap()
+        app.sheets.firstMatch.menuItems["Downloads"].tap()
+
+        let filenameField = app.sheets.firstMatch.textFields.firstMatch
+        filenameField.typeText(filename)
+
+        app.sheets.firstMatch.buttons["Export"].tap()
+
+        // Handle file replacement dialog if it appears
+        if app.sheets.firstMatch.staticTexts.containing(NSPredicate(format: "label CONTAINS 'already exists'")).firstMatch.waitForExistence(timeout: 2) {
+            // File already exists, click Replace
+            if app.sheets.firstMatch.buttons["Replace"].exists {
+                app.sheets.firstMatch.buttons["Replace"].tap()
+            }
+        }
+
+        // Wait for save sheet to disappear first (with timeout)
+        var sheetWaitCount = 0
+        while app.sheets.firstMatch.exists && sheetWaitCount < 10 {
+            Thread.sleep(forTimeInterval: 0.5)
+            sheetWaitCount += 1
+        }
+
+        // Wait briefly and dismiss any success alert that appears
+        Thread.sleep(forTimeInterval: 1.0) // Give UI time to show success feedback
+
+        // Try different types of modal dialogs (SwiftUI can present these differently)
+        if app.alerts.firstMatch.exists && app.alerts.firstMatch.buttons["OK"].exists {
+            app.alerts.firstMatch.buttons["OK"].tap()
+        } else if app.dialogs.firstMatch.exists && app.dialogs.firstMatch.buttons["OK"].exists {
+            app.dialogs.firstMatch.buttons["OK"].tap()
+        } else if app.sheets.firstMatch.exists && app.sheets.firstMatch.buttons["OK"].exists {
+            app.sheets.firstMatch.buttons["OK"].tap()
+        }
+
+        return self
+    }
+
+    @discardableResult
+    func performDatabaseImport(filename: String = "UITest-Database-Export.sqlite") -> Self {
+        let importButton = app.windows.buttons["Import Database"]
+        XCTAssert(importButton.exists && importButton.isEnabled)
+        importButton.tap()
+
+        XCTAssert(app.sheets.firstMatch.waitForExistence(timeout: 2))
+
+        let openDownloadsButton = app.sheets.firstMatch.popUpButtons.firstMatch
+        openDownloadsButton.tap()
+        app.sheets.firstMatch.menuItems["Downloads"].tap()
+
+        // Taking advantage of finder directing keyboard input towards the file list
+        app.typeText(filename)
+        app.typeKey(.return, modifierFlags: [])
+
+        // Continue with the rest of the import flow only if we successfully found and opened the file
+
+        // Wait for open sheet to disappear first (with timeout)
+        var openSheetWaitCount = 0
+        while app.sheets.firstMatch.exists && openSheetWaitCount < 10 {
+            Thread.sleep(forTimeInterval: 0.5)
+            openSheetWaitCount += 1
+        }
+
+        // Wait briefly and dismiss any success alert that appears
+        Thread.sleep(forTimeInterval: 1.0) // Give UI time to show success feedback
+
+        // Try different types of modal dialogs (SwiftUI can present these differently)
+        if app.alerts.firstMatch.exists && app.alerts.firstMatch.buttons["OK"].exists {
+            app.alerts.firstMatch.buttons["OK"].tap()
+            // Wait for alert to fully dismiss
+            while app.alerts.firstMatch.exists {
+                Thread.sleep(forTimeInterval: 0.1)
+            }
+        } else if app.dialogs.firstMatch.exists && app.dialogs.firstMatch.buttons["OK"].exists {
+            app.dialogs.firstMatch.buttons["OK"].tap()
+            // Wait for dialog to fully dismiss
+            while app.dialogs.firstMatch.exists {
+                Thread.sleep(forTimeInterval: 0.1)
+            }
+        } else if app.sheets.firstMatch.exists && app.sheets.firstMatch.buttons["OK"].exists {
+            app.sheets.firstMatch.buttons["OK"].tap()
+            // Wait for sheet to fully dismiss
+            while app.sheets.firstMatch.exists {
+                Thread.sleep(forTimeInterval: 0.1)
+            }
+        }
+
+        return self
+    }
+
+    @discardableResult
+    func deleteAllData() -> Self {
+        // Dismiss any lingering success alert from previous operation
+        if app.alerts.firstMatch.exists && app.alerts.firstMatch.buttons["OK"].exists {
+            app.alerts.firstMatch.buttons["OK"].tap()
+            Thread.sleep(forTimeInterval: 0.5) // Wait for alert to dismiss
+        } else if app.dialogs.firstMatch.exists && app.dialogs.firstMatch.buttons["OK"].exists {
+            app.dialogs.firstMatch.buttons["OK"].tap()
+            Thread.sleep(forTimeInterval: 0.5) // Wait for dialog to dismiss
+        } else if app.sheets.firstMatch.exists && app.sheets.firstMatch.buttons["OK"].exists {
+            app.sheets.firstMatch.buttons["OK"].tap()
+            Thread.sleep(forTimeInterval: 0.5) // Wait for sheet to dismiss
+        }
+
+        let deleteButton = app.windows.buttons["Delete all saved data"]
+        if deleteButton.exists && deleteButton.isHittable {
+            deleteButton.tap()
+
+            // Wait for confirmation dialog and confirm deletion
+            if app.windows.buttons["Delete"].waitForExistence(timeout: 3) {
+                app.windows.buttons["Delete"].tap()
+            }
+        }
+        return self
+    }
+
+    @discardableResult
+    func closeSettings() -> Self {
+        // Be more specific about closing the settings window
+        if app.windows["Class Dumper Settings"].exists {
+            app.windows["Class Dumper Settings"].buttons[XCUIIdentifierCloseWindow].tap()
+        } else if app.sheets.firstMatch.exists {
+            // If settings is presented as a sheet, dismiss it
+            app.typeKey(.escape, modifierFlags: [])
+        } else {
+            // Fallback to Command+W but only if we're sure we have a settings context
+            app.typeKey("w", modifierFlags: .command)
+        }
+        return self
+    }
+
+    @discardableResult
+    func ensureMainWindowExists() -> Self {
+        // If no main window exists, create a new one
+        if !app.windows.element(matching: .window, identifier: "*").firstMatch.exists {
+            // Fallback to Command+n, to guarantee _a_ window is visible
+            app.typeKey("n", modifierFlags: .command)
+        }
+        return self
+    }
+
+    @discardableResult
+    func verifyFolderCount(_ expectedCount: Int) -> Self {
+        let actualCount = getFolderCount()
+        XCTAssertEqual(actualCount, expectedCount, "Folder count should match expected")
+        return self
+    }
+
+    @discardableResult
+    func getFolderCount() -> Int {
+        return folderlist.component.children(matching: .outlineRow).count
+    }
+
     @discardableResult
     func checkAccentColorTappable() -> Self {
         open(.settings)
@@ -199,5 +404,12 @@ struct ImportFlow: Screen {
         }
         
         return self
+    }
+
+    func cleanup(_ testFilename: String) {
+        let fileManager = FileManager.default
+        let downloadsURL = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+        let exportFileURL = downloadsURL.appendingPathComponent(testFilename)
+        try? fileManager.removeItem(at: exportFileURL)
     }
 }
