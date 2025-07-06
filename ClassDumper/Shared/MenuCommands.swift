@@ -5,7 +5,7 @@ struct MenuCommands: Commands {
     @ObservedObject var alertController: AlertController
 
     init(alertController: AlertController) {
-        self._alertController = ObservedObject(wrappedValue: alertController)
+        _alertController = ObservedObject(wrappedValue: alertController)
     }
 
     var body: some Commands {
@@ -32,10 +32,10 @@ extension MenuCommands {
                     NSApplication.AboutPanelOptionKey.credits: NSAttributedString(
                         string: "A GUI around the command-line class-dump utility for examining Objective-C runtime information stored in Mach-O files.",
                         attributes: [
-                            NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize, weight: .regular)
+                            NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize, weight: .regular),
                         ]
                     ),
-                    NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© 2023 Drew Volz"
+                    NSApplication.AboutPanelOptionKey(rawValue: "Copyright"): "© 2023 Drew Volz",
                 ]
             )
         }
@@ -71,7 +71,8 @@ extension MenuCommands {
     func FindSection() -> some View {
         Button("Find") {
             if let toolbar = NSApp.keyWindow?.toolbar,
-                let search = toolbar.items.first(where: { $0.itemIdentifier.rawValue == "com.apple.SwiftUI.search" }) as? NSSearchToolbarItem {
+               let search = toolbar.items.first(where: { $0.itemIdentifier.rawValue == "com.apple.SwiftUI.search" }) as? NSSearchToolbarItem
+            {
                 search.beginSearchInteraction()
             }
         }.keyboardShortcut("f", modifiers: .command)

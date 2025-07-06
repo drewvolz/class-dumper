@@ -1,7 +1,6 @@
 import Foundation
 
 extension String {
-
     /// Matches input against a regular expression capture group. Found matches are removed.
     private func clean(_ input: String, matching pattern: String) -> String {
         do {

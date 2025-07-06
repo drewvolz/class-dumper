@@ -1,7 +1,7 @@
-import SwiftUI
-import UniformTypeIdentifiers
 import Files
 import GRDB
+import SwiftUI
+import UniformTypeIdentifiers
 
 struct DatabaseSettingsView: View {
     @AppStorage("accent") var accent = CodableColor(.accentColor)
@@ -137,9 +137,9 @@ extension DatabaseSettingsView {
                 let databaseURL = directoryURL.appendingPathComponent("db.sqlite")
 
                 FileRepository.shared.close()
-                
+
                 Thread.sleep(forTimeInterval: 0.1)
-                
+
                 let baseURL = databaseURL.deletingPathExtension()
                 let extensions = ["", "-wal", "-shm", "-journal"]
                 for ext in extensions {
@@ -204,7 +204,7 @@ extension DatabaseSettingsView {
                     try FileRepository.shared.vacuumInto(path: tempExportURL.path)
 
                     let databaseData = try Data(contentsOf: tempExportURL)
-                    
+
                     try? FileManager.default.removeItem(at: tempExportURL)
 
                     try databaseData.write(to: url)

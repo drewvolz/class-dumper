@@ -5,9 +5,9 @@ struct FilterScopeView: View {
 
     func getFilterText(_ filter: Preferences.FilterScope) -> String {
         switch filter {
-            case .default: "Show selected"
-            case .all: "Show all"
-            default: "Unhandled filter"
+        case .default: "Show selected"
+        case .all: "Show all"
+        default: "Unhandled filter"
         }
     }
 

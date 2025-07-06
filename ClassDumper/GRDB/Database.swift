@@ -11,11 +11,11 @@ extension File {
             contents: "C"
         )
     }
-    
+
     static func createFile(id: Int64? = nil, name: String, folder: String, contents: String) -> File {
         File(id: id, name: name, folder: folder, contents: contents)
     }
-    
+
     /// A placeholder File
     static let placeholder = File(name: "xxxxxx", folder: "", contents: "")
 }

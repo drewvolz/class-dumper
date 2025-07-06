@@ -9,11 +9,11 @@ extension App {
 
             switch info.level {
             case .message: return .default(primaryButtonText) {
-                info.primaryButtonAction()
-            }
+                    info.primaryButtonAction()
+                }
             case .warning: return .destructive(primaryButtonText) {
-                info.primaryButtonAction()
-            }
+                    info.primaryButtonAction()
+                }
             }
         }()
 

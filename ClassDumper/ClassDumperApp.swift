@@ -14,7 +14,7 @@ struct ClassDumperApp: App {
                 .environment(\.fileRepository, .shared)
                 .environmentObject(alertController)
                 .alert(item: $alertController.info) { info in
-                   buildAlert(info)
+                    buildAlert(info)
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .databaseImportedNotification)) { _ in
                     databaseVersion += 1

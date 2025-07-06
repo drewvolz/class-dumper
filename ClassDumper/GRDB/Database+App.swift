@@ -1,20 +1,20 @@
+import Files
 import Foundation
 import GRDB
-import Files
 
 // A `FileRepository` extension for creating various repositories for the
 // app, tests, and previews.
 extension FileRepository {
     /// The on-disk repository for the application.
     static var shared = makeShared()
-    
+
     /// Close the current database connection and recreate it
     static func recreateConnection() {
         // Close the existing connection first
         shared.close()
         shared = makeShared()
     }
-    
+
     /// Close the current database connection and recreate it without running migrations
     static func recreateConnectionWithoutMigration() {
         // Close the existing connection first
@@ -32,7 +32,8 @@ extension FileRepository {
             let fileManager = FileManager.default
             let appSupportURL = try fileManager.url(
                 for: .applicationSupportDirectory, in: .userDomainMask,
-                appropriateFor: nil, create: true)
+                appropriateFor: nil, create: true
+            )
             let directoryURL = appSupportURL.appendingPathComponent("Database", isDirectory: true)
             try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
 
@@ -42,10 +43,11 @@ extension FileRepository {
             let dbPool = try DatabasePool(
                 path: databaseURL.path,
                 // Use default FileRepository configuration
-                configuration: FileRepository.makeConfiguration())
+                configuration: FileRepository.makeConfiguration()
+            )
 
             // Create the FileRepository
-            
+
             let fileRepository = try FileRepository(dbPool, skipMigration: skipMigration)
             return fileRepository
         } catch {
@@ -61,24 +63,24 @@ extension FileRepository {
             fatalError("Unresolved error \(error)")
         }
     }
-    
+
     /// Returns an empty in-memory repository, for previews and tests.
     static func empty() -> FileRepository {
         try! FileRepository(DatabaseQueue(configuration: FileRepository.makeConfiguration()))
     }
-    
+
     /// Returns an in-memory repository that contains one file,
     /// for previews and tests.
     ///
     /// - parameter fileId: The ID of the inserted file.
     static func populated(fileId: Int64? = nil) -> FileRepository {
-        let repo = self.empty()
+        let repo = empty()
         _ = try! repo.insertOne(File.makeRandom(id: fileId))
         return repo
     }
-    
+
     static func populated(fileId: Int64? = nil, name: String, folder: String, contents: String) -> FileRepository {
-        let repo = self.empty()
+        let repo = empty()
         _ = try! repo.insertOne(File.createFile(id: fileId, name: name, folder: folder, contents: contents))
         return repo
     }

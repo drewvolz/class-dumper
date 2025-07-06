@@ -1,5 +1,5 @@
-import SwiftUI
 import CodeEditor
+import SwiftUI
 
 struct GeneralSettingsView: View {
     @AppStorage("accent") var accent = CodableColor(.accentColor)
@@ -18,7 +18,6 @@ struct GeneralSettingsView: View {
 }
 
 extension GeneralSettingsView {
-    
     @ViewBuilder
     func AccentColor() -> some View {
         LazyHGrid(rows: [GridItem(.flexible(minimum: 30, maximum: .infinity))], alignment: .top, spacing: 1) {
@@ -70,10 +69,10 @@ extension GeneralSettingsView {
         .tint(accent.toColor())
         .modifier(PreferencesTabViewModifier(sectionTitle: "Code theme"))
     }
-    
+
     @ViewBuilder
     func FontSizePicker() -> some View {
-        Stepper(value: $fontSize, in: 1...1000) {
+        Stepper(value: $fontSize, in: 1 ... 1000) {
             TextField("", text: $fontSize.toTextFieldLabel)
                 .labelsHidden()
                 .textFieldStyle(.roundedBorder)
@@ -84,6 +83,7 @@ extension GeneralSettingsView {
         .tint(accent.toColor())
         .modifier(PreferencesTabViewModifier(sectionTitle: "Font size"))
     }
+
     @ViewBuilder
     func ImportSettings() -> some View {
         Toggle("Confirm before importing files", isOn: $confirmBeforeImport)

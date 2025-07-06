@@ -10,7 +10,7 @@ extension Endpoint {
         case Bug
         case Feature
     }
-    
+
     static let githubBaseUrl = "https://github.com/drewvolz/class-dumper"
 
     static func issue(_ type: IssueType) -> Endpoint {
@@ -32,7 +32,7 @@ extension Endpoint {
                 .init(name: "assignees", value: ""),
                 .init(name: "label", value: label),
                 .init(name: "template", value: template),
-                .init(name: "title", value: "")
+                .init(name: "title", value: ""),
             ]
         )
     }
