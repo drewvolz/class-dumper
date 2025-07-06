@@ -3,7 +3,7 @@ import GRDB
 // Equatable for testability
 /// A file.
 public struct File: Codable, Equatable, Identifiable {
-    private(set) public var id: Int64?
+    public private(set) var id: Int64?
     public var name: String
     public var folder: String
     public var contents: String
@@ -12,8 +12,8 @@ public struct File: Codable, Equatable, Identifiable {
         id: Int64? = nil,
         name: String,
         folder: String,
-        contents: String)
-    {
+        contents: String
+    ) {
         self.id = id
         self.name = name
         self.folder = folder

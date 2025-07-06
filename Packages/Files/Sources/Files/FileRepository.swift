@@ -40,11 +40,13 @@ public struct FileRepository {
     ///
     /// - important: Create the `DatabaseWriter` with a configuration
     ///   returned by ``makeConfiguration(_:)``.
-    public init(_ dbWriter: some GRDB.DatabaseWriter) throws {
+    public init(_ dbWriter: some GRDB.DatabaseWriter, skipMigration: Bool = false) throws {
         self.dbWriter = dbWriter
-        try migrator.migrate(dbWriter)
+        if !skipMigration {
+            try migrator.migrate(dbWriter)
+        }
     }
-    
+
     /// Provides access to the database.
     ///
     /// Application can use a `DatabasePool`, while SwiftUI previews and tests
@@ -52,18 +54,18 @@ public struct FileRepository {
     ///
     /// See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/databaseconnections>
     private let dbWriter: any DatabaseWriter
-    
+
     /// The DatabaseMigrator that defines the database schema.
     ///
     /// See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/migrations>
     private var migrator: DatabaseMigrator {
         var migrator = DatabaseMigrator()
-        
-#if DEBUG
-        // Speed up development by nuking the database when migrations change
-        // See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/migrations#The-eraseDatabaseOnSchemaChange-Option>
-        migrator.eraseDatabaseOnSchemaChange = true
-#endif
+
+        #if DEBUG
+            // Speed up development by nuking the database when migrations change
+            // See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/migrations#The-eraseDatabaseOnSchemaChange-Option>
+            migrator.eraseDatabaseOnSchemaChange = true
+        #endif
 
         migrator.registerMigration("createFile") { db in
             // Create a table
@@ -78,12 +80,12 @@ public struct FileRepository {
             // create a unique index to force records to be unique by both file name and folder name
             try db.create(index: "byFolder", on: "file", columns: ["name", "folder"], unique: true)
         }
-        
+
         // Migrations for future application versions will be inserted here:
         // migrator.registerMigration(...) { db in
         //     ...
         // }
-        
+
         return migrator
     }
 }
@@ -92,7 +94,7 @@ public struct FileRepository {
 
 extension FileRepository {
     private static let sqlLogger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "SQL")
-    
+
     /// Returns a database configuration suited for `FileRepository`.
     ///
     /// SQL statements are logged if the `SQL_TRACE` environment variable
@@ -101,13 +103,13 @@ extension FileRepository {
     /// - parameter base: A base configuration.
     public static func makeConfiguration(_ base: Configuration = Configuration()) -> Configuration {
         var config = base
-        
+
         // An opportunity to add required custom SQL functions or
         // collations, if needed:
         // config.prepareDatabase { db in
         //     db.add(function: ...)
         // }
-        
+
         // Log SQL statements if the `SQL_TRACE` environment variable is set.
         // See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/database/trace(options:_:)>
         if ProcessInfo.processInfo.environment["SQL_TRACE"] != nil {
@@ -121,60 +123,61 @@ extension FileRepository {
                 }
             }
         }
-        
-#if DEBUG
-        // Protect sensitive information by enabling verbose debugging in
-        // DEBUG builds only.
-        // See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/configuration/publicstatementarguments>
-        config.publicStatementArguments = true
-#endif
-        
+
+        #if DEBUG
+            // Protect sensitive information by enabling verbose debugging in
+            // DEBUG builds only.
+            // See <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/configuration/publicstatementarguments>
+            config.publicStatementArguments = true
+        #endif
+
         return config
     }
 }
 
 // MARK: - Database Access: Writes
+
 // The write methods execute invariant-preserving database transactions.
 // In this demo repository, they are pretty simple.
 
-extension FileRepository {
+public extension FileRepository {
     /// Inserts a file and returns the inserted file.
-    public func insertOne(_ file: File) throws -> File {
+    func insertOne(_ file: File) throws -> File {
         try dbWriter.write { db in
-            return try file.inserted(db)
+            try file.inserted(db)
         }
     }
-    
+
     /// Inserts a collection of files.
-    public func insert(_ files: [File]) throws {
-        let _ = try dbWriter.write { db in
+    func insert(_ files: [File]) throws {
+        _ = try dbWriter.write { db in
             try files.map { file in
-                return try file.inserted(db)
+                try file.inserted(db)
             }
         }
     }
-    
+
     /// Updates the file.
-    public func update(_ file: File) throws {
+    func update(_ file: File) throws {
         try dbWriter.write { db in
             try file.update(db)
         }
     }
 
     /// Deletes a folder and its associated records..
-    public func deleteFolder(folderKey: String) throws {
+    func deleteFolder(folderKey: String) throws {
         try dbWriter.write { db in
             let matching = try File
                 .filter(Column("folder") == folderKey)
                 .fetchAll(db)
-                .map({ $0.id })
+                .map { $0.id }
 
             _ = try File.deleteAll(db, keys: matching)
         }
     }
-    
+
     /// Deletes all files.
-    public func deleteAllFiles() throws {
+    func deleteAllFiles() throws {
         try dbWriter.write { db in
             _ = try File.deleteAll(db)
         }
@@ -187,9 +190,34 @@ extension FileRepository {
 // gives an unrestricted read-only access to the rest of the application.
 // In your app, you are free to choose another path, and define focused
 // reading methods.
-extension FileRepository {
+public extension FileRepository {
     /// Provides a read-only access to the database.
-    public var reader: any GRDB.DatabaseReader {
+    var reader: any GRDB.DatabaseReader {
         dbWriter
+    }
+
+    /// Closes the database connection.
+    func close() {
+        if let dbPool = dbWriter as? DatabasePool {
+            try? dbPool.close()
+        }
+    }
+
+    /// Checkpoints the database to ensure all data is written to the main file.
+    func checkpoint() throws {
+        if let dbPool = dbWriter as? DatabasePool {
+            try dbPool.writeWithoutTransaction { db in
+                _ = try db.checkpoint(.passive)
+            }
+        }
+    }
+
+    /// Creates a consolidated copy of the database using VACUUM INTO.
+    func vacuumInto(path: String) throws {
+        if let dbPool = dbWriter as? DatabasePool {
+            try dbPool.writeWithoutTransaction { db in
+                try db.execute(sql: "VACUUM INTO ?", arguments: [path])
+            }
+        }
     }
 }

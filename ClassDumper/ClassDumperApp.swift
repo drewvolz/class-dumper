@@ -6,6 +6,7 @@ struct ClassDumperApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var alertController = AlertController()
     @AppStorage("accent") var accent = CodableColor(.accentColor)
+    @State private var databaseVersion = 0
 
     var body: some Scene {
         WindowGroup {
@@ -15,6 +16,10 @@ struct ClassDumperApp: App {
                 .alert(item: $alertController.info) { info in
                    buildAlert(info)
                 }
+                .onReceive(NotificationCenter.default.publisher(for: .databaseImportedNotification)) { _ in
+                    databaseVersion += 1
+                }
+                .id(databaseVersion)
         }
         .commands {
             // overwritten and custom commands
@@ -24,11 +29,15 @@ struct ClassDumperApp: App {
         }
 
         #if os(macOS)
-        Settings {
-           SettingsView()
-                .environment(\.fileRepository, .shared)
-                .environmentObject(alertController)
-        }
+            Settings {
+                SettingsView()
+                    .environment(\.fileRepository, .shared)
+                    .environmentObject(alertController)
+                    .onReceive(NotificationCenter.default.publisher(for: .databaseImportedNotification)) { _ in
+                        databaseVersion += 1
+                    }
+                    .id(databaseVersion)
+            }
         #endif
     }
 }

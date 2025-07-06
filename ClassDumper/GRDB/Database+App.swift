@@ -6,10 +6,24 @@ import Files
 // app, tests, and previews.
 extension FileRepository {
     /// The on-disk repository for the application.
-    static let shared = makeShared()
+    static var shared = makeShared()
     
+    /// Close the current database connection and recreate it
+    static func recreateConnection() {
+        // Close the existing connection first
+        shared.close()
+        shared = makeShared()
+    }
+    
+    /// Close the current database connection and recreate it without running migrations
+    static func recreateConnectionWithoutMigration() {
+        // Close the existing connection first
+        shared.close()
+        shared = makeShared(skipMigration: true)
+    }
+
     /// Returns an on-disk repository for the application.
-    private static func makeShared() -> FileRepository {
+    private static func makeShared(skipMigration: Bool = false) -> FileRepository {
         do {
             // Apply recommendations from
             // <https://swiftpackageindex.com/groue/grdb.swift/documentation/grdb/databaseconnections>
@@ -31,8 +45,8 @@ extension FileRepository {
                 configuration: FileRepository.makeConfiguration())
 
             // Create the FileRepository
-            let fileRepository = try FileRepository(dbPool)
             
+            let fileRepository = try FileRepository(dbPool, skipMigration: skipMigration)
             return fileRepository
         } catch {
             // Replace this implementation with code to handle the error appropriately.

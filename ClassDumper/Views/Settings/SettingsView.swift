@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     private enum Tabs: Hashable {
         case general
+        case database
         case debug
     }
 
@@ -15,7 +16,13 @@ struct SettingsView: View {
                     Label("General", systemImage: "gear")
                 }
                 .tag(Tabs.general)
-            
+
+            DatabaseSettingsView()
+                .tabItem {
+                    Label("Database", systemImage: "externaldrive")
+                }
+                .tag(Tabs.database)
+
             DebugSettingsView()
                 .tabItem {
                     Label("Debug", systemImage: "ladybug")
