@@ -352,7 +352,10 @@ struct ImportFlow: Screen {
     func openApp(named appName: String) -> Self {
         open(.filepicker)
 
-        app.dialogs.firstMatch.outlineRows.staticTexts["Applications"].tap()
+        // "Go to Folder" works regardless of the panel's starting directory or sidebar layout
+        app.typeKey("g", modifierFlags: [.command, .shift])
+        app.typeText("/Applications")
+        app.typeKey(.return, modifierFlags: [])
 
         // taking advantage of finder directing keyboard input towards the middle column
         app.typeText(appName)
