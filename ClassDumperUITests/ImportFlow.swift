@@ -178,22 +178,14 @@ struct ImportFlow: Screen {
 
         XCTAssert(app.sheets.firstMatch.waitForExistence(timeout: 3))
 
-        let desktopButton = app.sheets.firstMatch.popUpButtons.firstMatch
-        desktopButton.click()
-        app.sheets.firstMatch.menuItems["Downloads"].click()
+        // Remove leftovers from an interrupted run so the save panel never asks to replace
+        cleanup("\(filename).sqlite")
+        goToFolder(exportDirectory)
 
         let filenameField = app.sheets.firstMatch.textFields.firstMatch
         filenameField.typeText(filename)
 
         app.sheets.firstMatch.buttons["Export"].click()
-
-        // Handle file replacement dialog if it appears
-        if app.sheets.firstMatch.staticTexts.containing(NSPredicate(format: "label CONTAINS 'already exists'")).firstMatch.waitForExistence(timeout: 2) {
-            // File already exists, click Replace
-            if app.sheets.firstMatch.buttons["Replace"].exists {
-                app.sheets.firstMatch.buttons["Replace"].click()
-            }
-        }
 
         // Wait for save sheet to disappear first (with timeout)
         var sheetWaitCount = 0
@@ -225,9 +217,7 @@ struct ImportFlow: Screen {
 
         XCTAssert(app.sheets.firstMatch.waitForExistence(timeout: 2))
 
-        let openDownloadsButton = app.sheets.firstMatch.popUpButtons.firstMatch
-        openDownloadsButton.click()
-        app.sheets.firstMatch.menuItems["Downloads"].click()
+        goToFolder(exportDirectory)
 
         // Taking advantage of finder directing keyboard input towards the file list
         app.typeText(filename)
@@ -352,10 +342,7 @@ struct ImportFlow: Screen {
     func openApp(named appName: String) -> Self {
         open(.filepicker)
 
-        // "Go to Folder" works regardless of the panel's starting directory or sidebar layout
-        app.typeKey("g", modifierFlags: [.command, .shift])
-        app.typeText("/Applications")
-        app.typeKey(.return, modifierFlags: [])
+        goToFolder(URL(filePath: "/Applications"))
 
         // taking advantage of finder directing keyboard input towards the middle column
         app.typeText(appName)
@@ -407,9 +394,23 @@ struct ImportFlow: Screen {
     }
 
     func cleanup(_ testFilename: String) {
-        let fileManager = FileManager.default
-        let downloadsURL = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-        let exportFileURL = downloadsURL.appendingPathComponent(testFilename)
-        try? fileManager.removeItem(at: exportFileURL)
+        let exportFileURL = exportDirectory.appendingPathComponent(testFilename)
+        guard FileManager.default.fileExists(atPath: exportFileURL.path) else { return }
+        XCTAssertNoThrow(try FileManager.default.removeItem(at: exportFileURL))
+    }
+
+    /// Exports go to the test runner's own temporary directory: the runner is sandboxed, so it can
+    /// only delete files inside its container, and anything left in a shared folder would make the
+    /// next run's save panel ask to replace it.
+    private var exportDirectory: URL {
+        FileManager.default.temporaryDirectory
+    }
+
+    /// Navigates the frontmost open or save panel with "Go to Folder", which works regardless of
+    /// the panel's starting directory or sidebar layout
+    private func goToFolder(_ folder: URL) {
+        app.typeKey("g", modifierFlags: [.command, .shift])
+        app.typeText(folder.path)
+        app.typeKey(.return, modifierFlags: [])
     }
 }
