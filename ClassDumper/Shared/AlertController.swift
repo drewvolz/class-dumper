@@ -6,6 +6,7 @@ var closure: (() -> Void) = {}
 struct AlertInfo: Identifiable {
     enum AlertType {
         case importNoObjcRuntimeInformation
+        case importClassDumpLaunchFailure
         case settingsDeleteSavedDataPrompt
     }
 
