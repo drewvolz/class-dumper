@@ -16,8 +16,9 @@ struct CreateFileButton: View {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = [.application, .executable, .symbolicLink, .aliasFile]
         panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = true
         panel.treatsFilePackagesAsDirectories = true
+        // Set after the properties above, which reset it on macOS 27+
+        panel.canChooseDirectories = true
         return panel
     }()
 
