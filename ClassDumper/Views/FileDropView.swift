@@ -1,7 +1,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct FileDropView: View {
+struct FileDropTarget: ViewModifier {
     @Environment(\.fileRepository) private var fileRepository
     @EnvironmentObject var alertController: AlertController
     @AppStorage("accent") var accent = CodableColor(.accentColor)
@@ -10,14 +10,10 @@ struct FileDropView: View {
     @State private var isTargeted = false
     @State private var selectedFile: DroppedFile?
 
-    var body: some View {
-        ZStack {
-            Color.clear
-
-            if isTargeted {
-                VStack {
-                    Spacer()
-
+    func body(content: Content) -> some View {
+        content
+            .overlay {
+                if isTargeted {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(accent.toColor(), style: StrokeStyle(lineWidth: 3, dash: [10]))
                         .background(
@@ -37,23 +33,21 @@ struct FileDropView: View {
                                     .foregroundColor(accent.toColor())
                             }
                         )
-
-                    Spacer()
+                        .allowsHitTesting(false)
                 }
             }
-        }
-        .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
-            handleDrop(providers: providers)
-            return true
-        }
-        .sheet(item: $selectedFile) { dropped in
-            FileProcessingModal(
-                fileURL: dropped.url,
-                onDismiss: { selectedFile = nil }
-            )
-            .environment(\.fileRepository, fileRepository)
-            .environmentObject(alertController)
-        }
+            .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
+                handleDrop(providers: providers)
+                return true
+            }
+            .sheet(item: $selectedFile) { dropped in
+                FileProcessingModal(
+                    fileURL: dropped.url,
+                    onDismiss: { selectedFile = nil }
+                )
+                .environment(\.fileRepository, fileRepository)
+                .environmentObject(alertController)
+            }
     }
 
     private func handleDrop(providers: [NSItemProvider]) {
@@ -85,6 +79,13 @@ struct FileDropView: View {
         let _ = FileProcessingUtils.processFile(fileURL: url, alertController: alertController)
         NotificationCenter.default.post(name: .folderSelectedFromFinderNotification, object: nil)
         FileProcessingUtils.deleteTempDirectory()
+    }
+}
+
+extension View {
+    /// Accepts files dragged onto the view and imports them, highlighting the view while a drag is over it
+    func fileDropTarget() -> some View {
+        modifier(FileDropTarget())
     }
 }
 
