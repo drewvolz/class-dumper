@@ -116,6 +116,7 @@ struct ImportFlow: Screen {
     }
 
     func resetState() -> Self {
+        print("DIAG-START resetState launch\n\(app.debugDescription)\nDIAG-END")
         open(.settings)
 
         app.windows.buttons["Database"].click()
@@ -123,6 +124,10 @@ struct ImportFlow: Screen {
         let deleteButton = app.windows.buttons["Delete all saved data"]
         if deleteButton.exists {
             deleteButton.click()
+            print("DIAG-START resetState after delete-all click\n\(app.debugDescription)\nDIAG-END")
+            if !app.windows.buttons["Delete"].waitForExistence(timeout: 3) {
+                print("DIAG-START resetState Delete missing\n\(app.debugDescription)\nDIAG-END")
+            }
             app.windows.buttons["Delete"].click()
         }
 

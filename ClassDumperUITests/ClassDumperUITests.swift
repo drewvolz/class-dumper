@@ -78,5 +78,6 @@ final class ClassDumperUITests: UITestCase {
 
         testFlow
             .cleanup(fullyQualifiedTestFileName)
+        print("DIAG-START testDatabaseImportExport end\n\(app.debugDescription)\nDIAG-END")
     }
 }
