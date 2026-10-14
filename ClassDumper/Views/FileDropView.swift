@@ -136,36 +136,31 @@ struct FileProcessingModal: View {
 
             VStack(spacing: 0) {
                 Divider()
-                HStack(spacing: 0) {
+                HStack(spacing: 12) {
                     Button(role: .cancel, action: { onDismiss() }) {
                         Text("Cancel")
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 30)
+                            .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
-                    .frame(maxWidth: .infinity)
-                    .keyboardShortcut(.escape)
+                    .keyboardShortcut(.cancelAction)
 
                     Button(action: processFile) {
-                        if isProcessing {
-                            ProgressView()
-                                .scaleEffect(0.5)
-                                .progressViewStyle(CircularProgressViewStyle())
-                                .padding(.horizontal, 30)
-                        } else {
-                            Text("Import")
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 30)
+                        Group {
+                            if isProcessing {
+                                ProgressView()
+                                    .controlSize(.small)
+                            } else {
+                                Text("Import")
+                            }
                         }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
                     .buttonStyle(.borderedProminent)
                     .disabled(isProcessing || fileInfo == nil || isLoading)
-                    .keyboardShortcut(.return)
+                    .keyboardShortcut(.defaultAction)
                 }
-                .frame(maxWidth: .infinity)
                 .padding(.horizontal, 24)
-                .padding(.vertical, 8)
+                .padding(.vertical, 12)
             }
         }
         .frame(width: 300, height: 220)
