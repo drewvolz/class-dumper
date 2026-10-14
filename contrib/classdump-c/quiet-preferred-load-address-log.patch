@@ -1,0 +1,13 @@
+diff --git a/classdumpios/Classes/FileManagement/CDMachOFile.m b/classdumpios/Classes/FileManagement/CDMachOFile.m
+index eba7d5d..18462dd 100644
+--- a/classdumpios/Classes/FileManagement/CDMachOFile.m
++++ b/classdumpios/Classes/FileManagement/CDMachOFile.m
+@@ -786,7 +786,7 @@ - (uint64_t)preferredLoadAddress {
+     CDLCSegment *segment = [self segmentWithName:@"__TEXT"];
+     //InfoLog(@"Text Segment: %@", segment);
+     if (segment.vmaddr > self.data.length) {
+-        DLog(@"preferredLoadAddress > vmaddr!!!");
++        VerboseLog(@"preferredLoadAddress > vmaddr!!!");
+         //return 0;
+     }
+     return segment.vmaddr;

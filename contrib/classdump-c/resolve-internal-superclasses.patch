@@ -1,0 +1,19 @@
+diff --git a/classdumpios/Classes/ObjC/CDObjectiveC2Processor.m b/classdumpios/Classes/ObjC/CDObjectiveC2Processor.m
+index f7ea19a..788939a 100644
+--- a/classdumpios/Classes/ObjC/CDObjectiveC2Processor.m
++++ b/classdumpios/Classes/ObjC/CDObjectiveC2Processor.m
+@@ -342,7 +342,13 @@ - (CDOCClass *)loadClassAtAddress:(uint64_t)address; {
+         NSNumber *num = [NSNumber numberWithUnsignedInteger:OSSwapInt64(objc2Class.superclass)];
+         InfoLog(@"superclass !=0: %016llx (%llu) num: %@", objc2Class.superclass, objc2Class.superclass, num);
+         superClassName = [self.machOFile.chainedFixups externalClassNameForAddress:OSSwapInt64(objc2Class.superclass)];
++        if (superClassName == nil) {
++            // Not bound to another image, so the superclass is defined in this binary
++            CDOCClass *sc = [self loadClassAtAddress:objc2Class.superclass];
++            if (sc)
++                aClass.superClassRef = [[CDOCClassReference alloc] initWithClassObject:sc];
++        }
+     }
+     
+     if (superClassName) {
+         InfoLog(@"super class name: %@", superClassName);
+         CDSymbol *superClassSymbol = [[self.machOFile symbolTable] symbolForExternalClassName:superClassName];
