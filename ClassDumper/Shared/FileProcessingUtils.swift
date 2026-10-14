@@ -12,7 +12,8 @@ enum FileProcessingUtils {
     ///   - executableURL: The URL of the executable to run
     ///   - args: The arguments to pass to the executable
     /// - Returns: The standard error output from the command
-    static func executeCommand(executableURL: URL, args: [String]) -> String {
+    /// - Throws: An error if the executable could not be launched, e.g. it is built for an unsupported architecture
+    static func executeCommand(executableURL: URL, args: [String]) throws -> String {
         let outputPipe = Pipe()
         let errorPipe = Pipe()
 
@@ -22,12 +23,8 @@ enum FileProcessingUtils {
         task.standardOutput = outputPipe
         task.standardError = errorPipe
 
-        do {
-            try task.run()
-            task.waitUntilExit()
-        } catch {
-            fatalError("Something went wrong when trying to invoke \(executableURL.path)")
-        }
+        try task.run()
+        task.waitUntilExit()
 
         let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
         let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
@@ -92,7 +89,20 @@ enum FileProcessingUtils {
         try? FileManager.default.createDirectory(atPath: outputDirectoryURL.path, withIntermediateDirectories: true)
 
         if let path = Bundle.main.url(forResource: "class-dump", withExtension: "") {
-            let errorOutput = executeCommand(executableURL: path, args: [fileURL.resolvingSymlinksInPath().path, "-t", "-H", "-o", outputDirectoryURL.path])
+            let errorOutput: String
+            do {
+                errorOutput = try executeCommand(executableURL: path, args: [fileURL.resolvingSymlinksInPath().path, "-t", "-H", "-o", outputDirectoryURL.path])
+            } catch {
+                let message = "Could not launch class-dump: \(error.localizedDescription)"
+                alertController.info = AlertInfo(
+                    id: .importClassDumpLaunchFailure,
+                    title: "Unable to run class-dump",
+                    message: message,
+                    level: .message
+                )
+                return .failure(message)
+            }
+
             let hasError = checkErrorOutput(message: errorOutput, outputDirectory: outputDirectoryURL, alertController: alertController)
 
             if hasError {
