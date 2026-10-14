@@ -42,9 +42,7 @@ struct AppView: View {
             }
             .navigationTitle(NSApplication.bundleName)
             .tint(accent.toColor())
-            .overlay(
-                FileDropView()
-            )
+            .fileDropTarget()
     }
 }
 

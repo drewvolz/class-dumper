@@ -1,7 +1,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct FileDropView: View {
+struct FileDropTarget: ViewModifier {
     @Environment(\.fileRepository) private var fileRepository
     @EnvironmentObject var alertController: AlertController
     @AppStorage("accent") var accent = CodableColor(.accentColor)
@@ -10,14 +10,10 @@ struct FileDropView: View {
     @State private var isTargeted = false
     @State private var selectedFile: DroppedFile?
 
-    var body: some View {
-        ZStack {
-            Color.clear
-
-            if isTargeted {
-                VStack {
-                    Spacer()
-
+    func body(content: Content) -> some View {
+        content
+            .overlay {
+                if isTargeted {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(accent.toColor(), style: StrokeStyle(lineWidth: 3, dash: [10]))
                         .background(
@@ -37,23 +33,21 @@ struct FileDropView: View {
                                     .foregroundColor(accent.toColor())
                             }
                         )
-
-                    Spacer()
+                        .allowsHitTesting(false)
                 }
             }
-        }
-        .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
-            handleDrop(providers: providers)
-            return true
-        }
-        .sheet(item: $selectedFile) { dropped in
-            FileProcessingModal(
-                fileURL: dropped.url,
-                onDismiss: { selectedFile = nil }
-            )
-            .environment(\.fileRepository, fileRepository)
-            .environmentObject(alertController)
-        }
+            .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
+                handleDrop(providers: providers)
+                return true
+            }
+            .sheet(item: $selectedFile) { dropped in
+                FileProcessingModal(
+                    fileURL: dropped.url,
+                    onDismiss: { selectedFile = nil }
+                )
+                .environment(\.fileRepository, fileRepository)
+                .environmentObject(alertController)
+            }
     }
 
     private func handleDrop(providers: [NSItemProvider]) {
@@ -85,6 +79,13 @@ struct FileDropView: View {
         let _ = FileProcessingUtils.processFile(fileURL: url, alertController: alertController)
         NotificationCenter.default.post(name: .folderSelectedFromFinderNotification, object: nil)
         FileProcessingUtils.deleteTempDirectory()
+    }
+}
+
+extension View {
+    /// Accepts files dragged onto the view and imports them, highlighting the view while a drag is over it
+    func fileDropTarget() -> some View {
+        modifier(FileDropTarget())
     }
 }
 
@@ -135,36 +136,31 @@ struct FileProcessingModal: View {
 
             VStack(spacing: 0) {
                 Divider()
-                HStack(spacing: 0) {
+                HStack(spacing: 12) {
                     Button(role: .cancel, action: { onDismiss() }) {
                         Text("Cancel")
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 30)
+                            .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
-                    .frame(maxWidth: .infinity)
-                    .keyboardShortcut(.escape)
+                    .keyboardShortcut(.cancelAction)
 
                     Button(action: processFile) {
-                        if isProcessing {
-                            ProgressView()
-                                .scaleEffect(0.5)
-                                .progressViewStyle(CircularProgressViewStyle())
-                                .padding(.horizontal, 30)
-                        } else {
-                            Text("Import")
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 30)
+                        Group {
+                            if isProcessing {
+                                ProgressView()
+                                    .controlSize(.small)
+                            } else {
+                                Text("Import")
+                            }
                         }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
                     .buttonStyle(.borderedProminent)
                     .disabled(isProcessing || fileInfo == nil || isLoading)
-                    .keyboardShortcut(.return)
+                    .keyboardShortcut(.defaultAction)
                 }
-                .frame(maxWidth: .infinity)
                 .padding(.horizontal, 24)
-                .padding(.vertical, 8)
+                .padding(.vertical, 12)
             }
         }
         .frame(width: 300, height: 220)
