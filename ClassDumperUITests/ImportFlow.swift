@@ -115,18 +115,10 @@ struct ImportFlow: Screen {
         return self
     }
 
+    /// Saved data is cleared by the app at launch under `--uitesting`, so resetting only needs to
+    /// guarantee a main window: the app sometimes relaunches without one between tests.
     func resetState() -> Self {
-        open(.settings)
-
-        app.windows.buttons["Database"].click()
-
-        let deleteButton = app.windows.buttons["Delete all saved data"]
-        if deleteButton.exists {
-            deleteButton.click()
-            app.windows.buttons["Delete"].click()
-        }
-
-        return self
+        ensureMainWindowExists()
     }
 
     @discardableResult
@@ -302,10 +294,10 @@ struct ImportFlow: Screen {
 
     @discardableResult
     func ensureMainWindowExists() -> Self {
-        // If no main window exists, create a new one
-        if !app.windows.element(matching: .window, identifier: "*").firstMatch.exists {
-            // Fallback to Command+n, to guarantee _a_ window is visible
+        let mainWindow = app.windows.matching(NSPredicate(format: "identifier BEGINSWITH 'SwiftUI.WindowGroup'")).firstMatch
+        if !mainWindow.exists {
             app.typeKey("n", modifierFlags: .command)
+            XCTAssert(mainWindow.waitForExistence(timeout: 5), "A main window should open")
         }
         return self
     }

@@ -1,4 +1,5 @@
 import AppKit
+import Files
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_: Notification) {
@@ -10,6 +11,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if let bundleID = Bundle.main.bundleIdentifier {
                 UserDefaults.standard.removePersistentDomain(forName: bundleID)
             }
+            try! FileRepository.shared.deleteAllFiles()
         }
     }
 }
