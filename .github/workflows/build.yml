@@ -9,11 +9,15 @@ on:
       - ".github/workflows/build.yml"
       - "ClassDumper/**"
       - "ClassDumper.xcodeproj/**"
+      - "ClassDumperTests/**"
+      - "ClassDumperUITests/**"
+      - "class-dump"
+      - "contrib/**"
 
 jobs:
   build:
     name: Build
-    runs-on: macos-15
+    runs-on: xcode-27
     strategy:
       matrix:
         platform:
@@ -25,6 +29,6 @@ jobs:
       - name: Build and Test
         uses: mxcl/xcodebuild@v1
         with:
-          xcode: 16.4
+          xcode: 27.0
           scheme: "ClassDumper"
           platform: ${{ matrix.platform }}
