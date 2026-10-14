@@ -6,7 +6,7 @@ A macOS app around the [class-dump][1] utility for examining Objective-C runtime
 
 ### Features
 
-- Invoke class-dump 3.5 (64 bit) from the file picker
+- Invoke class-dump ([classdump-c][4], universal arm64/x86_64) from the file picker
 - Save results to a local sqlite database with [GRDB][2]
 - Import and export saved sqlite dumps for portability and backups
 - View generated Objective-C runtime info in a native macOS app
@@ -26,5 +26,6 @@ Thank you for your interest in contributing to this project. Contributions are w
 [1]: http://stevenygard.com/projects/class-dump/
 [2]: https://github.com/groue/GRDB.swift
 [3]: https://github.com/ZeeZide/CodeEditor
+[4]: https://github.com/lechium/classdumpios
 [image-1]: ./screenshots/app-dark.png
 [image-2]: ./screenshots/app-light.png
